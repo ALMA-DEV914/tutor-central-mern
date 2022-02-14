@@ -39,7 +39,7 @@ function showNavigation() {
     <header className="flex-row px-1">
       <h1>
         <Link to="/">
-          <span role="img" aria-label="logo"><i class="fa fa-cog fa-spin"></i> PROJECT3</span>
+          <span role="img" aria-label="logo"><i className="fa fa-cog fa-spin"></i> PROJECT3</span>
          </Link>
       </h1>
 

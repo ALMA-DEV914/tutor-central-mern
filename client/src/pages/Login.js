@@ -7,7 +7,8 @@ import Auth from '../utils/auth';
 function Login(props) {
     const mainWidth = "350px";
     const minWidth = "80px";
-    const minHeight = "30px"
+    const minHeight = "30px";
+
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error }] = useMutation(LOGIN);
 
@@ -33,10 +34,10 @@ function Login(props) {
   };
 
   return (
-      
+
     <div className="container my-1">
       <Link to="/signup">
-      <a href="https://www.freeiconspng.com/img/28473" title="Image from freeiconspng.com"><img src="https://www.freeiconspng.com/uploads/blue-sign-up-button-png-4.png" width={mainWidth} alt="Clipart Collection Png Sign Up Button" /></a></Link>
+      <img src="https://www.freeiconspng.com/uploads/blue-sign-up-button-png-4.png" width={mainWidth} alt="Clipart Collection Png Sign Up Button" /></Link>
       <form onSubmit={handleFormSubmit}>
         <div className="flex-row space-between my-2">
           <label htmlFor="email">Email address:</label>
@@ -64,7 +65,7 @@ function Login(props) {
           </div>
         ) : null}
         <div className="flex-row flex-end">
-          <button type="submit"><a href="https://www.freeiconspng.com/img/25794" title="Image from freeiconspng.com"><img src="https://www.freeiconspng.com/uploads/blue-submit-button-png-3.png" width={minWidth} height={minHeight} alt="blue submit button png" /></a></button>
+         <img src="https://www.freeiconspng.com/uploads/blue-submit-button-png-3.png" width={minWidth} height={minHeight} alt="blue submit button png" />
 
         </div>
       </form>

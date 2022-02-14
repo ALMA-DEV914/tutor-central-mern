@@ -8,7 +8,8 @@ function Signup(props) {
     const mainHeight = "150px";
     const mainWidth = "250px";
     const minWidth = "80px";
-    const minHeight = "30px"
+    const minHeight = "30px";
+
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [addUser] = useMutation(ADD_USER);
 
@@ -35,9 +36,9 @@ function Signup(props) {
   };
 
   return (
-      
+
     <div className="container my-1"> 
-     <Link to="/login"><a href="https://www.freeiconspng.com/img/3050" title="Image from freeiconspng.com"><img src="https://www.freeiconspng.com/uploads/login-icon-17.jpg" width={mainWidth} height={mainHeight} alt="Svg Login Icon" /></a></Link>
+     <Link to="/login"><img src="https://www.freeiconspng.com/uploads/login-icon-17.jpg" width={mainWidth} height={mainHeight} alt="Svg Login Icon" /></Link>
       <form onSubmit={handleFormSubmit}>
         <div className="flex-row space-between my-2">
           <label htmlFor="firstName">First Name:</label>
@@ -80,7 +81,7 @@ function Signup(props) {
           />
         </div>
         <div className="flex-row flex-end">
-          <button type="submit"><a href="https://www.freeiconspng.com/img/25794" title="Image from freeiconspng.com"><img src="https://www.freeiconspng.com/uploads/blue-submit-button-png-3.png" width={minWidth} height={minHeight} alt="blue submit button png" /></a></button>
+          <button type="submit"><img src="https://www.freeiconspng.com/uploads/blue-submit-button-png-3.png" width={minWidth} height={minHeight} alt="blue submit button png" /></button>
         </div>
       </form>
     </div>

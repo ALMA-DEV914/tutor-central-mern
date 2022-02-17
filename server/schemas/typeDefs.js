@@ -1,14 +1,37 @@
-const { gql } = require("apollo-server")
-const axios = require("axios")
+const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
   type User {
-    id: ID
-    login: String
-    avatar_url: String
+    _id: ID
+    firstName: String
+    lastName: String
+    email: String
+  }
+
+  type Auth {
+    token: ID
+    user: User
   }
 
   type Query {
-    users: [User]
+    user: User
   }
-`
+
+  type Mutation {
+    addUser(
+      firstName: String!
+      lastName: String!
+      email: String!
+      password: String!
+    ): Auth
+    updateUser(
+      firstName: String
+      lastName: String
+      email: String
+      password: String
+    ): User
+    login(email: String!, password: String!): Auth
+  }
+`;
+
+module.exports = typeDefs;

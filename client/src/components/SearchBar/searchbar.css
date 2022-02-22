@@ -17,7 +17,7 @@
   
 }
 .form-input{
-    width: 95%;
+    width: 90%;
     background-color:transparent;
     border: 0px solid; 
     height:100%; 
@@ -25,4 +25,18 @@
 } 
 input:focus { outline:none; }
 
+.schools{
+  text-align: center;
+  background-color: beige;
+}
+.schools img{
+  width: 150px;
+  margin: 3% 3%;
+}
+
+@media screen and (max-width:600px){
+  .searchbar{
+    width: 90%;
+  }
+}
 

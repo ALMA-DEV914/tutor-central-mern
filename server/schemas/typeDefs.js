@@ -36,7 +36,7 @@ const typeDefs = gql`
     user(username: String!): User
     posts(username: String): [Post]
     post(_id: ID!): Post
-    category(name: String): Category
+    categories(name: String): Category
   }
 
   type Mutation {
@@ -50,8 +50,9 @@ const typeDefs = gql`
       email: String
       password: String
     ): User
-    updatePost(_id: ID!, postText: String!): Product
+    updatePost(_id: ID!, postText: String!): Post
     updateComment(_id: ID!, commentText: String!): Comment
+    addCategory(name: String!): Category
   }
 
   type Auth {

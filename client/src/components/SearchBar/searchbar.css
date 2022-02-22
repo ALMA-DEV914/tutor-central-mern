@@ -1,0 +1,42 @@
+.searchbar {
+    width: 60%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto; 
+    border: 1px solid grey;
+    height: 50px;
+    border-radius: 20px;
+    margin-top: 10px;
+}
+
+.btn-search{
+  overflow: visible; 
+  float: right;
+  font-size: 25px;
+  
+}
+.form-input{
+    width: 90%;
+    background-color:transparent;
+    border: 0px solid; 
+    height:100%; 
+    padding: 8px;
+} 
+input:focus { outline:none; }
+
+.schools{
+  text-align: center;
+  background-color: beige;
+}
+.schools img{
+  width: 150px;
+  margin: 3% 3%;
+}
+
+@media screen and (max-width:600px){
+  .searchbar{
+    width: 90%;
+  }
+}
+

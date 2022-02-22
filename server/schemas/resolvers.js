@@ -41,6 +41,7 @@ const resolvers = {
     },
   },
 
+
   Mutation: {
     addUser: async (parent, args) => {
       const user = await User.create(args);
@@ -69,6 +70,7 @@ const resolvers = {
       }
 
       const token = signToken(user);
+
       return { token, user };
     },
 
@@ -158,6 +160,7 @@ const resolvers = {
       }
 
       throw new AuthenticationError("You need to be logged in!");
+
     },
   },
 };

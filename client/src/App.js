@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
 import {
   ApolloClient,
   InMemoryCache,
@@ -14,7 +13,6 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Nav from "./components/Nav";
 import NoMatch from "./pages/NoMatch";
-
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -38,6 +36,7 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
+      
       <Router>
         <div>
           <Nav />

@@ -1,6 +1,7 @@
 import React from "react";
 import Auth from "../../utils/auth";
 import { Link } from "react-router-dom";
+import './nav.css';
 
 function Nav() {
 function showNavigation() {
@@ -21,15 +22,29 @@ function showNavigation() {
       return (
         <ul className="flex-row">
           <li className="mx-1">
-            <Link to="/signup">
-              SINGUP
+            <Link to="/">
+             HOME
+            </Link>
+          </li>
+          <li className="mx-1">
+            <Link to="/pricing">
+              PRICING
+            </Link>
+          </li>
+          <li className="mx-1">
+            <Link to="/courses">
+             COURSES
             </Link>
           </li>
           <li className="mx-1">
             <Link to="/login">
               LOGIN
+            </Link>✥
+            <Link to="/signup">
+              SINGUP
             </Link>
           </li>
+  
         </ul>
       );
     }

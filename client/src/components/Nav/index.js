@@ -21,6 +21,11 @@ function showNavigation() {
       return (
         <ul className="flex-row">
           <li className="mx-1">
+            <Link to="/">
+             HOME
+            </Link>
+          </li>
+          <li className="mx-1">
             <Link to="/signup">
               SINGUP
             </Link>

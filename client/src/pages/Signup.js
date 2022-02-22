@@ -37,7 +37,7 @@ function Signup(props) {
 
   return (
 
-    <div className="container my-1"> 
+    <div className='container my-1'> 
      <Link to="/login"><img src="https://www.freeiconspng.com/uploads/login-icon-17.jpg" width={mainWidth} height={mainHeight} alt="Svg Login Icon" /></Link>
       <form onSubmit={handleFormSubmit}>
         <div className="flex-row space-between my-2">

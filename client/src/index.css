@@ -33,6 +33,7 @@ body {
 header{
   box-shadow: 4px 4px 4px var(--primary);
 }
+
 .nav{
   margin-left: 70%;
   font-size: 20px;

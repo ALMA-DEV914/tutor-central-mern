@@ -26,7 +26,6 @@ function showNavigation() {
              HOME
             </Link>
           </li>
-          
           <li className="mx-1">
             <Link to="/login">
               LOGIN

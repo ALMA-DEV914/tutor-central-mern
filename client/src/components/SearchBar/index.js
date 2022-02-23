@@ -30,7 +30,7 @@ const SearchBar = () => {
                 <input
                     className="form-input"
                         type="search"
-                        placeholder="Search subjects..."
+                        placeholder="Search here...." href=''
                         onChange={handleSearchInputChange}
                         value={searchInput}
                                 />
@@ -48,7 +48,7 @@ const SearchBar = () => {
                             </div>
                             <div className="schools">
                                 <a href={ucb}>
-                            <img src={ucblogo} alt="buc-logo" />
+                               <img src={ucblogo} alt="buc-logo" />
                             
                                 </a>
                                 <a href={uscedu}>

@@ -18,17 +18,21 @@ header{
   }
   .fa-spin{
     font-size: 50px;
-   color: #041eb1;
+    color: #041eb1;
   }
   .container {
     width: 85%;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
+    background-color: beige;
   }
+
   form {
     width: 50%;
     margin: 0 auto;
+    background-color: aliceblue;
+    padding: 15px;
   }
   label{
     color: var(--primary);
@@ -62,7 +66,29 @@ header{
   .flex-end {
     justify-content: flex-end;
   }
-  
+  .flex-end2{
+      margin: 5% auto;
+      background-color: beige;
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+  }
+  h2{
+      color: #000;
+  }
+  .column{
+      width: 45%;
+      margin: 2%;
+      text-align: center;
+   }
+   .column img{
+    width: 400px;
+ }
+ .column button{
+     padding: 8px 12px;
+     border-radius: 20px;
+    
+ }
   .mx-1 {
     margin-right: var(--spacing-one);
     margin-left: var(--spacing-one);
@@ -116,6 +142,9 @@ header{
     }
     form{
       width: 100%;
+    }
+    .column{
+        width: 100%;
     }
   }
   

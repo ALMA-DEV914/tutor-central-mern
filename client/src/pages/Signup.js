@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
 import { ADD_USER } from '../utils/mutations';
+import Dashboard from '../components/Dashboard';
+const tutor = require('../assets/tutor.jpeg')
+const students = require('../assets/students.jpeg');
 
 function Signup(props) {
     const mainHeight = "150px";
@@ -83,8 +86,23 @@ function Signup(props) {
         <div className="flex-row flex-end">
           <button type="submit"><img src="https://www.freeiconspng.com/uploads/blue-submit-button-png-3.png" width={minWidth} height={minHeight} alt="blue submit button png" /></button>
         </div>
-      </form>
-    </div>
+        </form>
+      
+      <div className="flex-row flex-end2">
+        <div className='column'>
+          <img src={tutor} alt="tutor-photo"/>
+        <h2> Tutors, please register here to find your tutoring job worldwide and start your dream tutoring career.</h2>
+        <button > <Link to="/dashboard">Join as a tutor</Link>
+        </button>
+      </div>
+      <div className='column'>
+        <img className='students' src={students} alt="students-photo" />
+        <h2> Students/Parents, please register here to find your best Tutors/Institution.</h2>
+         <button><Link to="/dashboard">Sign up as a student</Link></button>
+      </div>
+      </div>
+      </div> 
+   
   );
 }
 

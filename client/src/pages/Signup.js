@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
 import { ADD_USER } from '../utils/mutations';
-import Dashboard from '../components/Dashboard';
-const tutor = require('../assets/tutor.jpeg')
-const students = require('../assets/students.jpeg');
+import tutorPic from '../assets/tutor.jpeg';
+import studentsPic from '../assets/students.jpeg';
 
 function Signup(props) {
     const mainHeight = "150px";
@@ -90,15 +89,15 @@ function Signup(props) {
       
       <div className="flex-row flex-end2">
         <div className='column'>
-          <img src={tutor} alt="tutor-photo"/>
+          <img src={tutorPic} alt="tutor"/>
         <h2> Tutors, please register here to find your tutoring job worldwide and start your dream tutoring career.</h2>
-        <button > <Link to="/dashboard">Join as a tutor</Link>
+        <button > <Link to="/tutor/dashboard">Join as a tutor</Link>
         </button>
       </div>
       <div className='column'>
-        <img className='students' src={students} alt="students-photo" />
+        <img src={studentsPic} alt="students" />
         <h2> Students/Parents, please register here to find your best Tutors/Institution.</h2>
-         <button><Link to="/dashboard">Sign up as a student</Link></button>
+         <button><Link to="/student/dashboard">Sign up as a student</Link></button>
       </div>
       </div>
       </div> 

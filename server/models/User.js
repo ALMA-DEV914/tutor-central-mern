@@ -36,6 +36,9 @@ const userSchema = new Schema(
     },
     role: {
       type: String,
+      enum: ["student", "tutor"],
+      default: "student",
+      required: true,
     },
     chats: [{ type: Schema.Types.ObjectId, ref: "Chat" }],
     posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],

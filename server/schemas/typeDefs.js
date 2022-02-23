@@ -25,6 +25,18 @@ const typeDefs = gql`
     posts: [Post]
   }
 
+  type Tutor {
+    _id: ID
+    hourlyRate: String
+    knownSubjects: String
+    bio: String
+  }
+  type Student {
+    _id: ID
+    paymentInfo: String
+    bio: String
+  }
+
   type Category {
     _id: ID
     name: String
@@ -59,6 +71,9 @@ const typeDefs = gql`
     addPost(thoughtText: String!): Post
     addComment(postId: ID!, commentText: String!): Comment
 
+    addTutor(hourlyRate: String, knownSubjects: String, bio: String): Tutor
+    addStudent(paymentInfo: String, bio: String): Student
+
     updateUser(
       firstName: String
       lastName: String
@@ -68,9 +83,9 @@ const typeDefs = gql`
     updatePost(_id: ID!, postText: String!): Post
     updateComment(_id: ID!, commentText: String!): Comment
     addCategory(name: String!): Category
-    
-    createChat(tutor: ID, student: ID) : Chat
-    addMessage(chatId: ID, messageText: String)
+
+    createChat(tutor: ID, student: ID): Chat
+    addMessage(chatId: ID, messageText: String): Message
   }
 
   type Auth {

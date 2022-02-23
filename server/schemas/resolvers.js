@@ -1,4 +1,4 @@
-const { User, Post, Category } = require("../models");
+const { User, Post, Category, Student, Tutor } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
 
@@ -42,11 +42,23 @@ const resolvers = {
   },
 
   Mutation: {
+    // addUser: async (parent, args) => {
+    //   const user = await User.create(args);
+    //   const token = signToken(user);
+
+    //   return { token, user };
+    // },
     addUser: async (parent, args) => {
       const user = await User.create(args);
       const token = signToken(user);
-
-      return { token, user };
+      if (user.role === "student") {
+        const student = Student.create(args);
+        return { token, student };
+      } else if (user.role === "tutor") {
+        const tutor = Tutor.create(args);
+        return { token, tutor };
+      }
+      //   return { token, user };
     },
 
     addCategory: async (parent, args) => {

@@ -7,33 +7,32 @@ import tutorPic from '../assets/tutor.jpeg';
 import studentsPic from '../assets/students.jpeg';
 
 function Signup(props) {
-    const mainHeight = "150px";
-    const mainWidth = "250px";
+  const mainHeight = "150px";
+  const mainWidth = "250px";
 
-  const [formState, setFormState] = useState({ email: '', password: '' });
-  const [addUser] = useMutation(ADD_USER);
+const [formState, setFormState] = useState({username: '', email: '', password: '' });
+const [addUser] = useMutation(ADD_USER);
 
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-    const mutationResponse = await addUser({
-      variables: {
-        email: formState.email,
-        password: formState.password,
-        firstName: formState.firstName,
-        lastName: formState.lastName,
-      },
-    });
-    const token = mutationResponse.data.addUser.token;
-    Auth.login(token);
-  };
+const handleFormSubmit = async (event) => {
+  event.preventDefault();
+  const mutationResponse = await addUser({
+    variables: {
+      email: formState.email,
+      password: formState.password,
+      username: formState.username,
+    },
+  });
+  const token = mutationResponse.data.addUser.token;
+  Auth.login(token);
+};
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormState({
-      ...formState,
-      [name]: value,
-    });
-  };
+const handleChange = (event) => {
+  const { name, value } = event.target;
+  setFormState({
+    ...formState,
+    [name]: value,
+  });
+};
 
   return (
 

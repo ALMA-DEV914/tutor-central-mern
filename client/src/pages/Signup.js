@@ -9,8 +9,6 @@ import studentsPic from '../assets/students.jpeg';
 function Signup(props) {
     const mainHeight = "150px";
     const mainWidth = "250px";
-    const minWidth = "80px";
-    const minHeight = "30px";
 
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [addUser] = useMutation(ADD_USER);
@@ -40,8 +38,9 @@ function Signup(props) {
   return (
 
     <div className='container my-1'> 
-     <Link to="/login"><img src="https://www.freeiconspng.com/uploads/login-icon-17.jpg" width={mainWidth} height={mainHeight} alt="Svg Login Icon" /></Link>
-      <form onSubmit={handleFormSubmit}>
+    <div className='column'>
+     <form onSubmit={handleFormSubmit}>
+      <Link to="/login"><img src="https://www.freeiconspng.com/uploads/login-icon-17.jpg" width={mainWidth} height={mainHeight} alt="Svg Login Icon" /></Link>
         <div className="flex-row space-between my-2">
           <label htmlFor="firstName">First Name:</label>
           <input
@@ -83,10 +82,10 @@ function Signup(props) {
           />
         </div>
         <div className="flex-row flex-end">
-          <button type="submit"><img src="https://www.freeiconspng.com/uploads/blue-submit-button-png-3.png" width={minWidth} height={minHeight} alt="blue submit button png" /></button>
+          <button type="submit">Submit</button>
         </div>
         </form>
-      
+      </div>
       <div className="flex-row flex-end2">
         <div className='column'>
           <img src={tutorPic} alt="tutor"/>
@@ -101,7 +100,6 @@ function Signup(props) {
       </div>
       </div>
       </div> 
-   
   );
 }
 

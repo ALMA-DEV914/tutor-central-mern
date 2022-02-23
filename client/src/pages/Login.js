@@ -36,10 +36,10 @@ function Login(props) {
 
   return (
 
-    <div className="container my-1">
+    <div className="my-1">
+      <form onSubmit={handleFormSubmit}>
       <Link to="/signup">
       <img src="https://www.freeiconspng.com/uploads/blue-sign-up-button-png-4.png" width={mainWidth} alt="Clipart Collection Png Sign Up Button" /></Link>
-      <form onSubmit={handleFormSubmit}>
         <div className="flex-row space-between my-2">
           <label htmlFor="email">Email address:</label>
           <input
@@ -66,8 +66,7 @@ function Login(props) {
           </div>
         ) : null}
         <div className="flex-row flex-end">
-         <img src="https://www.freeiconspng.com/uploads/blue-submit-button-png-3.png" width={minWidth} height={minHeight} alt="blue submit button png" />
-
+        <button type="submit">Submit</button>
         </div>
       </form>
     </div>

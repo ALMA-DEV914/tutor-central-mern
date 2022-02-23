@@ -41,7 +41,6 @@ const resolvers = {
     },
   },
 
-
   Mutation: {
     addUser: async (parent, args) => {
       const user = await User.create(args);
@@ -160,7 +159,16 @@ const resolvers = {
       }
 
       throw new AuthenticationError("You need to be logged in!");
-
+    },
+    createChat: async (parent, args, context) => {
+      if (context.user) {
+      }
+      throw new AuthenticationError("You need to be logged in");
+    },
+    addMessage: async (parent, args, context) => {
+      if (context.user) {
+      }
+      throw new AuthenticationError("You need to be logged in");
     },
   },
 };

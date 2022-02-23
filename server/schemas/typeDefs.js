@@ -30,6 +30,20 @@ const typeDefs = gql`
     name: String
   }
 
+  type Message {
+    _id: ID
+    messageText: String
+    from: User
+    to: User
+  }
+
+  type Chat {
+    _id: ID
+    tutor: User
+    student: User
+    messages: [Message]
+  }
+
   type Query {
     me: User
     users: [User]
@@ -54,6 +68,9 @@ const typeDefs = gql`
     updatePost(_id: ID!, postText: String!): Post
     updateComment(_id: ID!, commentText: String!): Comment
     addCategory(name: String!): Category
+    
+    createChat(tutor: ID, student: ID) : Chat
+    addMessage(chatId: ID, messageText: String)
   }
 
   type Auth {

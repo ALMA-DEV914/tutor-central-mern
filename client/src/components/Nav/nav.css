@@ -1,9 +1,10 @@
 header{
     box-shadow: 4px 4px 4px var(--primary);
+    padding: 20px;
   }
   
   .nav{
-    margin-left: 50%;
+    margin-left: 60%;
     font-size: 18px;
   }
   a{

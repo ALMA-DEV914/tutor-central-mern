@@ -26,16 +26,7 @@ function showNavigation() {
              HOME
             </Link>
           </li>
-          <li className="mx-1">
-            <Link to="/pricing">
-              PRICING
-            </Link>
-          </li>
-          <li className="mx-1">
-            <Link to="/courses">
-             COURSES
-            </Link>
-          </li>
+          
           <li className="mx-1">
             <Link to="/login">
               LOGIN
@@ -44,7 +35,14 @@ function showNavigation() {
               SINGUP
             </Link>
           </li>
-  
+          <li>
+          <Link className="mx-1"
+                    to="/"
+                    onClick={() => {
+                    Auth.logout();}}>
+                        LOGOUT
+            </Link>  
+            </li>
         </ul>
       );
     }

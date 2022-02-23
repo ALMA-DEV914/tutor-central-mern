@@ -70,7 +70,7 @@ const typeDefs = gql`
     addCategory(name: String!): Category
     
     createChat(tutor: ID, student: ID) : Chat
-    addMessage(chatId: ID, messageText: String)
+    addMessage(chatId: ID, messageText: String) : Message
   }
 
   type Auth {

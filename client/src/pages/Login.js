@@ -42,7 +42,7 @@ function Login(props) {
           <label htmlFor="email">Email address:</label>
           <input
             placeholder="youremail@test.com"
-            name="email"
+            name="username"
             type="email"
             id="email"
             onChange={handleChange}

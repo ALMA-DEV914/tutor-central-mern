@@ -42,22 +42,12 @@ function Signup(props) {
      <form onSubmit={handleFormSubmit}>
       <Link to="/login"><img src="https://www.freeiconspng.com/uploads/login-icon-17.jpg" width={mainWidth} height={mainHeight} alt="Svg Login Icon" /></Link>
         <div className="flex-row space-between my-2">
-          <label htmlFor="firstName">First Name:</label>
+          <label htmlFor="firstName">Username:</label>
           <input
             placeholder="First"
-            name="firstName"
-            type="firstName"
+            name="username"
+            type="username"
             id="firstName"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex-row space-between my-2">
-          <label htmlFor="lastName">Last Name:</label>
-          <input
-            placeholder="Last"
-            name="lastName"
-            type="lastName"
-            id="lastName"
             onChange={handleChange}
           />
         </div>

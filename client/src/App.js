@@ -14,7 +14,7 @@ import Signup from "./pages/Signup";
 import Nav from "./components/Nav";
 import NoMatch from "./pages/NoMatch";
 import Footer from "./components/Footer";
-import  SearchTutors  from "./pages/SearchTutors";
+
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -43,13 +43,9 @@ function App() {
           <Nav />
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route exact path="/" component={SearchTutors} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={Signup} />
               <Route component={NoMatch} />
-            
-   <h1>This is a webpage for my tuition agency</h1>
-  <p>Listed below are my tutors</p>  <div id="socket"></div>  <p>We just love using TutorCruncher for our business.</p>
 
             </Switch>
             <Footer />

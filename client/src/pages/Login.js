@@ -7,8 +7,6 @@ import Auth from '../utils/auth';
 
 function Login(props) {
     const mainWidth = "350px";
-    const minWidth = "80px";
-    const minHeight = "30px";
 
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error }] = useMutation(LOGIN);

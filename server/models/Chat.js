@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 const dateFormat = require("../utils/dateFormat");
-const message = require("Message");
+const message = require("./Message");
 const { default: mongoose } = require("mongoose");
 
 const chatSchema = new Schema(

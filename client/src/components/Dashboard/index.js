@@ -5,7 +5,6 @@ import React, { useState, useEffect } from "react";
 import Auth from "../../utils/auth";
 import { useLazyQuery } from "@apollo/client";
 import { GET_FEEDBACK } from "../../utils/queries";
-import LargeModal from "../LargeModal";
 import UpdateProfile from "../UpdateProfile";
 
 const Dashboard = (params) => {
@@ -24,13 +23,6 @@ const Dashboard = (params) => {
   const [isStudent, setIsStudent] = useState(false);
   const [isUser, setIsUser] = useState(false);
   // setup component local state and functions to pass to child components (these maybe could move to the child components in the future)
-  const [showModal, setShowModal] = useState(false);
-  const closeModal = () => {
-    setShowModal(false);
-  };
-  const openModal = () => {
-    setShowModal(true);
-  };
   const history = useHistory();
 
   useEffect(() => {
@@ -213,12 +205,6 @@ const Dashboard = (params) => {
           </div>
         </div>
       </section>
-      <LargeModal
-        closeFunction={closeModal}
-        openFunction={openModal}
-        showModal={showModal}
-        bodyComponent={UpdateProfile}
-      />
     </>
   );
 };

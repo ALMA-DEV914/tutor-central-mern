@@ -30,3 +30,24 @@ body {
   color: var(--dark);
   
 }
+.section{
+  width: 80%;
+  margin: 5% auto;
+  
+}
+.column input{
+  display: block;
+}
+.section form{
+  display: flex;
+}
+@media screen and (max-width:600px){
+  .section{
+    width: 100%;
+    padding: 20px;
+  }
+  .section form{
+    display: block;
+    width: 100%;
+  }
+}

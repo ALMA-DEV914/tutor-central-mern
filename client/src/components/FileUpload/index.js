@@ -29,7 +29,7 @@ const FileInput = () => {
       {imageUrl && selectedImage && (
         <Box mt={2} textAlign="center">
           <div>Image Preview:</div>
-          <img src={imageUrl} alt={selectedImage.name} height="auto" />
+          <img src={imageUrl} alt={selectedImage.name} height="400px" />
         </Box>
       )}
     </>

@@ -16,6 +16,7 @@ import NoMatch from "./pages/NoMatch";
 import Footer from "./components/Footer";
 import StudentSignup from "./pages/StudentSignup";
 
+
 const httpLink = createHttpLink({
   uri: "/graphql",
 });

@@ -143,10 +143,10 @@ const Dashboard = (params) => {
                                                             <a
                                                                 className="nav-item nav-link"
                                                                 data-toggle="tab"
-                                                                href="#bookmarks"
+                                                                href="#homepage"
                                                         
                                                             >
-                                                                Bookmarks
+                                                              Hoomepage
                                                             </a>
                                                         </>
                                                     )}
@@ -165,9 +165,9 @@ const Dashboard = (params) => {
                                                             <a
                                                                 className="nav-item nav-link"
                                                                 data-toggle="tab"
-                                                                href="#student-tools"
+                                                                href="#students"
                                                             >
-                                                                Student Tools
+                                                                Students
                                                             </a>
                                                         </>
                                                     )}
@@ -175,7 +175,7 @@ const Dashboard = (params) => {
                                                         <a
                                                             className="nav-item nav-link"
                                                             data-toggle="tab"
-                                                            href="#student-tools"
+                                                            href="#dashboard"
                                                         >
                                                             Student Tools
                                                         </a>

@@ -1,13 +1,14 @@
 import React from "react";
+import Container from "react-bootstrap/Container";
 
 const HomeHero = () => {
   return (
     <>
-      <section className='bg-blue' style={{ overflow: "hidden" }}>
+      <Container>
         <h1 className='display-2'>
           The <b>first place</b> to look when you study.
         </h1>
-      </section>
+      </Container>
     </>
   );
 };

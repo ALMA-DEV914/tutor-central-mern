@@ -1,5 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import React, { useState } from "react";
 
 const SearchBar = () => {
@@ -29,9 +27,7 @@ const SearchBar = () => {
             borderRadius: "0.25rem",
           }}
         >
-          <div className='btn-search'>
-            <FontAwesomeIcon icon={faSearch} />
-          </div>
+          <div className='btn-search'>Search</div>
         </span>
       </div>
     </>

@@ -1,5 +1,6 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import {
   ApolloClient,
   InMemoryCache,
@@ -14,7 +15,6 @@ import Signup from "./pages/Signup";
 import Nav from "./components/Nav";
 import NoMatch from "./pages/NoMatch";
 import Footer from "./components/Footer";
-
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -39,17 +39,14 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <div>
-          <Nav />
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/signup" component={Signup} />
-              <Route component={NoMatch} />
-
-            </Switch>
-            <Footer />
-        </div>
+        <Nav />
+        <Routes>
+          <Route path='/' component={<Home />} />
+          <Route path='/login' component={<Login />} />
+          <Route path='/signup' component={<Signup />} />
+          <Route component={<NoMatch />} />
+        </Routes>
+        <Footer />
       </Router>
     </ApolloProvider>
   );

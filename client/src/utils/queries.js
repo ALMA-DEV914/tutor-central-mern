@@ -77,3 +77,17 @@ export const QUERY_ME = gql`
     }
   }
 `;
+export const GET_FEEDBACK = gql`
+    query Feedback {
+        Feedback(sortBy: { field: "createdAt", order: DESC }) {
+            _id
+            username
+            email
+            category
+            message
+            image
+            createdAt
+            archived
+        }
+    }
+`;

@@ -94,6 +94,8 @@ const typeDefs = gql`
 
     createChat(tutor: ID, student: ID): Chat
     addMessage(chatId: ID, messageText: String): Message
+
+    
   }
 
   type Auth {

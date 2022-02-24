@@ -31,8 +31,10 @@ const userSchema = new Schema(
       minlength: 5,
     },
     photo: {
-      type: String,
-      // unique: true,
+      data: Buffer,
+      contentType: String,
+      // type: String,
+      // // unique: true,
     },
     role: {
       type: String,

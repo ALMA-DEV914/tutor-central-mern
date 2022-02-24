@@ -12,7 +12,7 @@ import { setContext } from "@apollo/client/link/context";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Nav from "./components/Nav";
+import Header from "./components/Header";
 import NoMatch from "./pages/NoMatch";
 import Footer from "./components/Footer";
 
@@ -39,14 +39,23 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <Nav />
-        <Routes>
-          <Route path='/' component={<Home />} />
-          <Route path='/login' component={<Login />} />
-          <Route path='/signup' component={<Signup />} />
-          <Route component={<NoMatch />} />
-        </Routes>
-        <Footer />
+        <div
+          className='bg-light'
+          style={{
+            minHeight: "100vh",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Header />
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/signup' element={<Signup />} />
+            <Route element={<NoMatch />} />
+          </Routes>
+          <Footer />
+        </div>
       </Router>
     </ApolloProvider>
   );

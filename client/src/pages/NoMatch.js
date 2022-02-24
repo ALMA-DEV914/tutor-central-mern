@@ -1,12 +1,9 @@
 import React from "react";
-import Jumbotron from "../components/Jumbotron/index";
 
 const NoMatch = () => {
   return (
     <div>
-      <Jumbotron>
-        <h1>404 Page Not Found</h1>
-      </Jumbotron>
+      <h1>404 Page Not Found</h1>
     </div>
   );
 };

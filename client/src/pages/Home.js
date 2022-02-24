@@ -1,14 +1,15 @@
 import React from "react";
+import { Container } from "react-bootstrap";
 import HomeHero from "../components/Homehero";
 import SearchBar from "../components/SearchBar";
 
-const Home = (params) => {
+const Home = () => {
   return (
     //smooth scroll if on same page routing
-    <div className='home'>
+    <Container>
       <HomeHero />
       <SearchBar />
-    </div>
+    </Container>
   );
 };
 

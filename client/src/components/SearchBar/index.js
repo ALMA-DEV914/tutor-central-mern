@@ -1,35 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Form, Button } from "react-bootstrap";
 
-const SearchBar = () => {
-  //get categories from redux store
+async function completeSearch() {
+  //make network search call here
+  return JSON.parse("{results: []");
+}
 
-  const [searchInput, setSearchInput] = useState("");
-  const handleSearchInputChange = (event) => {
-    //filter the categories and update redux store based on user input
-    const { value } = event.target;
-    setSearchInput(value);
-  };
+const SearchButton = () => {
+  const handleClick = () => setSearching(true);
+
+  const [isSearching, setSearching] = useState(false);
+  useEffect(() => {
+    if (isSearching) {
+      const results = completeSearch();
+      setSearching(false);
+    }
+  }, [isSearching]);
 
   return (
+    <Button
+      variant='primary'
+      disabled={isSearching}
+      onClick={!isSearching ? handleClick : null}
+    >
+      {isSearching ? "Searching..." : "Search"}
+    </Button>
+  );
+};
+
+const SearchBar = () => {
+  return (
     <>
-      <div className='searchbar'>
-        <input
-          className='form-input'
-          type='search'
-          placeholder='Search subjects...'
-          onChange={handleSearchInputChange}
-          value={searchInput}
-        />
-        <span
-          className='input'
-          style={{
-            border: "1px solid #e5e5e5",
-            borderRadius: "0.25rem",
-          }}
-        >
-          <div className='btn-search'>Search</div>
-        </span>
-      </div>
+      <Form>
+        <Form.Group className='search' controlId='formBasicEmail'>
+          <Form.Label>Find a Tutor</Form.Label>
+          <Form.Control
+            type='text'
+            placeholder='What subject do you need help with'
+          />
+        </Form.Group>
+        <SearchButton />
+      </Form>
+      {/* Add search results component here */}
     </>
   );
 };

@@ -9,6 +9,7 @@ import {
 } from "@apollo/client";
 
 import { setContext } from "@apollo/client/link/context";
+import { Container } from "react-bootstrap";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -48,12 +49,14 @@ function App() {
           }}
         >
           <Header />
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/signup' element={<Signup />} />
-            <Route element={<NoMatch />} />
-          </Routes>
+          <Container>
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/signup' element={<Signup />} />
+              <Route element={<NoMatch />} />
+            </Routes>
+          </Container>
           <Footer />
         </div>
       </Router>

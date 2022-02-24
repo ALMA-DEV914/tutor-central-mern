@@ -1,6 +1,5 @@
 import React from 'react';
 import './homehero.css';
-
 const image = require('../../assets/Tutoring.gif');
 
 const HomeHero = (params) => {

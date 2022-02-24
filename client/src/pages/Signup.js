@@ -71,7 +71,7 @@ const handleChange = (event) => {
           />
         </div>
         <div className="flex-row flex-end">
-          <button type="submit">Submit</button>
+          <button type="submit" onClick={handleFormSubmit}>Submit</button>
         </div>
         </form>
       </div>
@@ -79,13 +79,13 @@ const handleChange = (event) => {
         <div className='column'>
           <img src={tutorPic} alt="tutor"/>
         <h2> Tutors, please register here to find your tutoring job worldwide and start your dream tutoring career.</h2>
-        <button > <Link to="/tutor/dashboard">Join as a tutor</Link>
+        <button > <Link to="/:dashboard">Join as a tutor</Link>
         </button>
       </div>
       <div className='column'>
         <img src={studentsPic} alt="students" />
         <h2> Students/Parents, please register here to find your best Tutors/Institution.</h2>
-         <button><Link to="/student/dashboard">Sign up as a student</Link></button>
+         <button><Link to="/:dashboard">Sign up as a student</Link></button>
       </div>
       </div>
       </div> 

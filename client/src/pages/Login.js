@@ -3,9 +3,10 @@ import { useMutation } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import { LOGIN } from '../utils/mutations';
 import Auth from '../utils/auth';
+ import TutorSlide from '../components/TutorsSlide';
 
 function Login(props) {
-  const mainWidth = "350px";
+  const mainWidth = "300px";
 
 const [formState, setFormState] = useState({ email: '', password: '' });
 const [login, { error }] = useMutation(LOGIN);
@@ -31,11 +32,10 @@ const handleChange = (event) => {
   });
 };
 
+return (
 
-
-  return (
-
-    <div className="my-1">
+    <div className="container my-1">
+      <div className='column' id='login'>
       <form onSubmit={handleFormSubmit}>
       <Link to="/signup">
       <img src="https://www.freeiconspng.com/uploads/blue-sign-up-button-png-4.png" width={mainWidth} alt="Clipart Collection Png Sign Up Button" /></Link>
@@ -65,9 +65,13 @@ const handleChange = (event) => {
           </div>
         ) : null}
         <div className="flex-row flex-end">
-        <button type="submit">Submit</button>
+        <button type="submit" onClick={handleFormSubmit}>Submit</button>
         </div>
       </form>
+      </div>
+      <div className='column'>
+        {<TutorSlide/>}
+      </div>
     </div>
   );
 }

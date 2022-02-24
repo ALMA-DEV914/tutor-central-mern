@@ -31,16 +31,17 @@ body {
   
 }
 .section{
-  width: 80%;
+  width: 50%;
   margin: 5% auto;
+
   
-}
-.column input{
-  display: block;
 }
 .section form{
   display: flex;
+  border: none;
 }
+
+
 @media screen and (max-width:600px){
   .section{
     width: 100%;

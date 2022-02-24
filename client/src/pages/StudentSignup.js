@@ -30,13 +30,13 @@ const handleChange = (event) => {
     [name]: value,
   });
 };
-  
+ 
 return (
     <div className='section my-1'> 
     <h2>Hi, welcome here! Are you looking forward to dive deeper in the fields of your studies? Signup now!</h2>
      <div> <FileUpload/></div>
      <form onSubmit={handleFormSubmit}>
-          <div className='column'>
+        <div className='column'>
           Student Basic Info
         <div className="flex-row space-between my-2">
           <label htmlFor="firstName">Firstname:</label>
@@ -55,7 +55,7 @@ return (
             placeholder="Lastname.."
             name="lastname"
             type="lastname"
-            id="flastname"
+            id="lastname"
             onChange={handleChange}
             
           />
@@ -82,8 +82,8 @@ return (
         
           />
         </div>
-        </div>
-        <div className='column'>
+       </div>
+      <div className='column'>
         Payment Information
         <div className="flex-row space-between my-2">
           <label htmlFor="email">Card Number:</label>
@@ -130,9 +130,9 @@ return (
           />
         </div>
         </div>
-        <div className='column'>
-        Billing Address
         
+        <div className='column'>
+          Billing Address
           <div className="flex-row space-between my-2">
           <label htmlFor="email">Street or Building:</label>
           <input
@@ -145,6 +145,7 @@ return (
           />
         </div>
         <div className="flex-row space-between my-2">
+       
           <label htmlFor="email">City</label>
           <input
             placeholder="City..."
@@ -155,6 +156,7 @@ return (
             
           />
         </div>
+        
         <div className="flex-row space-between my-2">
           <label htmlFor="email">State</label>
           <input
@@ -192,9 +194,8 @@ return (
           <button type="submit" onClick={handleFormSubmit}>Submit</button>
         </div>
         </div>
-        
-        </form>
-      </div>
+    </form>
+   </div>
    );
 }
 

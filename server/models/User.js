@@ -32,7 +32,7 @@ const userSchema = new Schema(
     },
     photo: {
       type: String,
-      unique: true,
+      // unique: true,
     },
     role: {
       type: String,

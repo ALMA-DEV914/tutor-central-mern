@@ -38,13 +38,25 @@ return (
       <div className='column'>
      <form onSubmit={handleFormSubmit}>
       <div className="flex-row space-between my-2">
-          <label htmlFor="firstName">Username:</label>
+          <label htmlFor="firstName">Firstname:</label>
           <input
-            placeholder="First"
-            name="username"
-            type="username"
+            placeholder="Firstname.."
+            name="firstname"
+            type="firstname"
             id="firstName"
             onChange={handleChange}
+            
+          />
+        </div>
+        <div className="flex-row space-between my-2">
+          <label htmlFor="firstName">Lastname:</label>
+          <input
+            placeholder="Last"
+            name="lastname"
+            type="lastname"
+            id="firstName"
+            onChange={handleChange}
+           
           />
         </div>
         <div className="flex-row space-between my-2">
@@ -55,6 +67,7 @@ return (
             type="email"
             id="email"
             onChange={handleChange}
+            
           />
         </div>
         <div className="flex-row space-between my-2">
@@ -65,6 +78,7 @@ return (
             type="password"
             id="pwd"
             onChange={handleChange}
+        
           />
         </div>
         <div className="flex-row flex-end">

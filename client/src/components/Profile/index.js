@@ -1,11 +1,11 @@
-// import { Link, useHistory } from "react-router-dom";
+//import { Link, useHistory } from "react-router-dom";
 import React, { useState, useReducer } from "react";
 // import Auth from "../utils/auth";
 import { USER_UPDATE_PASSWORD } from "../../utils/mutations";
 import { useMutation } from "@apollo/client";
 import SimpleReactValidator from "simple-react-validator";
 import { useDispatch, useSelector } from "react-redux";
-import { modalActions } from "../../utils/actions";
+import { updateAndShowModal} from "../../utils/actions";
 
 const Profile = () => {
     //to save and get data to redux store
@@ -56,14 +56,14 @@ const Profile = () => {
                 //give user feedback of action
                 if (data) {
                     dispatch(
-                        modalActions.updateAndShowModal(
+                        updateAndShowModal(
                             "Success",
                             "Your password has been updated successfully."
                         )
                     );
                 } else {
                     dispatch(
-                        modalActions.updateAndShowModal(
+                        updateAndShowModal(
                             "Error",
                             "There was a problem updating your password."
                         )
@@ -75,7 +75,7 @@ const Profile = () => {
                 setNewPassword("");
                 setRepeatNewPassword("");
             } catch (err) {
-                dispatch(modalActions.updateAndShowModal("Error", err.message));
+                dispatch(updateAndShowModal("Error", err.message));
             }
         } else {
             //show issues with validation
@@ -87,6 +87,7 @@ const Profile = () => {
 
     return (
         <>
+        
             <div className="row justify-content-center">
                 <div className="col-md-10 col-lg-8">
                     <h5 className="mb-2 fs-20 font-weight-normal">
@@ -165,7 +166,7 @@ const Profile = () => {
                                     {validatorPassword.message(
                                         "password",
                                         oldPassword,
-                                        "required|min:5"
+                                        "required|min:6"
                                     )}
                                     <label htmlFor="userMail">
                                         New Password
@@ -232,6 +233,7 @@ const Profile = () => {
                     </form>
                 </div>
             </div>
+           
         </>
     );
 };

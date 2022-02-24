@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
 import { ADD_USER } from '../utils/mutations';
 import FileUpload from "../components/FileUpload";
-
+import { Link} from "react-router-dom";
 
 function Signup(props) {
   
@@ -191,7 +191,7 @@ return (
           />
         </div>
         <div className="flex-row flex-end">
-          <button type="submit" onClick={handleFormSubmit}>Submit</button>
+          <button type="submit" ><Link to ="/studentdashboard" >Submit</Link></button>
         </div>
         </div>
     </form>

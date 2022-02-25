@@ -13,12 +13,10 @@ const Footer = () => {
       <Row>
         <Col>Copyright © 2022</Col>
         <Col>Alma Brun, Tarek Yousef, Tom Bellenger</Col>
-        <Col
-          <Link to="https://github.com/tarekyou/project3">
+        <Col>
+          <a href="https://github.com/tarekyou/project3">
             <FaGithub className="text-dark" />
-          </Link>
-
-     
+          </a>
         </Col>
       </Row>
     </Container>

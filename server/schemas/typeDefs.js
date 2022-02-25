@@ -62,6 +62,7 @@ const typeDefs = gql`
   type Query {
     me: User
     users: [User]
+    tutors: [User]
     user(username: String!): User
     posts(username: String): [Post]
     post(_id: ID!): Post
@@ -81,8 +82,29 @@ const typeDefs = gql`
     addPost(thoughtText: String!): Post
     addComment(postId: ID!, commentText: String!): Comment
 
-    addTutor(hourlyRate: String, knownSubjects: String, bio: String): Tutor
-    addStudent(paymentInfo: String, bio: String): Student
+    addTutor(
+      firstName: String!
+      lastName: String!
+      role: String!
+      username: String!
+      email: String!
+      photo: String
+      password: String!
+      hourlyRate: String
+      knownSubjects: String
+      bio: String
+    ): Auth
+    addStudent(
+      firstName: String!
+      lastName: String!
+      role: String!
+      username: String!
+      email: String!
+      photo: String
+      password: String!
+      paymentInfo: String
+      bio: String
+    ): Auth
 
     updateUser(
       firstName: String
@@ -98,11 +120,14 @@ const typeDefs = gql`
     addMessage(chatId: ID, messageText: String): Message
 
     singleUpload(file: Upload!): File!
+
   }
 
   type Auth {
     token: ID!
     user: User
+    tutor: Tutor
+    student: Student
   }
 
   type File {

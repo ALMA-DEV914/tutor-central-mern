@@ -83,9 +83,9 @@ const typeDefs = gql`
     addComment(postId: ID!, commentText: String!): Comment
 
     addTutor(
-      firstName: String!
-      lastName: String!
-      role: String!
+      firstName: String
+      lastName: String
+      role: String
       username: String!
       email: String!
       photo: String
@@ -120,7 +120,6 @@ const typeDefs = gql`
     addMessage(chatId: ID, messageText: String): Message
 
     singleUpload(file: Upload!): File!
-
   }
 
   type Auth {

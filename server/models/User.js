@@ -7,12 +7,12 @@ const userSchema = new Schema(
   {
     firstName: {
       type: String,
-      required: true,
+      // required: true,
       trim: true,
     },
     lastName: {
       type: String,
-      required: true,
+      // required: true,
       trim: true,
     },
     username: {
@@ -34,14 +34,14 @@ const userSchema = new Schema(
       // data: Buffer,
       // contentType: String,
       type: String,
-      default: null,
+      // default: null,
       // unique: true,
     },
     role: {
       type: String,
       enum: ["student", "tutor"],
       default: "student",
-      required: true,
+      // required: true,
     },
     chats: [{ type: Schema.Types.ObjectId, ref: "Chat" }],
     posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],

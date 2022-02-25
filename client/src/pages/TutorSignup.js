@@ -67,46 +67,46 @@ function Signup() {
   return (
     <>
       <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
-        <Form.Group className='mb-3' controlId='formBasicUsername'>
+        <Form.Group className="mb-3" controlId="formBasicUsername">
           <Form.Label>Username</Form.Label>
           <Form.Control
-            type='text'
-            name='username'
-            placeholder='Enter username'
+            type="text"
+            name="username"
+            placeholder="Enter username"
             onChange={handleChange}
           />
         </Form.Group>
-        <Form.Group className='mb-3' controlId='formBasicEmail'>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
-            type='email'
-            name='email'
-            placeholder='Enter email'
+            type="email"
+            name="email"
+            placeholder="Enter email"
             onChange={handleChange}
           />
         </Form.Group>
 
-        <Form.Group className='mb-3' controlId='formBasicPassword'>
+        <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
-            type='password'
-            name='password'
-            placeholder='Password'
+            type="password"
+            name="password"
+            placeholder="Password"
             onChange={handleChange}
           />
         </Form.Group>
-        <Form.Group className='mb-3' controlId='formFileInput'>
+        <Form.Group className="mb-3" controlId="formFileInput">
           <Form.Label>Photo</Form.Label>
           <input
-            id='formFileInput'
-            className='file-input form-control'
-            name='file'
-            type='file'
-            accept='image/png, image/jpeg'
+            id="formFileInput"
+            className="file-input form-control"
+            name="file"
+            type="file"
+            accept="image/png, image/jpeg"
             ref={fileInput}
           />
         </Form.Group>
-        <Button variant='primary' type='submit' onClick={handleFormSubmit}>
+        <Button variant="primary" type="submit" onClick={handleFormSubmit}>
           Submit
         </Button>
       </Form>
@@ -116,7 +116,7 @@ function Signup() {
         </Modal.Header>
         <Modal.Body>{errorMessage}</Modal.Body>
         <Modal.Footer>
-          <Button variant='danger' onClick={handleCloseModal}>
+          <Button variant="danger" onClick={handleCloseModal}>
             Close
           </Button>
         </Modal.Footer>

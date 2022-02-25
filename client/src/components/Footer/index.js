@@ -14,7 +14,7 @@ const Footer = () => {
         <Col>Copyright © 2022</Col>
         <Col>Alma Brun, Tarek Yousef, Tom Bellenger</Col>
         <Col>
-          <Link to='https://github.com/tarekyousef'>
+          <Link to='https://github.com/tarekyou/project3'>
             <FaGithub className='text-dark' />
           </Link>
         </Col>

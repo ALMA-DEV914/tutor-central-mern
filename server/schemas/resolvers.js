@@ -42,25 +42,40 @@ const resolvers = {
   },
 
   Mutation: {
-    addUser: async (parent, args) => {
+    // addUser: async (parent, args) => {
+    //   const user = await User.create(args);
+    //   const token = signToken(user);
+
+    //   return { token, user };
+    // },
+    // addStudent: async (parent, args, content) => {
+    //   if (content.user.role === "student") {
+    //     const student = await Student.create(args);
+
+    //     return student;
+    //   }
+    // },
+    // addTutor: async (parent, args, content) => {
+    //   if (content.user.role === "tutor") {
+    //     const tutor = await Tutor.create(args);
+
+    //     return tutor;
+    //   }
+    // },
+    addStudent: async (parent, args) => {
       const user = await User.create(args);
       const token = signToken(user);
 
-      return { token, user };
-    },
-    addStudent: async (parent, args, content) => {
-      if (content.user.role === "student") {
-        const student = await Student.create(args);
+      const student = await Student.create(args);
 
-        return student;
-      }
+      return { token, user, student };
     },
-    addTutor: async (parent, args, content) => {
-      if (content.user.role === "tutor") {
-        const tutor = await Tutor.create(args);
+    addTutor: async (parent, args) => {
+      const user = await User.create(args);
+      const token = signToken(user);
+      const tutor = await Tutor.create(args);
 
-        return tutor;
-      }
+      return { token, user, tutor };
     },
     // addUser: async (parent, args) => {
     //   const user = await User.create(args);

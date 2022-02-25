@@ -5,7 +5,7 @@ const StuDashboard = () => {
   return (
     //smooth scroll if on same page routing
     <div className="dashboard">
-      {<Profile />}
+      <Profile />
     </div> 
     
   );

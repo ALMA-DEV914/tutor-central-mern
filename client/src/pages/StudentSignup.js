@@ -34,7 +34,7 @@ const handleChange = (event) => {
 return (
     <div className='section my-1'> 
     <h2>Hi, welcome here! Are you looking forward to dive deeper in the fields of your studies? Signup now!</h2>
-     <div> <FileUpload/></div>
+     <div><FileUpload/></div>
      <form onSubmit={handleFormSubmit}>
         <div className='column'>
           Student Basic Info

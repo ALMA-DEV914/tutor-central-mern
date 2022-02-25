@@ -20,6 +20,7 @@ const SearchButton = () => {
   return (
     <Button
       variant='primary'
+      className='my-2'
       disabled={isSearching}
       onClick={!isSearching ? handleClick : null}
     >

@@ -31,10 +31,11 @@ const userSchema = new Schema(
       minlength: 5,
     },
     photo: {
-      data: Buffer,
-      contentType: String,
-      // type: String,
-      // // unique: true,
+      // data: Buffer,
+      // contentType: String,
+      type: String,
+      default: null,
+      // unique: true,
     },
     role: {
       type: String,

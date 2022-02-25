@@ -1,26 +1,20 @@
-// import { Link, useHistory } from "react-router-dom";
-import React, { useState, useReducer } from "react";
-// import Auth from "../utils/auth";
-import { USER_UPDATE_PASSWORD } from "../../utils/mutations";
+import { useState, useContext,useReducer } from "react";
+import { USER_UPDATE_PASSWORD } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
-import SimpleReactValidator from "simple-react-validator";
-import { useDispatch, useSelector } from "react-redux";
-import { modalActions } from "../../utils/actions";
+import { Container, Row, Form, Button} from "react-bootstrap";
 
 const Profile = () => {
-    //to save and get data to redux store
-    const dispatch = useDispatch();
-    const user = useSelector((state) => state.loggedInUser);
+    const state = useContext();
+    const user = useState((state) => state.loggedInUser);
 
     //local component state
     const [oldPassword, setOldPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [repeatNewPassword, setRepeatNewPassword] = useState("");
     const [isDisabled, setIsDisabled] = useState(false);
-    const [validatorPassword] = useState(new SimpleReactValidator());
-    // eslint-disable-next-line
-    const [_, forceUpdate] = useReducer((x) => x + 1, 0);
+    const [validatorPassword] = useState(true);
 
+    const [ forceUpdate] = useReducer((x) => x + 1, 0);
     //graphql mutation to update password
     const [updatePassword] = useMutation(USER_UPDATE_PASSWORD);
 
@@ -55,15 +49,15 @@ const Profile = () => {
                 });
                 //give user feedback of action
                 if (data) {
-                    dispatch(
-                        modalActions.updateAndShowModal(
+                    state(
+                        useContext.updateAndShowModal(
                             "Success",
                             "Your password has been updated successfully."
                         )
                     );
                 } else {
-                    dispatch(
-                        modalActions.updateAndShowModal(
+                    state(
+                        useContext.updateAndShowModal(
                             "Error",
                             "There was a problem updating your password."
                         )
@@ -75,7 +69,7 @@ const Profile = () => {
                 setNewPassword("");
                 setRepeatNewPassword("");
             } catch (err) {
-                dispatch(modalActions.updateAndShowModal("Error", err.message));
+                state(useContext.updateAndShowModal("Error", err.message));
             }
         } else {
             //show issues with validation
@@ -87,72 +81,53 @@ const Profile = () => {
 
     return (
         <>
-            <div className="row justify-content-center">
-                <div className="col-md-10 col-lg-8">
-                    <h5 className="mb-2 fs-20 font-weight-normal">
-                        General Information
-                    </h5>
-                    <form>
-                        <div className="form-row">
-                            <div className="col-lg-6 col-xs-12">
-                                <div className="form-group">
-                                    <label htmlFor="firstName">Username</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        id="username"
-                                        aria-describedby="username"
-                                        placeholder={user.username}
-                                        disabled
-                                    />
-                                </div>
-                            </div>
-                            <div className="col-lg-6 col-xs-12">
-                                <div className="form-group">
-                                    <label htmlFor="secondName">
-                                        Email Address
-                                    </label>
-                                    <input
-                                        type="email"
+        <Container>
+            <Row>
+               <h5 className="mb-2 fs-20 font-weight-normal">
+                Student Dashbaord
+            </h5>
+            </Row>
+            <Row>
+            <Form>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label>Username</Form.Label>
+                  <Form.Control  
+                    type="text"
+                    className="form-control"
+                    id="username"
+                    aria-describedby="username"
+                    placeholder={user.username}
+                    disabled
+                    /></Form.Group>.
+               <Form.Group className="mb-3" controlId="formBasicEmail">           
+                   <Form.Label> Email Address</Form.Label>
+                       <Form.Control             
+                           type="email"
                                         className="form-control"
                                         id="email"
                                         aria-describedby="email"
                                         placeholder={user.email}
                                         disabled
                                     />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="form-row mt-1 mb-3">
-                            <div className="col">
-                                <div className="custom-control custom-checkbox ml-1">
-                                    <input
-                                        type="checkbox"
-                                        className="custom-control-input"
-                                        id="customCheckDisabled"
-                                        checked={user.isVerified}
-                                        disabled
-                                    />
-                                    <label
-                                        className="custom-control-label is-verified-label"
-                                        htmlFor="customCheckDisabled"
-                                    >
-                                        Is Verified
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <hr className="mt-2 mb-2" />
-                        <div className="form-row">
-                            <div className="col-lg-6 col-xs-12">
-                                <h5 className="mb-2 fs-20 font-weight-normal">
+                     </Form.Group> 
+
+                     <Form.Group className="mb-3" controlId="formBasicEmail">   
+                        <Form.Label>Is Verfied</Form.Label>
+                        <Form.Control
+                            type="checkbox"
+                            className="custom-control-input"
+                            id="customCheckDisabled"
+                            checked={user.isVerified}
+                            disabled
+                        />
+                       </Form.Group>             
+                               
+                        <h5 className="mb-2 fs-20 font-weight-normal">
                                     Update Password
-                                </h5>
-                                <div className="form-group">
-                                    <label htmlFor="userMail">
-                                        Existing Password
-                                    </label>
-                                    <input
+                        </h5>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">   
+                            <Form.Label>Existing Password</Form.Label>
+                                <Form.Control        
                                         type="password"
                                         className="form-control"
                                         aria-describedby="userMail"
@@ -215,23 +190,17 @@ const Profile = () => {
                                             },
                                         }
                                     )}
-                                </div>
-                            </div>
-                        </div>
-                        <div className="form-row mt-1 align-items-center">
-                            <div className="col-lg-3 col-xs-12">
-                                <button
-                                    className="btn btn-secondary col-lg-12 col-xs-12"
-                                    onClick={handleSubmit}
-                                    disabled={isDisabled}
-                                >
+            
+                        
+                            <Button variant="primary"    type="submit"          
+                                onClick={handleSubmit}
+                                disabled={isDisabled}>
                                     Save Changes
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+                               </Button>
+                       </Form.Group>
+                    </Form>
+                </Row>
+            </Container>
         </>
     );
 };

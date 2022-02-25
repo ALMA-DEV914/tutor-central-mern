@@ -1,12 +1,16 @@
 import React from "react";
-
-const StudentDashboard = (params) => {
+import Header from "../components/Header";
+import Profile from "./Profile";
+import { Container } from "react-bootstrap";
+const studentDashboard = () =>{
   return (
-    //smooth scroll if on same page routing
-        <div className="dashboard">
-            
+    <Container>
+      <Header />
+      <div className="dashboard">
+          <Profile />
         </div>
+     </Container>
   );
-};
+}
 
-export default StudentDashboard;
+export default studentDashboard;

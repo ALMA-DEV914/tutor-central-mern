@@ -1,6 +1,7 @@
 import React from "react";
 import HomeHero from "../components/Homehero";
 import SearchBar from "../components/SearchBar";
+import TutorDisplay from "../components/TutorDisplay";
 
 const Home = () => {
   return (
@@ -8,6 +9,7 @@ const Home = () => {
     <>
       <HomeHero />
       <SearchBar />
+      <TutorDisplay />
     </>
   );
 };

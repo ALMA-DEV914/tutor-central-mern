@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
-import { ADD_USER } from "../utils/mutations";
+import { ADD_USER, SINGLE_FILE_UPLOAD } from "../utils/mutations";
 import { Form, Button, Modal } from "react-bootstrap";
 
 function Signup() {
@@ -13,7 +13,9 @@ function Signup() {
     email: "",
     password: "",
   });
+  const fileInput = React.createRef();
   const [addUser] = useMutation(ADD_USER);
+  const [fileUpload] = useMutation(SINGLE_FILE_UPLOAD);
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -24,22 +26,33 @@ function Signup() {
   };
 
   const handleFormSubmit = async (event) => {
+    event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
+      setErrorMessage("Check all fields are complete and try again");
+      setShowModal(true);
     }
     setValidated(true);
     try {
       const mutationResponse = await addUser({
         variables: {
+          firstname: "tom",
+          lastname: "bellenger",
           email: formState.email,
           password: formState.password,
           username: formState.username,
         },
       });
+
       const token = mutationResponse.data.addUser.token;
       Auth.login(token);
+
+      // add mutation call to upload file
+      const fileUpload = await fileUpload({
+        variables: {
+          file: fileInput.current.files[0],
+        },
+      });
     } catch (err) {
       handleShowModal(err.message);
       console.log(err);
@@ -80,6 +93,17 @@ function Signup() {
             name='password'
             placeholder='Password'
             onChange={handleChange}
+          />
+        </Form.Group>
+        <Form.Group className='mb-3' controlId='formFileInput'>
+          <Form.Label>Photo</Form.Label>
+          <input
+            id='formFileInput'
+            className='file-input form-control'
+            name='file'
+            type='file'
+            accept='image/png, image/jpeg'
+            ref={fileInput}
           />
         </Form.Group>
         <Button variant='primary' type='submit' onClick={handleFormSubmit}>

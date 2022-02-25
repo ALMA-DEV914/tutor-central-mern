@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
-import { ADD_USER, SINGLE_FILE_UPLOAD } from "../utils/mutations";
+import { ADD_TUTOR, SINGLE_FILE_UPLOAD } from "../utils/mutations";
 import { Form, Button, Modal } from "react-bootstrap";
 
 function Signup() {
@@ -14,7 +14,7 @@ function Signup() {
     password: "",
   });
   const fileInput = React.createRef();
-  const [addUser] = useMutation(ADD_USER);
+  const [addTutor] = useMutation(ADD_TUTOR);
   const [fileUpload] = useMutation(SINGLE_FILE_UPLOAD);
 
   const handleCloseModal = () => {
@@ -34,7 +34,7 @@ function Signup() {
     }
     setValidated(true);
     try {
-      const mutationResponse = await addUser({
+      const mutationResponse = await addTutor({
         variables: {
           firstname: "tom",
           lastname: "bellenger",

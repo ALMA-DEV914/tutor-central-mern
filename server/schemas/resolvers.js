@@ -39,6 +39,9 @@ const resolvers = {
     categories: async () => {
       return await Category.find();
     },
+    tutors: async (parent, { role = "tutor" }) => {
+      return User.find({ role }).select("-__v -password").populate("posts");
+    },
   },
 
   Mutation: {

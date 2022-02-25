@@ -1,6 +1,6 @@
 import React from "react";
 import Auth from "../../utils/auth";
-import { Navbar, Container, Nav } from "react-bootstrap";
+import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 
 function Header() {
   return (
@@ -18,7 +18,14 @@ function Header() {
             {!Auth.loggedIn() && (
               <>
                 <Nav.Link href='/login'>Login</Nav.Link>
-                <Nav.Link href='/signup'>Signup</Nav.Link>
+                <NavDropdown title='Signup'>
+                  <NavDropdown.Item href='/student-signup'>
+                    Student Signup
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href='/tutor-signup'>
+                    Tutor Signup
+                  </NavDropdown.Item>
+                </NavDropdown>
               </>
             )}
           </Nav>

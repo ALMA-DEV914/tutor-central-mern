@@ -3,6 +3,8 @@ const { gql } = require("apollo-server-express");
 
 // create our typeDefs
 const typeDefs = gql`
+  scalar Upload
+
   type Post {
     _id: ID
     postText: String
@@ -116,6 +118,9 @@ const typeDefs = gql`
 
     createChat(tutor: ID, student: ID): Chat
     addMessage(chatId: ID, messageText: String): Message
+
+    singleUpload(file: Upload!): File!
+
   }
 
   type Auth {
@@ -123,6 +128,12 @@ const typeDefs = gql`
     user: User
     tutor: Tutor
     student: Student
+  }
+
+  type File {
+    filename: String!
+    mimetype: String!
+    encoding: String!
   }
 `;
 

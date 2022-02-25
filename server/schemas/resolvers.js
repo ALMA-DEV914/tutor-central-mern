@@ -1,8 +1,12 @@
 const { User, Post, Category, Student, Tutor } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
+const { GraphQLUpload } = require("graphql-upload");
+const aws = require("../utils/aws-fileupload");
 const { signToken } = require("../utils/auth");
+const sharp = require("sharp");
 
 const resolvers = {
+  Upload: GraphQLUpload,
   Query: {
     // thoughts: async () => {
     //   return Thought.find().sort({ createdAt: -1 });
@@ -214,6 +218,42 @@ const resolvers = {
       if (context.user) {
       }
       throw new AuthenticationError("You need to be logged in");
+    },
+    singleUpload: async (parent, { file }) => {
+      if (context.user) {
+        const { createReadStream, filename, mimetype, encoding } = await file;
+
+        const stream = createReadStream();
+        try {
+          const uniqueFilename = context.user.id + "-" + new Date().getTime();
+          console.log("image upload");
+          // upload to s3
+          const compressed = await sharp(stream)
+            .resize({ width: 400, withoutEnlargement: true })
+            .webp()
+            .withMetadata()
+            .toBuffer();
+          aws.uploadFile(uniqueFilename + ".webp", compressed);
+          // create the DB entry associated with job id
+          const user = await User.findByIdAndUpdate(
+            {
+              _id: context.user._id,
+            },
+            {
+              photo:
+                "https://ucbstore.s3.us-west-1.amazonaws.com/" +
+                encodeURIComponent(uniqueFilename + ".webp"),
+            },
+            { new: true }
+          );
+          return user;
+        } catch (err) {
+          console.log(err);
+        }
+
+        return {};
+      }
+      throw new AuthenticationError("You must be signed in");
     },
   },
 };

@@ -57,6 +57,20 @@ export const QUERY_USER = gql`
   }
 `;
 
+export const QUERY_TUTORS = gql`
+  query tutors {
+    user(role: tutor) {
+      _id
+      username
+      posts {
+        _id
+        postText
+        createdAt
+      }
+    }
+  }
+`;
+
 export const QUERY_ME = gql`
   {
     me {
@@ -78,16 +92,16 @@ export const QUERY_ME = gql`
   }
 `;
 export const GET_FEEDBACK = gql`
-    query Feedback {
-        Feedback(sortBy: { field: "createdAt", order: DESC }) {
-            _id
-            username
-            email
-            category
-            message
-            image
-            createdAt
-            archived
-        }
+  query Feedback {
+    Feedback(sortBy: { field: "createdAt", order: DESC }) {
+      _id
+      username
+      email
+      category
+      message
+      image
+      createdAt
+      archived
     }
+  }
 `;

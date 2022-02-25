@@ -24,15 +24,33 @@ export const ADD_USER = gql`
 `;
 export const ADD_TUTOR = gql`
   mutation addTutor(
-    $hourlyRate: String!
-    $knownSubjects: String!
-    $bio: String!
+    $firstName: String!
+    $lastName: String!
+    $role: String!
+    $username: String!
+    $email: String!
+    $photo: String
+    $password: String!
+    $hourlyRate: String
+    $knownSubjects: String
+    $bio: String
   ) {
     addTutor(
+      firstName: $firstName
+      lastName: $lastName
+      role: $role
+      username: $username
+      email: $email
+      photo: $photo
+      password: $password
       hourlyRate: $hourlyRate
       knownSubjects: $knownSubjects
       bio: $bio
     ) {
+      token
+      user {
+        _id
+      }
       tutor {
         _id
       }
@@ -40,8 +58,32 @@ export const ADD_TUTOR = gql`
   }
 `;
 export const ADD_STUDENT = gql`
-  mutation addStudent($paymentInfo: String!, $bio: String!) {
-    addStudent(paymentInfo: $paymentInfo, bio: $bio) {
+  mutation addStudent(
+    $firstName: String!
+    $lastName: String!
+    $role: String!
+    $username: String!
+    $email: String!
+    $photo: String
+    $password: String!
+    $paymentInfo: String
+    $bio: String
+  ) {
+    addStudent(
+      firstName: $firstName
+      lastName: $lastName
+      role: $role
+      username: $username
+      email: $email
+      photo: $photo
+      password: $password
+      paymentInfo: $paymentInfo
+      bio: $bio
+    ) {
+      token
+      user {
+        _id
+      }
       student {
         _id
       }

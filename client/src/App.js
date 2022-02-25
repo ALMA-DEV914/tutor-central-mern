@@ -12,7 +12,8 @@ import { setContext } from "@apollo/client/link/context";
 import { Container } from "react-bootstrap";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Signup from "./pages/Signup";
+import TutorSignup from "./pages/TutorSignup";
+import StudentSignup from "./pages/StudentSignup";
 import Header from "./components/Header";
 import NoMatch from "./pages/NoMatch";
 import Footer from "./components/Footer";
@@ -53,7 +54,8 @@ function App() {
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/login' element={<Login />} />
-              <Route path='/signup' element={<Signup />} />
+              <Route path='/student-signup' element={<StudentSignup />} />
+              <Route path='/tutor-signup' element={<TutorSignup />} />
               <Route path='*' element={<NoMatch />} />
             </Routes>
           </Container>

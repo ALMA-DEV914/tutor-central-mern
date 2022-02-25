@@ -1,5 +1,6 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import {
   ApolloClient,
   InMemoryCache,
@@ -8,13 +9,13 @@ import {
 } from "@apollo/client";
 
 import { setContext } from "@apollo/client/link/context";
+import { Container } from "react-bootstrap";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Nav from "./components/Nav";
+import Header from "./components/Header";
 import NoMatch from "./pages/NoMatch";
 import Footer from "./components/Footer";
-
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -39,16 +40,24 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <div>
-          <Nav />
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/signup" component={Signup} />
-              <Route component={NoMatch} />
-
-            </Switch>
-            <Footer />
+        <div
+          className='bg-light'
+          style={{
+            minHeight: "100vh",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Header />
+          <Container>
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/signup' element={<Signup />} />
+              <Route path='*' element={<NoMatch />} />
+            </Routes>
+          </Container>
+          <Footer />
         </div>
       </Router>
     </ApolloProvider>

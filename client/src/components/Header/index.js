@@ -12,7 +12,7 @@ function Header() {
           <Nav className='me-auto'>
             <Nav.Link href='/'>Home</Nav.Link>
             <Nav.Link href='/features'>Features</Nav.Link>
-            <Nav.Link href='/pricing'>Pricing</Nav.Link>
+            <Nav.Link href='/studentdashboard'>Pricing</Nav.Link>
 
             {Auth.loggedIn() && <Nav.Link href='/logout'>Logout</Nav.Link>}
             {!Auth.loggedIn() && (

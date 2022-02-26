@@ -111,7 +111,7 @@ const Profile = () => {
                                     />
                      </Form.Group> 
 
-                     <Form.Group className="mb-3" controlId="formBasicEmail">   
+                     <Form.Group className="mb-3" controlId="formBasicCheck">   
                         <Form.Label>Is Verfied</Form.Label>
                         <Form.Control
                             type="checkbox"

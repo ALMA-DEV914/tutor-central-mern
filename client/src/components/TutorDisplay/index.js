@@ -55,6 +55,7 @@ const TutorDisplay = (params) => {
           return (
             <Col key={index} sm={4}>
               <Tutor data={tutor}></Tutor>
+              <p>{tutor.username}</p>
             </Col>
           );
         })}

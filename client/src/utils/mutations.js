@@ -216,6 +216,13 @@ export const USER_UPDATE_PASSWORD = gql`
     }
   }
 `;
+export const SINGLE_FILE_UPLOAD = gql`
+  mutation SingleUpload($file: Upload!) {
+    singleUpload(file: $file) {
+      File
+    }
+  }
+`;
 export const GET_S3_URL = gql`
   mutation Mutation($isLoggedIn: Boolean!) {
     getS3Url(isLoggedIn: $isLoggedIn)

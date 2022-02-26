@@ -59,14 +59,10 @@ export const QUERY_USER = gql`
 
 export const QUERY_TUTORS = gql`
   query tutors {
-    user(role: tutor) {
+    tutors {
       _id
       username
-      posts {
-        _id
-        postText
-        createdAt
-      }
+      email
     }
   }
 `;

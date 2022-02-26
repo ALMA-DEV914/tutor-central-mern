@@ -17,6 +17,7 @@ import StudentSignup from "./pages/StudentSignup";
 import Header from "./components/Header";
 import NoMatch from "./pages/NoMatch";
 import Footer from "./components/Footer";
+import StudentDashboard from "./pages/StudentDashboard";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -56,6 +57,7 @@ function App() {
               <Route path='/login' element={<Login />} />
               <Route path='/student-signup' element={<StudentSignup />} />
               <Route path='/tutor-signup' element={<TutorSignup />} />
+              <Route path='/student-dashboard' element={<StudentDashboard/>}/>
               <Route path='*' element={<NoMatch />} />
             </Routes>
           </Container>

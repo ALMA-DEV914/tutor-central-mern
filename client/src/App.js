@@ -1,3 +1,4 @@
+// import React from "react";
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -18,6 +19,11 @@ import Header from "./components/Header";
 import NoMatch from "./pages/NoMatch";
 import Footer from "./components/Footer";
 
+// import Tutor from "./components/Tutor";
+// import { QUERY_TUTORS } from "./utils/queries";
+// import { useQuery } from "@apollo/client";
+// import SearchBar from "./components/SearchBar";
+
 const httpLink = createHttpLink({
   uri: "/graphql",
 });
@@ -37,12 +43,34 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+// const filterTutors = (tutors, query) => {
+//   if (!query) {
+//     return tutors;
+//   }
+
+//   return tutors.filter((tutor) => {
+//     const tutorName = tutor.name.toLowerCase();
+//     return tutorName.includes(query);
+//   });
+// };
+
 function App() {
+  // const { loading, data } = useQuery(QUERY_TUTORS);
+
+  // const tutors = data?.tutors || {};
+  // const { search } = window.location;
+  // const query = new URLSearchParams(search).get("s");
+  // const [searchQuery, setSearchQuery] = useState(query || "");
+  // const filteredTutors = filterTutors(tutors, searchQuery);
+
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
   return (
     <ApolloProvider client={client}>
       <Router>
         <div
-          className='bg-light'
+          className="bg-light"
           style={{
             minHeight: "100vh",
             display: "flex",
@@ -50,13 +78,25 @@ function App() {
           }}
         >
           <Header />
+          {/* <SearchBar
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+          />
+          <ul>
+            {filteredTutors.map((tutor) => (
+              <li key={tutor._id}>
+                {" "}
+                <Tutor data={tutor}></Tutor>
+              </li>
+            ))}
+          </ul> */}
           <Container>
             <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path='/login' element={<Login />} />
-              <Route path='/student-signup' element={<StudentSignup />} />
-              <Route path='/tutor-signup' element={<TutorSignup />} />
-              <Route path='*' element={<NoMatch />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/student-signup" element={<StudentSignup />} />
+              <Route path="/tutor-signup" element={<TutorSignup />} />
+              <Route path="*" element={<NoMatch />} />
             </Routes>
           </Container>
           <Footer />

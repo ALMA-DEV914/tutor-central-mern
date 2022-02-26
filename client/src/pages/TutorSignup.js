@@ -43,12 +43,12 @@ function Signup() {
           username: formState.username,
         },
       });
-
-      const token = mutationResponse.data.addUser.token;
+      console.log(mutationResponse);
+      const token = mutationResponse.data.addTutor.token;
       Auth.login(token);
 
       // add mutation call to upload file
-      const fileUpload = await fileUpload({
+      const upload = await fileUpload({
         variables: {
           file: fileInput.current.files[0],
         },

@@ -14,7 +14,11 @@ function Header() {
             <Nav.Link href='/features'>Features</Nav.Link>
             <Nav.Link href='/pricing'>Pricing</Nav.Link>
 
-            {Auth.loggedIn() && <Nav.Link href='/logout'>Logout</Nav.Link>}
+            {Auth.loggedIn() && (
+              <Nav.Link href='/' onClick={Auth.logout()}>
+                Logout
+              </Nav.Link>
+            )}
             {!Auth.loggedIn() && (
               <>
                 <Nav.Link href='/login'>Login</Nav.Link>

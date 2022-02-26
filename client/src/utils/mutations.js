@@ -24,9 +24,9 @@ export const ADD_USER = gql`
 `;
 export const ADD_TUTOR = gql`
   mutation addTutor(
-    $firstName: String!
-    $lastName: String!
-    $role: String!
+    $firstName: String
+    $lastName: String
+    $role: String
     $username: String!
     $email: String!
     $photo: String

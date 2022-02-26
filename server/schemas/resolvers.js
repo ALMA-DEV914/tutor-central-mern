@@ -16,8 +16,16 @@ const resolvers = {
         const userData = await User.findOne({ _id: context.user._id })
           .select("-__v -password")
           .populate("posts");
+        if (userData.role === "tutor") {
+          const tutorData = await Tutor.findOne({ _id: context.user._id });
+          return { userData, tutorData };
+        }
+        if (userData.role === "student") {
+          const studentData = await Student.findOne({ _id: context.user._id });
+          return { userData, studentData };
+        }
 
-        return userData;
+        // return userData;
       }
       throw new AuthenticationError("Not logged in");
     },
@@ -40,6 +48,14 @@ const resolvers = {
         .select("-__v -password")
         .populate("posts");
     },
+    // tutor: async (parent, { username }) => {
+    //   const user = await User.findOne({ username }).select("-__v -password");
+    //   // const tutor = await Tutor.findOne({ username });
+    //   return { user };
+    // },
+    // student: async (parent, { username }) => {
+    //   return User.findOne({ username }).select("-__v -password");
+    // },
     categories: async () => {
       return await Category.find();
     },

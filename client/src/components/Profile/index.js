@@ -1,5 +1,5 @@
 import { useState, useContext,useReducer } from "react";
-import { USER_UPDATE_PASSWORD } from "../utils/mutations";
+import { USER_UPDATE_PASSWORD } from "../../utils/mutations";
 import { useMutation } from "@apollo/client";
 import { Container, Row, Form, Button} from "react-bootstrap";
 

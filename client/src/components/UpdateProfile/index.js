@@ -3,11 +3,11 @@ import { useMutation } from "@apollo/client";
 import {
     GET_S3_URL_AUTHENTICATED,
     UPDATE_PROFILE_PIC,
-} from "../utils/mutations";
-import Auth from "../utils/auth";
+} from "../../utils/mutations";
+import Auth from "../../utils/auth";
 import { Container, Col, Form, Row, Button } from 'react-bootstrap';
 
-const UpdatePic = (params) => {
+const UpdateProfilePic = (params) => {
     //get user data 
     const user = useContext((state) => state.loggedInUser);
     //get the modal exit function passed from parents
@@ -38,7 +38,7 @@ const UpdatePic = (params) => {
         })
     );
     // eslint-disable-next-line
-    const [_, forceUpdate] = useReducer((x) => x + 1, 0);
+    const [forceUpdate] = useReducer((x) => x + 1, 0);
     const state = useContext();
     //mutations to upload the file to s3 and update db with its URL
     const [getS3UrlAuthenticated] = useMutation(GET_S3_URL_AUTHENTICATED);
@@ -216,4 +216,4 @@ const UpdatePic = (params) => {
     );
 };
 
-export default UpdatePic;
+export default UpdateProfilePic;

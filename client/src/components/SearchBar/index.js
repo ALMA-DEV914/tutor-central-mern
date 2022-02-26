@@ -38,6 +38,11 @@ const SearchBar = () => {
   //   e.preventDefault();
   // };
   const [query, setQuery] = useState("");
+  // function setQuery(e) {
+  //   e.preventdefault();
+  //   console.log(e.target);
+  //   query = "";
+  // }
   return (
     <>
       <Form>

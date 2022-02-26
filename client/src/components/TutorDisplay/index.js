@@ -43,15 +43,23 @@ const TutorDisplay = (params) => {
 
   return (
     <Row>
-      {tutors.map((tutor, index) => {
-        return (
-          <Col key={index} sm={4}>
-            <Tutor data={tutor}></Tutor>
-          </Col>
-        );
-      })}
-      {/* <SearchBar query={query} setQuery={setQuery} /> */}
       {tutors
+        .filter((tutors) => {
+          if (query === "") {
+            return tutors;
+          } else if (tutors.toLowerCase().includes(query.toLowerCase())) {
+            return tutors;
+          }
+        })
+        .map((tutor, index) => {
+          return (
+            <Col key={index} sm={4}>
+              <Tutor data={tutor}></Tutor>
+            </Col>
+          );
+        })}
+      {/* <SearchBar query={query} setQuery={setQuery} /> */}
+      {/* {tutors
         .filter((tutors) => {
           if (query === "") {
             return tutors;
@@ -63,7 +71,7 @@ const TutorDisplay = (params) => {
           <div className="box" key={index}>
             <p>{tutor.username}</p>
           </div>
-        ))}
+        ))} */}
       {/* <ul>
         {filteredTutors.map((tutor) => (
           <li key={tutor._id}>

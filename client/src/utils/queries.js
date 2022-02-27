@@ -54,3 +54,37 @@ export const QUERY_ME = gql`
     }
   }
 `;
+
+export const QUERY_CHAT = gql`
+  query Chat($chatId: ID!) {
+    chat(id: $chatId) {
+      _id
+      tutor {
+        username
+        _id
+      }
+      student {
+        _id
+        username
+      }
+      messages {
+        _id
+        messageText
+        from {
+          username
+          _id
+          email
+          photo
+          role
+        }
+        to {
+          _id
+          username
+          email
+          photo
+          role
+        }
+      }
+    }
+  }
+`;

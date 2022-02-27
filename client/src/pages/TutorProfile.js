@@ -29,6 +29,7 @@ function TutorProfile() {
         <div>
           <p>{data.me.user.username}</p>
           <p>{data.me.user.email}</p>
+          <p>{data.me.tutor._id}</p>
         </div>
       </div>
     </>

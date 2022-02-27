@@ -1,9 +1,10 @@
-const { User, Student, Tutor } = require("../models");
+const { User, Student, Tutor, Chat, Message } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { GraphQLUpload } = require("graphql-upload");
 const aws = require("../utils/aws-fileupload");
 const { signToken } = require("../utils/auth");
 const sharp = require("sharp");
+const { ChainableTemporaryCredentials } = require("aws-sdk");
 
 const resolvers = {
   Upload: GraphQLUpload,
@@ -17,16 +18,17 @@ const resolvers = {
         const userData = await User.findOne({ _id: context.user._id }).select(
           "-__v -password"
         );
-        console.log(userData);
+
         if (userData.role === "tutor") {
-          const tutorData = await Tutor.findOne({ userId: context.user._id });
-          console.log(tutorData);
+          const tutorData = await Tutor.findOne({
+            userId: context.user._id,
+          }).populate("userId");
           return { user: userData, tutor: tutorData };
         }
         if (userData.role === "student") {
           const studentData = await Student.findOne({
             userId: context.user._id,
-          });
+          }).populate("userId");
           return { user: userData, student: studentData };
         }
 
@@ -46,6 +48,16 @@ const resolvers = {
     tutors: async (parent, args, context) => {
       const tutor = await Tutor.find().select("-__v").populate("userId");
       return tutor;
+    },
+    chat: async (parent, args) => {
+      // should get context.user and check this chat id
+      // is present in their chats
+      console.log(args);
+      const chat = await Chat.findOne({ _id: args.id }).populate(
+        "tutor student"
+      );
+      console.log(chat);
+      return chat;
     },
   },
 
@@ -90,8 +102,24 @@ const resolvers = {
 
       throw new AuthenticationError("You need to be logged in!");
     },
-    createChat: async (parent, args, context) => {
+    createChat: async (parent, { tutor }, context) => {
       if (context.user) {
+        let chat = await Chat.findOne({
+          tutor,
+          student: context.user._id,
+        }).populate("tutor student");
+        if (!chat) {
+          chat = await Chat.create({
+            tutor,
+            student: context.user._id,
+          });
+          await User.updateOne(
+            { _id: context.user._id },
+            { $push: { chats: chat } }
+          );
+          await User.updateOne({ _id: tutor }, { $push: { chats: chat } });
+        }
+        return chat;
       }
       throw new AuthenticationError("You need to be logged in");
     },

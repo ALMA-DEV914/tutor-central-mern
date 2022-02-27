@@ -1,6 +1,7 @@
 const { Schema, model } = require("mongoose");
 const dateFormat = require("../utils/dateFormat");
-const message = require("./Message");
+const Message = require("./Message");
+const User = require("./User");
 const { default: mongoose } = require("mongoose");
 
 const chatSchema = new Schema(
@@ -10,15 +11,9 @@ const chatSchema = new Schema(
       default: Date.now,
       get: (timestamp) => dateFormat(timestamp),
     },
-    tutor: {
-      type: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-      required: true,
-    },
-    student: {
-      type: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-      required: true,
-    },
-    messages: [message],
+    tutor: { type: mongoose.Types.ObjectId, ref: User, required: true },
+    student: { type: mongoose.Types.ObjectId, ref: User, required: true },
+    messages: [Message.schema],
   },
   {
     toJSON: {
@@ -27,6 +22,6 @@ const chatSchema = new Schema(
   }
 );
 
-const Chat = model("Post", chatSchema);
+const Chat = model("Chat", chatSchema);
 
 module.exports = Chat;

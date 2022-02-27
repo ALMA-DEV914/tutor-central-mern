@@ -7,7 +7,6 @@ const tutorSchema = new Schema(
     userId: { type: mongoose.Types.ObjectId, ref: User, required: true },
     hourlyRate: {
       type: String,
-      required: true,
     },
     knownSubjects: {
       type: String,

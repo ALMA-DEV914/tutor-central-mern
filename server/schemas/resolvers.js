@@ -45,6 +45,11 @@ const resolvers = {
     user: async (parent, { username }) => {
       return await User.findOne({ username }).select("-__v -password");
     },
+    student: async (parent, { id }, context) => {
+      return await Student.findOne({ _id: id })
+        .select("-__v")
+        .populate("userId");
+    },
     tutors: async (parent, args, context) => {
       const tutor = await Tutor.find().select("-__v").populate("userId");
       return tutor;

@@ -1,7 +1,7 @@
 import { useState, useReducer, useContext } from "react";
 import { useMutation } from "@apollo/client";
 import {
-    GET_S3_URL_AUTHENTICATED,
+   GET_S3_URL_AUTHENTICATED,
     UPDATE_PROFILE_PIC,
 } from "../../utils/mutations";
 import Auth from "../../utils/auth";

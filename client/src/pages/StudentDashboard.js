@@ -3,7 +3,7 @@ import Profile from "../components/Profile";
 import { Container } from "react-bootstrap";
 import UpdateProfilePic from "../components/UpdateProfile";
 
-const studentDashboard = () =>{
+const studentDashboard = (props) =>{
   return (
     <>
     <Container>

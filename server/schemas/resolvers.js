@@ -38,10 +38,9 @@ const resolvers = {
     user: async (parent, { username }) => {
       return await User.findOne({ username }).select("-__v -password");
     },
-    tutors: async (parent, { role = "tutor" }) => {
-      const user = await User.find({ role }).select("-__v -password");
-      const tutor = await Tutor.find({ tutorId: user._id }).select("-__v");
-      return { user, tutor };
+    tutors: async (parent, args, context) => {
+      const tutor = await Tutor.find().select("-__v").populate("tutorId");
+      return tutor;
     },
   },
 
@@ -49,14 +48,18 @@ const resolvers = {
     addStudent: async (parent, args) => {
       const user = await User.create({ ...args, role: "student" });
       const token = signToken(user);
-      const student = await Student.create(args);
+      const student = await Student.create({ ...args, studentId: user._id });
 
       return { token, user, student };
     },
     addTutor: async (parent, args) => {
+      console.log({ ...args, role: "tutor" });
       const user = await User.create({ ...args, role: "tutor" });
       const token = signToken(user);
-      const tutor = await Tutor.create(args);
+      console.log(user);
+      console.log({ ...args, tutorId: user.id });
+      const tutor = await Tutor.create({ ...args, tutorId: user.id });
+      console.log(tutor);
 
       return { token, user, tutor };
     },

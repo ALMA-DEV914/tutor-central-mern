@@ -21,14 +21,16 @@ const TutorDisplay = (params) => {
         onChange={(event) => setQuery(event.target.value)}
       />
       {data.tutors
-        .filter((tutors) => {
+        .filter((tutor) => {
           if (query === "") {
-            return tutors;
-          } else if (
-            tutors.email.toLowerCase().includes(query.toLowerCase()) ||
-            tutors.username.toLowerCase().includes(query.toLowerCase())
-          ) {
-            return tutors;
+            return tutor;
+          } else {
+            if (
+              tutor.email.toLowerCase().includes(query.toLowerCase()) ||
+              tutor.username.toLowerCase().includes(query.toLowerCase())
+            ) {
+              return tutor;
+            }
           }
         })
         .map((tutor, index) => {

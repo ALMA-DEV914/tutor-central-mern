@@ -13,6 +13,7 @@ const typeDefs = gql`
 
   type Tutor {
     _id: ID
+    tutorId: User
     hourlyRate: String
     knownSubjects: String
     bio: String
@@ -41,7 +42,7 @@ const typeDefs = gql`
   type Query {
     me: User
     users: [User]
-    tutors: [User]
+    tutors: [Tutor]
     user(username: String!): User
   }
 

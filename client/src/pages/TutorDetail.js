@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
-const TutorProfile = () => {
+const TutorDetail = () => {
   const { id } = useParams();
 
   const handleChatClick = () => {
@@ -19,4 +19,4 @@ const TutorProfile = () => {
   );
 };
 
-export default TutorProfile;
+export default TutorDetail;

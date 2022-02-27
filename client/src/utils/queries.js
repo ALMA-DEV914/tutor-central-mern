@@ -19,8 +19,12 @@ export const QUERY_TUTORS = gql`
   query tutors {
     tutors {
       _id
-      username
-      email
+      tutorId {
+        _id
+        username
+        email
+      }
+      bio
     }
   }
 `;

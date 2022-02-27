@@ -22,13 +22,13 @@ function TutorProfile() {
   return (
     <>
       <div>
-        <h2>Viewing {data.username} profile</h2>
+        <h2>Viewing {data.me.username} profile</h2>
       </div>
 
       <div>
         <div>
-          <p>{data.username}</p>
-          <p>{data.email}</p>
+          <p>{data.me.username}</p>
+          <p>{data.me.email}</p>
         </div>
       </div>
     </>

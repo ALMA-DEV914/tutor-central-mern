@@ -1,7 +1,6 @@
 const { Schema, model } = require("mongoose");
 const User = require("./User");
 const { default: mongoose } = require("mongoose");
-const User = require("./User");
 
 const tutorSchema = new Schema(
   {

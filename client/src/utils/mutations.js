@@ -137,92 +137,21 @@ export const ADD_CHAT = gql`
   }
 `;
 
-export const ADD_COMMENT = gql`
-  mutation addComment($commentText: String!) {
-    addPost(commentText: $commentText) {
+export const ADD_MESSAGE = gql`
+  mutation addMessage($chatId: ID!, $messageText: String!) {
+    addMessage(chatId: $chatId, messageText: $messageText) {
       _id
-      commentText
-      createdAt
-      username
-    }
-  }
-`;
-
-export const ADD_CATEGORY = gql`
-  mutation addCategory($name: String!) {
-    addCategory(name: $name) {
-      _id
-      name
-    }
-  }
-`;
-
-export const UPDATE_POST = gql`
-  mutation updatePost($postText: String!) {
-    updatePost(postText: $postText) {
-      _id
-      postText
-      createdAt
-      username
-      comments {
-        _id
+      messageText
+      from {
+        username
+      }
+      to {
+        username
       }
     }
   }
 `;
 
-export const UPDATE_COMMENT = gql`
-  mutation updateComment($commentText: String!) {
-    updateComment(commentText: $commentText) {
-      _id
-      commentText
-      createdAt
-      username
-    }
-  }
-`;
-
-export const ADD_FEEDBACK = gql`
-  mutation AddFeedback(
-    $username: String!
-    $email: String!
-    $tutor: String!
-    $message: String!
-    $image: String
-  ) {
-    addFeedback(
-      username: $username
-      email: $email
-      category: $category
-      message: $message
-      image: $image
-    ) {
-      _id
-      username
-      email
-      category
-      message
-      image
-      createdAt
-      archived
-    }
-  }
-`;
-
-export const ARCHIVE_FEEDBACK = gql`
-  mutation ArchiveFeedback($feedbackId: ID!) {
-    archiveFeedback(feedbackId: $feedbackId) {
-      _id
-      username
-      email
-      category
-      message
-      image
-      createdAt
-      archived
-    }
-  }
-`;
 export const USER_UPDATE_PASSWORD = gql`
   mutation UpdatePasswordMutation(
     $email: String!
@@ -238,6 +167,7 @@ export const USER_UPDATE_PASSWORD = gql`
     }
   }
 `;
+
 export const SINGLE_FILE_UPLOAD = gql`
   mutation SingleUpload($file: Upload!) {
     singleUpload(file: $file) {
@@ -245,15 +175,10 @@ export const SINGLE_FILE_UPLOAD = gql`
     }
   }
 `;
+
 export const GET_S3_URL = gql`
   mutation Mutation($isLoggedIn: Boolean!) {
     getS3Url(isLoggedIn: $isLoggedIn)
-  }
-`;
-
-export const GET_S3_URL_AUTHENTICATED = gql`
-  mutation Mutation($isLoggedIn: Boolean!) {
-    getS3UrlAuthenticated(isLoggedIn: $isLoggedIn)
   }
 `;
 

@@ -33,6 +33,7 @@ const typeDefs = gql`
     messageText: String
     from: User
     to: User
+    createdAt: String
   }
 
   type Chat {
@@ -40,6 +41,7 @@ const typeDefs = gql`
     tutor: User
     student: User
     messages: [Message]
+    createdAt: String
   }
 
   type Query {

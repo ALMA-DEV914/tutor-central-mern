@@ -59,31 +59,25 @@ export const QUERY_CHAT = gql`
   query Chat($chatId: ID!) {
     chat(id: $chatId) {
       _id
+      createdAt
       tutor {
         username
         _id
       }
       student {
-        _id
         username
+        _id
       }
       messages {
         _id
-        messageText
-        from {
-          username
-          _id
-          email
-          photo
-          role
-        }
+        createdAt
         to {
           _id
-          username
-          email
-          photo
-          role
         }
+        from {
+          _id
+        }
+        messageText
       }
     }
   }

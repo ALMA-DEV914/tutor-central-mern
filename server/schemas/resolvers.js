@@ -54,9 +54,9 @@ const resolvers = {
       // is present in their chats
       console.log(args);
       const chat = await Chat.findOne({ _id: args.id }).populate(
-        "tutor student"
+        "tutor student messages"
       );
-      console.log(chat);
+      chat.messages = chat.messages.reverse();
       return chat;
     },
   },
@@ -123,8 +123,26 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in");
     },
-    addMessage: async (parent, args, context) => {
+    addMessage: async (parent, { chatId, messageText }, context) => {
       if (context.user) {
+        let chat = await Chat.findOne({
+          _id: chatId,
+        });
+        let from = context.user._id;
+        let to =
+          chat.tutor._id === context.user._id
+            ? chat.student._id
+            : chat.tutor._id;
+        let message = await Message.create({
+          from: from,
+          to: to,
+          messageText,
+        });
+        message = await message.populate("from to");
+        console.log(message);
+        chat.messages.push(message);
+        chat.save();
+        return message;
       }
       throw new AuthenticationError("You need to be logged in");
     },

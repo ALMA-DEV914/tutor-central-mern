@@ -13,15 +13,19 @@ const resolvers = {
     // },
     me: async (parent, args, context) => {
       if (context.user) {
+        // console.log(context.user);
         const userData = await User.findOne({ _id: context.user._id }).select(
           "-__v -password"
         );
+        console.log(userData);
         if (userData.role === "tutor") {
-          const tutorData = await Tutor.findOne({ _id: context.user._id });
+          const tutorData = await Tutor.findOne({ tutorId: context.user._id });
           return { userData, tutorData };
         }
         if (userData.role === "student") {
-          const studentData = await Student.findOne({ _id: context.user._id });
+          const studentData = await Student.findOne({
+            studentId: context.user._id,
+          });
           return { userData, studentData };
         }
 

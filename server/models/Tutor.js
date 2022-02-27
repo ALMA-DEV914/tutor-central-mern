@@ -1,10 +1,11 @@
 const { Schema, model } = require("mongoose");
 const { default: mongoose } = require("mongoose");
+const User = require("./User");
 
 const tutorSchema = new Schema(
   {
     tutorId: {
-      type: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+      type: { type: mongoose.Types.ObjectId, ref: "User" },
     },
     hourlyRate: {
       type: String,

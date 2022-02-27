@@ -101,6 +101,18 @@ export const LOGIN = gql`
     }
   }
 `;
+
+export const UPDATE_USER = gql`
+  mutation updateUser($username: String!, $password: String) {
+    updateUser(username: $username, password: $password) {
+      token
+      user {
+        _id
+      }
+    }
+  }
+`;
+
 export const ADD_POST = gql`
   mutation addPost($postText: String!) {
     addPost(postText: $postText) {

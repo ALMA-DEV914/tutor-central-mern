@@ -46,6 +46,7 @@ const typeDefs = gql`
     me: User
     users: [User]
     tutors: [Tutor]
+    tutor: Tutor
     user(username: String!): User
   }
 

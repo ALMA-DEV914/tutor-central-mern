@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Tutor from "../Tutor";
 import { Row, Col } from "react-bootstrap";
 import { QUERY_TUTORS } from "../../utils/queries";
@@ -15,16 +15,13 @@ const TutorDisplay = (params) => {
 
   const { loading, data } = useQuery(QUERY_TUTORS);
 
-  const tutors = data.tutors || {};
-  console.log(tutors);
-
   if (loading) {
     return <div>Loading...</div>;
   }
 
   return (
     <Row>
-      {tutors.map((tutor, index) => {
+      {data.tutors.map((tutor, index) => {
         return (
           <Col key={index} sm={4}>
             <Tutor data={tutor}></Tutor>

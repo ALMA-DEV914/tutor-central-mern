@@ -16,7 +16,7 @@ const Tutor = ({ data }) => {
             the bulk of the card's content.
           </span>
         </Card.Text>
-        <Button variant='primary' href={`/tutor/${data.id}`}>
+        <Button variant='primary' href={`/tutor/${data._id}`}>
           Sign up with {data.username}
         </Button>
       </Card.Body>

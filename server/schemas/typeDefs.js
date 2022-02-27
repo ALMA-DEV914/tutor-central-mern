@@ -43,7 +43,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    me: User
+    me: Me
     users: [User]
     tutors: [Tutor]
     tutor: Tutor
@@ -90,7 +90,7 @@ const typeDefs = gql`
     updateUser(
       firstName: String
       lastName: String
-      email: String
+      username: String
       password: String
     ): User
 
@@ -105,6 +105,12 @@ const typeDefs = gql`
     user: User
     tutor: Tutor
     student: Student
+  }
+
+  type Me {
+    tutor: Tutor
+    student: Student
+    user: User
   }
 
   type File {

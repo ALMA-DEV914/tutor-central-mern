@@ -19,6 +19,7 @@ import StudentSignup from "./pages/StudentSignup";
 import Header from "./components/Header";
 import NoMatch from "./pages/NoMatch";
 import Footer from "./components/Footer";
+import TutorProfile from "./pages/TutorProfile";
 
 // import Tutor from "./components/Tutor";
 // import { QUERY_TUTORS } from "./utils/queries";
@@ -44,29 +45,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-// const filterTutors = (tutors, query) => {
-//   if (!query) {
-//     return tutors;
-//   }
-
-//   return tutors.filter((tutor) => {
-//     const tutorName = tutor.name.toLowerCase();
-//     return tutorName.includes(query);
-//   });
-// };
-
 function App() {
-  // const { loading, data } = useQuery(QUERY_TUTORS);
-
-  // const tutors = data?.tutors || {};
-  // const { search } = window.location;
-  // const query = new URLSearchParams(search).get("s");
-  // const [searchQuery, setSearchQuery] = useState(query || "");
-  // const filteredTutors = filterTutors(tutors, searchQuery);
-
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
   return (
     <ApolloProvider client={client}>
       <Router>
@@ -79,18 +58,6 @@ function App() {
           }}
         >
           <Header />
-          {/* <SearchBar
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-          />
-          <ul>
-            {filteredTutors.map((tutor) => (
-              <li key={tutor._id}>
-                {" "}
-                <Tutor data={tutor}></Tutor>
-              </li>
-            ))}
-          </ul> */}
           <Container>
             <Routes>
               <Route path='/' element={<Home />} />
@@ -99,6 +66,7 @@ function App() {
               <Route path='/student-signup' element={<StudentSignup />} />
               <Route path='/tutor-signup' element={<TutorSignup />} />
               <Route path='/tutor/:id' element={<TutorDetail />} />
+              <Route path='/tutor-profile' element={<TutorProfile />} />
               <Route path='*' element={<NoMatch />} />
             </Routes>
           </Container>

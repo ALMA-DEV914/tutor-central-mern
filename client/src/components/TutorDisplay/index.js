@@ -3,18 +3,6 @@ import Tutor from "../Tutor";
 import { Row, Col } from "react-bootstrap";
 import { QUERY_TUTORS } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
-import SearchBar from "../SearchBar";
-
-// const filterTutors = (tutors, query) => {
-//   if (!query) {
-//     return tutors;
-//   }
-
-//   return tutors.filter((tutor) => {
-//     const tutorName = tutor.name.toLowerCase();
-//     return tutorName.includes(query);
-//   });
-// };
 
 const TutorDisplay = (params) => {
   // const [data, setData] = useState([
@@ -43,7 +31,7 @@ const TutorDisplay = (params) => {
       />
       {tutors
         .filter((tutors) => {
-          console.log(tutors);
+          // console.log(tutors);
           if (query === "") {
             return tutors;
           } else if (

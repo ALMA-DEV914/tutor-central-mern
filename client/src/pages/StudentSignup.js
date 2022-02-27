@@ -24,10 +24,11 @@ function Signup() {
   };
 
   const handleFormSubmit = async (event) => {
+    event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
+      setErrorMessage("Check all fields are complete and try again");
+      setShowModal(true);
     }
     setValidated(true);
     try {

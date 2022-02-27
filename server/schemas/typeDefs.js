@@ -72,8 +72,8 @@ const typeDefs = gql`
     ): Auth
 
     addStudent(
-      firstName: String!
-      lastName: String!
+      firstName: String
+      lastName: String
       role: String!
       username: String!
       email: String!
@@ -93,7 +93,7 @@ const typeDefs = gql`
     createChat(tutor: ID, student: ID): Chat
     addMessage(chatId: ID, messageText: String): Message
 
-    singleUpload(file: Upload!): File!
+    singleUpload(file: Upload!): File
   }
 
   type Auth {
@@ -104,9 +104,9 @@ const typeDefs = gql`
   }
 
   type File {
-    filename: String!
-    mimetype: String!
-    encoding: String!
+    filename: String
+    mimetype: String
+    encoding: String
   }
 `;
 

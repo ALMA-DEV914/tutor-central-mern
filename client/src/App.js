@@ -54,6 +54,7 @@ function App() {
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/login' element={<Login />} />
+              <Route path='/logout' element={<Home logout={true} />} />
               <Route path='/student-signup' element={<StudentSignup />} />
               <Route path='/tutor-signup' element={<TutorSignup />} />
               <Route path='*' element={<NoMatch />} />

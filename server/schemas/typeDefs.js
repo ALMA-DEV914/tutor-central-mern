@@ -74,7 +74,7 @@ const typeDefs = gql`
     addStudent(
       firstName: String
       lastName: String
-      role: String!
+      role: String
       username: String!
       email: String!
       photo: String

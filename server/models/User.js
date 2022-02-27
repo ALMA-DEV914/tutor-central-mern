@@ -44,7 +44,6 @@ const userSchema = new Schema(
       // required: true,
     },
     chats: [{ type: Schema.Types.ObjectId, ref: "Chat" }],
-    posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
   },
   {
     toJSON: {

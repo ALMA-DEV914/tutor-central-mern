@@ -4,7 +4,7 @@ import { Card, Button } from "react-bootstrap";
 const Tutor = ({ data }) => {
   return (
     <Card>
-      <Card.Img variant='top' src='https://via.placeholder.com/150' />
+      <Card.Img variant="top" src="https://via.placeholder.com/150" />
       <Card.Body>
         <Card.Title>{data.username}</Card.Title>
         <Card.Text>

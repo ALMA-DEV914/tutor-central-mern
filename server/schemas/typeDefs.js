@@ -1,37 +1,127 @@
+// import the gql tagged template function
 const { gql } = require("apollo-server-express");
 
+// create our typeDefs
 const typeDefs = gql`
+  scalar Upload
+
   type User {
     _id: ID
-    firstName: String
-    lastName: String
+    username: String
     email: String
+    photo: String
+    role: String
   }
 
-  type Auth {
-    token: ID
-    user: User
+  type Tutor {
+    _id: ID
+    userId: User
+    hourlyRate: String
+    knownSubjects: String
+    bio: String
+  }
+
+  type Student {
+    _id: ID
+    userId: User
+    paymentInfo: String
+    bio: String
+  }
+
+  type Message {
+    _id: ID
+    messageText: String
+    from: User
+    to: User
+    createdAt: String
+  }
+
+  type Chat {
+    _id: ID
+    tutor: User
+    student: User
+    messages: [Message]
+    createdAt: String
   }
 
   type Query {
-    user: User
+    me: Me
+    users: [User]
+    tutors: [Tutor]
+    tutor: Tutor
+    user(username: String!): User
+    chat(id: ID!): Chat
   }
 
   type Mutation {
+    login(email: String!, password: String!): Auth
+
     addUser(
       firstName: String!
       lastName: String!
+      role: String!
+      username: String!
       email: String!
       password: String!
     ): Auth
+
+    addTutor(
+      firstName: String
+      lastName: String
+      role: String
+      username: String!
+      email: String!
+      photo: String
+      password: String!
+      hourlyRate: String
+      knownSubjects: String
+      bio: String
+    ): Auth
+
+    addStudent(
+      firstName: String
+      lastName: String
+      role: String
+      username: String!
+      email: String!
+      photo: String
+      password: String!
+      paymentInfo: String
+      bio: String
+    ): Auth
+
     updateUser(
       firstName: String
       lastName: String
-      email: String
+      username: String
       password: String
     ): User
-    login(email: String!, password: String!): Auth
+
+    createChat(tutor: ID): Chat
+    addMessage(chatId: ID, messageText: String): Message
+
+    singleUpload(file: Upload!): File
+  }
+
+  type Auth {
+    token: ID!
+    user: User
+    tutor: Tutor
+    student: Student
+  }
+
+  type Me {
+    tutor: Tutor
+    student: Student
+    user: User
+  }
+
+  type File {
+    filename: String
+    mimetype: String
+    encoding: String
   }
 `;
 
+// export the typeDefs
 module.exports = typeDefs;

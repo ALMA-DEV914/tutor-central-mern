@@ -1,5 +1,7 @@
+// import React from "react";
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import {
   ApolloClient,
   InMemoryCache,
@@ -8,11 +10,22 @@ import {
 } from "@apollo/client";
 
 import { setContext } from "@apollo/client/link/context";
+import { Container } from "react-bootstrap";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Nav from "./components/Nav";
+import TutorSignup from "./pages/TutorSignup";
+import TutorDetail from "./pages/TutorDetail";
+import StudentSignup from "./pages/StudentSignup";
+import Header from "./components/Header";
 import NoMatch from "./pages/NoMatch";
+import Footer from "./components/Footer";
+import TutorProfile from "./pages/TutorProfile";
+import ChatDetail from "./pages/ChatDetail";
+
+// import Tutor from "./components/Tutor";
+// import { QUERY_TUTORS } from "./utils/queries";
+// import { useQuery } from "@apollo/client";
+// import SearchBar from "./components/SearchBar";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -36,16 +49,30 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      
       <Router>
-        <div>
-          <Nav />
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/signup" component={Signup} />
-             <Route component={NoMatch} />
-            </Switch>
+        <div
+          className='bg-light'
+          style={{
+            minHeight: "100vh",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Header />
+          <Container>
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/logout' element={<Home logout={true} />} />
+              <Route path='/student-signup' element={<StudentSignup />} />
+              <Route path='/tutor-signup' element={<TutorSignup />} />
+              <Route path='/tutor/:id' element={<TutorDetail />} />
+              <Route path='/tutor-profile' element={<TutorProfile />} />
+              <Route path='/chat/:id' element={<ChatDetail />} />
+              <Route path='*' element={<NoMatch />} />
+            </Routes>
+          </Container>
+          <Footer />
         </div>
       </Router>
     </ApolloProvider>

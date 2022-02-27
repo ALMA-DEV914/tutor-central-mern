@@ -3,29 +3,54 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const bcrypt = require("bcrypt");
 
-const userSchema = new Schema({
-  firstName: {
-    type: String,
-    required: true,
-    trim: true,
+const userSchema = new Schema(
+  {
+    firstName: {
+      type: String,
+      // required: true,
+      trim: true,
+    },
+    lastName: {
+      type: String,
+      // required: true,
+      trim: true,
+    },
+    username: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+      minlength: 5,
+    },
+    photo: {
+      // data: Buffer,
+      // contentType: String,
+      type: String,
+      // default: null,
+      // unique: true,
+    },
+    role: {
+      type: String,
+      enum: ["student", "tutor"],
+      default: "student",
+      // required: true,
+    },
+    chats: [{ type: Schema.Types.ObjectId, ref: "Chat" }],
   },
-  lastName: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-    minlength: 5,
-  },
-  orders: [Order.schema],
-});
+  {
+    toJSON: {
+      virtuals: true,
+    },
+  }
+);
 
 // set up pre-save middleware to create password
 userSchema.pre("save", async function (next) {

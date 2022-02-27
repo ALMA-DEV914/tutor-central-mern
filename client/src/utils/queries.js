@@ -6,11 +6,6 @@ export const QUERY_USER = gql`
       _id
       username
       email
-      posts {
-        _id
-        postText
-        createdAt
-      }
     }
   }
 `;
@@ -31,17 +26,6 @@ export const QUERY_ME = gql`
       _id
       username
       email
-      posts {
-        _id
-        postText
-        createdAt
-        comments {
-          _id
-          createdAt
-          commentText
-          username
-        }
-      }
     }
   }
 `;

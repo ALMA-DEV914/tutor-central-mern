@@ -5,27 +5,11 @@ const { gql } = require("apollo-server-express");
 const typeDefs = gql`
   scalar Upload
 
-  type Post {
-    _id: ID
-    postText: String
-    createdAt: String
-    username: String
-    comments: [Comment]
-  }
-
-  type Comment {
-    _id: ID
-    commentText: String
-    createdAt: String
-    username: String
-  }
-
   type User {
     _id: ID
     username: String
     email: String
     role: String
-    posts: [Post]
   }
 
   type Tutor {
@@ -34,15 +18,11 @@ const typeDefs = gql`
     knownSubjects: String
     bio: String
   }
+
   type Student {
     _id: ID
     paymentInfo: String
     bio: String
-  }
-
-  type Category {
-    _id: ID
-    name: String
   }
 
   type Message {
@@ -64,13 +44,11 @@ const typeDefs = gql`
     users: [User]
     tutors: [User]
     user(username: String!): User
-    posts(username: String): [Post]
-    post(_id: ID!): Post
-    categories(name: String): Category
   }
 
   type Mutation {
     login(email: String!, password: String!): Auth
+
     addUser(
       firstName: String!
       lastName: String!
@@ -79,8 +57,6 @@ const typeDefs = gql`
       email: String!
       password: String!
     ): Auth
-    addPost(thoughtText: String!): Post
-    addComment(postId: ID!, commentText: String!): Comment
 
     addTutor(
       firstName: String
@@ -94,6 +70,7 @@ const typeDefs = gql`
       knownSubjects: String
       bio: String
     ): Auth
+
     addStudent(
       firstName: String!
       lastName: String!
@@ -112,9 +89,6 @@ const typeDefs = gql`
       email: String
       password: String
     ): User
-    updatePost(_id: ID!, postText: String!): Post
-    updateComment(_id: ID!, commentText: String!): Comment
-    addCategory(name: String!): Category
 
     createChat(tutor: ID, student: ID): Chat
     addMessage(chatId: ID, messageText: String): Message

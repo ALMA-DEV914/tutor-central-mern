@@ -36,8 +36,6 @@ function Signup() {
     try {
       const mutationResponse = await addTutor({
         variables: {
-          firstname: "tom",
-          lastname: "bellenger",
           email: formState.email,
           password: formState.password,
           username: formState.username,
@@ -48,11 +46,11 @@ function Signup() {
       Auth.login(token);
 
       // add mutation call to upload file
-      const upload = await fileUpload({
-        variables: {
-          file: fileInput.current.files[0],
-        },
-      });
+      // const upload = await fileUpload({
+      //   variables: {
+      //     file: fileInput.current.files[0],
+      //   },
+      // });
     } catch (err) {
       handleShowModal(err.message);
       console.log(err);

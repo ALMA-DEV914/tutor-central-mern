@@ -94,7 +94,7 @@ const resolvers = {
       return { token, user, student };
     },
     addTutor: async (parent, args) => {
-      const user = await User.create(args);
+      const user = await User.create({ ...args, role: "tutor" });
       const token = signToken(user);
       const tutor = await Tutor.create(args);
 

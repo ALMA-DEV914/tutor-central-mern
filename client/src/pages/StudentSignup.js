@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
-import { ADD_USER } from "../utils/mutations";
+import { ADD_STUDENT } from "../utils/mutations";
 import { Form, Button, Modal } from "react-bootstrap";
 
 function Signup() {
@@ -13,7 +13,7 @@ function Signup() {
     email: "",
     password: "",
   });
-  const [addUser] = useMutation(ADD_USER);
+  const [addUser] = useMutation(ADD_STUDENT);
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -38,7 +38,7 @@ function Signup() {
           username: formState.username,
         },
       });
-      const token = mutationResponse.data.addUser.token;
+      const token = mutationResponse.data.addStudent.token;
       Auth.login(token);
     } catch (err) {
       handleShowModal(err.message);

@@ -43,11 +43,20 @@ const TutorDisplay = (params) => {
 
   return (
     <Row>
+      {/* <SearchBar onChange={(event) => setQuery(event.target.value)}></SearchBar> */}
+      <input
+        placeholder="Enter search term"
+        onChange={(event) => setQuery(event.target.value)}
+      />
       {tutors
         .filter((tutors) => {
+          console.log(tutors);
           if (query === "") {
             return tutors;
-          } else if (tutors.toLowerCase().includes(query.toLowerCase())) {
+          } else if (
+            tutors.email.toLowerCase().includes(query.toLowerCase()) ||
+            tutors.username.toLowerCase().includes(query.toLowerCase())
+          ) {
             return tutors;
           }
         })

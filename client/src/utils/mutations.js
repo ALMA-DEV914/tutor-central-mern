@@ -113,15 +113,25 @@ export const UPDATE_USER = gql`
   }
 `;
 
-export const ADD_POST = gql`
-  mutation addPost($postText: String!) {
-    addPost(postText: $postText) {
+export const ADD_CHAT = gql`
+  mutation Mutation($tutor: ID) {
+    createChat(tutor: $tutor) {
       _id
-      postText
-      createdAt
-      username
-      comments {
+      tutor {
+        username
+      }
+      student {
+        username
+      }
+      messages {
         _id
+        messageText
+        from {
+          username
+        }
+        to {
+          username
+        }
       }
     }
   }

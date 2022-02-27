@@ -46,7 +46,9 @@ const typeDefs = gql`
     me: Me
     users: [User]
     tutors: [Tutor]
+    tutor: Tutor
     user(username: String!): User
+    chat(id: ID!): Chat
   }
 
   type Mutation {
@@ -93,7 +95,7 @@ const typeDefs = gql`
       password: String
     ): User
 
-    createChat(tutor: ID, student: ID): Chat
+    createChat(tutor: ID): Chat
     addMessage(chatId: ID, messageText: String): Message
 
     singleUpload(file: Upload!): File

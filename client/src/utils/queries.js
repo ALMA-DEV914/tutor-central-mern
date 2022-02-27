@@ -29,11 +29,28 @@ export const QUERY_TUTORS = gql`
 `;
 
 export const QUERY_ME = gql`
-  {
+  query me {
     me {
-      _id
-      username
-      email
+      tutor {
+        _id
+        userId {
+          _id
+          username
+          email
+          photo
+          role
+        }
+        hourlyRate
+        knownSubjects
+        bio
+      }
+      user {
+        _id
+        username
+        email
+        photo
+        role
+      }
     }
   }
 `;

@@ -19,14 +19,15 @@ const resolvers = {
         );
         console.log(userData);
         if (userData.role === "tutor") {
-          const tutorData = await Tutor.findOne({ tutorId: context.user._id });
-          return { userData, tutorData };
+          const tutorData = await Tutor.findOne({ userId: context.user._id });
+          console.log(tutorData);
+          return { user: userData, tutor: tutorData };
         }
         if (userData.role === "student") {
           const studentData = await Student.findOne({
-            studentId: context.user._id,
+            userId: context.user._id,
           });
-          return { userData, studentData };
+          return { user: userData, student: studentData };
         }
 
         // return userData;

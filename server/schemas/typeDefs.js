@@ -43,7 +43,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    me: User
+    me: Me
     users: [User]
     tutors: [Tutor]
     user(username: String!): User
@@ -104,6 +104,12 @@ const typeDefs = gql`
     user: User
     tutor: Tutor
     student: Student
+  }
+
+  type Me {
+    tutor: Tutor
+    student: Student
+    user: User
   }
 
   type File {

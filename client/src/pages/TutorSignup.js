@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
-import { ADD_TUTOR, SINGLE_FILE_UPLOAD } from "../utils/mutations";
+import { ADD_TUTOR } from "../utils/mutations";
 import { Form, Button, Modal } from "react-bootstrap";
 
 function TutorSignup() {
@@ -15,7 +15,7 @@ function TutorSignup() {
   });
   const fileInput = React.createRef();
   const [addTutor] = useMutation(ADD_TUTOR);
-  const [fileUpload] = useMutation(SINGLE_FILE_UPLOAD);
+  //const [fileUpload] = useMutation(SINGLE_FILE_UPLOAD);
 
   const handleCloseModal = () => {
     setShowModal(false);

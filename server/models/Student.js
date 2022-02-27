@@ -1,11 +1,10 @@
 const { Schema, model } = require("mongoose");
+const User = require("./User");
 const { default: mongoose } = require("mongoose");
 
 const studentSchema = new Schema(
   {
-    studentId: {
-      type: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    },
+    userId: { type: mongoose.Types.ObjectId, ref: User, required: true },
     paymentInfo: {
       type: String,
     },

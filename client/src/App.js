@@ -14,7 +14,7 @@ import { Container } from "react-bootstrap";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import TutorSignup from "./pages/TutorSignup";
-import TutorProfile from "./pages/TutorProfile";
+import TutorDetail from "./pages/TutorDetail";
 import StudentSignup from "./pages/StudentSignup";
 import Header from "./components/Header";
 import NoMatch from "./pages/NoMatch";
@@ -71,7 +71,7 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div
-          className="bg-light"
+          className='bg-light'
           style={{
             minHeight: "100vh",
             display: "flex",
@@ -98,9 +98,8 @@ function App() {
               <Route path='/logout' element={<Home logout={true} />} />
               <Route path='/student-signup' element={<StudentSignup />} />
               <Route path='/tutor-signup' element={<TutorSignup />} />
-              <Route path='/tutor/:id' element={<TutorProfile />} />
+              <Route path='/tutor/:id' element={<TutorDetail />} />
               <Route path='*' element={<NoMatch />} />
-
             </Routes>
           </Container>
           <Footer />

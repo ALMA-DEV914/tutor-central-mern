@@ -1,47 +1,5 @@
 import { gql } from "@apollo/client";
 
-export const QUERY_POSTS = gql`
-  query posts($username: String) {
-    posts(username: $username) {
-      _id
-      postText
-      createdAt
-      username
-      comments {
-        _id
-        createdAt
-        username
-        commentText
-      }
-    }
-  }
-`;
-export const QUERY_CATEGORIES = gql`
-  query categories {
-    categories {
-      _id
-      name
-    }
-  }
-`;
-
-export const QUERY_POST = gql`
-  query post($id: ID!) {
-    post(_id: $id) {
-      _id
-      postText
-      createdAt
-      username
-      comments {
-        _id
-        createdAt
-        username
-        commentText
-      }
-    }
-  }
-`;
-
 export const QUERY_USER = gql`
   query user($username: String!) {
     user(username: $username) {
@@ -84,20 +42,6 @@ export const QUERY_ME = gql`
           username
         }
       }
-    }
-  }
-`;
-export const GET_FEEDBACK = gql`
-  query Feedback {
-    Feedback(sortBy: { field: "createdAt", order: DESC }) {
-      _id
-      username
-      email
-      category
-      message
-      image
-      createdAt
-      archived
     }
   }
 `;

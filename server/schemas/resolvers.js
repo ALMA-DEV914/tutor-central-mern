@@ -32,14 +32,14 @@ const resolvers = {
 
     // get all users
     users: async () => {
-      return User.find().select("-__v -password");
+      return await User.find().select("-__v -password");
     },
     // get a user by username
     user: async (parent, { username }) => {
-      return User.findOne({ username }).select("-__v -password");
+      return await User.findOne({ username }).select("-__v -password");
     },
     tutors: async (parent, { role = "tutor" }) => {
-      return User.find({ role }).select("-__v -password");
+      return await User.findA({ role }).select("-__v -password");
     },
   },
 

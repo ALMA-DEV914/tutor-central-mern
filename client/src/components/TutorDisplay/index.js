@@ -5,7 +5,7 @@ import { QUERY_TUTORS } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
 import SearchBar from "../SearchBar";
 
-const TutorDisplay = (params) => {
+const TutorDisplay = () => {
   const [query, setQuery] = useState("");
 
   const { loading, data } = useQuery(QUERY_TUTORS);
@@ -24,20 +24,17 @@ const TutorDisplay = (params) => {
         .filter((tutor) => {
           if (query === "") {
             return tutor;
-          } else {
-            if (
-              tutor.email.toLowerCase().includes(query.toLowerCase()) ||
-              tutor.username.toLowerCase().includes(query.toLowerCase())
-            ) {
-              return tutor;
-            }
+          } else if (
+            tutor.userId.email.toLowerCase().includes(query.toLowerCase()) ||
+            tutor.userId.username.toLowerCase().includes(query.toLowerCase())
+          ) {
+            return tutor;
           }
         })
         .map((tutor, index) => {
           return (
             <Col key={index} sm={4}>
-              <Tutor data={tutor}></Tutor>
-              <p>{tutor.username}</p>
+              <Tutor tutor={tutor}></Tutor>
             </Col>
           );
         })}

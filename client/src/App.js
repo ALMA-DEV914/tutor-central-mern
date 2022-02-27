@@ -14,6 +14,7 @@ import { Container } from "react-bootstrap";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import TutorSignup from "./pages/TutorSignup";
+import TutorProfile from "./pages/TutorProfile";
 import StudentSignup from "./pages/StudentSignup";
 import Header from "./components/Header";
 import NoMatch from "./pages/NoMatch";
@@ -92,11 +93,14 @@ function App() {
           </ul> */}
           <Container>
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/student-signup" element={<StudentSignup />} />
-              <Route path="/tutor-signup" element={<TutorSignup />} />
-              <Route path="*" element={<NoMatch />} />
+              <Route path='/' element={<Home />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/logout' element={<Home logout={true} />} />
+              <Route path='/student-signup' element={<StudentSignup />} />
+              <Route path='/tutor-signup' element={<TutorSignup />} />
+              <Route path='/tutor/:id' element={<TutorProfile />} />
+              <Route path='*' element={<NoMatch />} />
+
             </Routes>
           </Container>
           <Footer />

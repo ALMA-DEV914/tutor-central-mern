@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Tutor from "../Tutor";
 import { Row, Col } from "react-bootstrap";
 import { QUERY_TUTORS } from "../../utils/queries";
@@ -29,13 +29,6 @@ const TutorDisplay = (params) => {
 
   const { loading, data } = useQuery(QUERY_TUTORS);
 
-  const tutors = data?.tutors || {};
-  // console.log(tutors);
-
-  // const { search } = window.location;
-  // const query = new URLSearchParams(search).get("s");
-  // const [searchQuery, setSearchQuery] = useState(query || "");
-  // const filteredTutors = filterTutors(tutors, searchQuery);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -43,6 +36,7 @@ const TutorDisplay = (params) => {
 
   return (
     <Row>
+
       {/* <SearchBar onChange={(event) => setQuery(event.target.value)}></SearchBar> */}
       <input
         placeholder="Enter search term"

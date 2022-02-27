@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
-import { ADD_USER } from "../utils/mutations";
+import { ADD_STUDENT } from "../utils/mutations";
 import { Form, Button, Modal } from "react-bootstrap";
 
-function Signup() {
+function StudentSignup() {
   const [showModal, setShowModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [validated, setValidated] = useState(false);
@@ -13,7 +13,7 @@ function Signup() {
     email: "",
     password: "",
   });
-  const [addUser] = useMutation(ADD_USER);
+  const [addStudent] = useMutation(ADD_STUDENT);
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -24,22 +24,31 @@ function Signup() {
   };
 
   const handleFormSubmit = async (event) => {
+    event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
+      setErrorMessage("Check all fields are complete and try again");
+      setShowModal(true);
     }
     setValidated(true);
     try {
-      const mutationResponse = await addUser({
+      const mutationResponse = await addStudent({
         variables: {
           email: formState.email,
           password: formState.password,
           username: formState.username,
         },
       });
-      const token = mutationResponse.data.addUser.token;
+      console.log(mutationResponse);
+      const token = mutationResponse.data.addStudent.token;
       Auth.login(token);
+
+      // add mutation call to upload file
+      // const upload = await fileUpload({
+      //   variables: {
+      //     file: fileInput.current.files[0],
+      //   },
+      // });
     } catch (err) {
       handleShowModal(err.message);
       console.log(err);
@@ -101,4 +110,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default StudentSignup;

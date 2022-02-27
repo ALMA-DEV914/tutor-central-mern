@@ -6,7 +6,7 @@ const Tutor = ({ data }) => {
     <Card>
       <Card.Img variant="top" src="https://via.placeholder.com/150" />
       <Card.Body>
-        <Card.Title>{data.name}</Card.Title>
+        <Card.Title>{data.username}</Card.Title>
         <Card.Text>
           <span>Rating: 5 Stars</span>
           <span>Hourly Rate: xxx</span>
@@ -16,8 +16,8 @@ const Tutor = ({ data }) => {
             the bulk of the card's content.
           </span>
         </Card.Text>
-        <Button variant="primary" href={`/tutor/${data.id}`}>
-          Sign up with {data.name}
+        <Button variant='primary' href={`/tutor/${data._id}`}>
+          Sign up with {data.username}
         </Button>
       </Card.Body>
     </Card>

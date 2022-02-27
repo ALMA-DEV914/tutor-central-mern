@@ -1,4 +1,4 @@
-const { User, Post, Category, Student, Tutor } = require("../models");
+const { User, Student, Tutor } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { GraphQLUpload } = require("graphql-upload");
 const aws = require("../utils/aws-fileupload");
@@ -13,9 +13,9 @@ const resolvers = {
     // },
     me: async (parent, args, context) => {
       if (context.user) {
-        const userData = await User.findOne({ _id: context.user._id })
-          .select("-__v -password")
-          .populate("posts");
+        const userData = await User.findOne({ _id: context.user._id }).select(
+          "-__v -password"
+        );
         if (userData.role === "tutor") {
           const tutorData = await Tutor.findOne({ _id: context.user._id });
           return { userData, tutorData };
@@ -29,97 +29,35 @@ const resolvers = {
       }
       throw new AuthenticationError("Not logged in");
     },
-    posts: async (parent, { username }) => {
-      const params = username ? { username } : {};
-      return Post.find(params).sort({ createdAt: -1 });
-    },
-
-    post: async (parent, { _id }) => {
-      return Post.findOne({ _id });
-    },
 
     // get all users
     users: async () => {
-      return User.find().select("-__v -password").populate("posts");
+      return await User.find().select("-__v -password");
     },
     // get a user by username
     user: async (parent, { username }) => {
-      return User.findOne({ username })
-        .select("-__v -password")
-        .populate("posts");
-    },
-    // tutor: async (parent, { username }) => {
-    //   const user = await User.findOne({ username }).select("-__v -password");
-    //   // const tutor = await Tutor.findOne({ username });
-    //   return { user };
-    // },
-    // student: async (parent, { username }) => {
-    //   return User.findOne({ username }).select("-__v -password");
-    // },
-    categories: async () => {
-      return await Category.find();
+      return await User.findOne({ username }).select("-__v -password");
     },
     tutors: async (parent, { role = "tutor" }) => {
-      return User.find({ role }).select("-__v -password").populate("posts");
+      return await User.find({ role }).select("-__v -password");
     },
   },
 
   Mutation: {
-    // addUser: async (parent, args) => {
-    //   const user = await User.create(args);
-    //   const token = signToken(user);
-
-    //   return { token, user };
-    // },
-    // addStudent: async (parent, args, content) => {
-    //   if (content.user.role === "student") {
-    //     const student = await Student.create(args);
-
-    //     return student;
-    //   }
-    // },
-    // addTutor: async (parent, args, content) => {
-    //   if (content.user.role === "tutor") {
-    //     const tutor = await Tutor.create(args);
-
-    //     return tutor;
-    //   }
-    // },
     addStudent: async (parent, args) => {
-      const user = await User.create(args);
+      const user = await User.create({ ...args, role: "student" });
       const token = signToken(user);
-
       const student = await Student.create(args);
 
       return { token, user, student };
     },
     addTutor: async (parent, args) => {
-      const user = await User.create(args);
+      const user = await User.create({ ...args, role: "tutor" });
       const token = signToken(user);
       const tutor = await Tutor.create(args);
 
       return { token, user, tutor };
     },
-    // addUser: async (parent, args) => {
-    //   const user = await User.create(args);
-    //   const token = signToken(user);
-    //   if (user.role === "student") {
-    //       addStudent: async(parent,args)=>{
-    //     const student = Student.create(args);
-    //     return { token, student };}
-    //   } else if (user.role === "tutor") {
-    //     const tutor = Tutor.create(args);
-    //     return { token, tutor };
-    //   }
-    //   //   return { token, user };
-    // },
-
-    addCategory: async (parent, args) => {
-      const category = await Category.create(args);
-
-      return category;
-    },
-
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
@@ -137,90 +75,11 @@ const resolvers = {
 
       return { token, user };
     },
-
-    addPost: async (parent, args, context) => {
-      if (context.user) {
-        const post = await Post.create({
-          ...args,
-          username: context.user.username,
-        });
-
-        await User.findByIdAndUpdate(
-          { _id: context.user._id },
-          { $push: { posts: post._id } },
-          { new: true }
-        );
-
-        return post;
-      }
-
-      throw new AuthenticationError("You need to be logged in!");
-    },
-
-    addComment: async (parent, { postId, commentText }, context) => {
-      if (context.user) {
-        const updatedPost = await Post.findOneAndUpdate(
-          { _id: postId },
-          {
-            $push: {
-              posts: { commentText, username: context.user.username },
-            },
-          },
-          { new: true, runValidators: true }
-        );
-
-        return updatedPost;
-      }
-
-      throw new AuthenticationError("You need to be logged in!");
-    },
-
     updateUser: async (parent, args, context) => {
       if (context.user) {
         return await User.findByIdAndUpdate(context.user._id, args, {
           new: true,
         });
-      }
-
-      throw new AuthenticationError("You need to be logged in!");
-    },
-
-    updatePost: async (parent, args, context) => {
-      if (context.user) {
-        const updatedPost = await Post.findByIdAndUpdate(Post._id, args, {
-          new: true,
-          runValidators: true,
-        });
-
-        await User.findByIdAndUpdate(
-          { _id: context.user._id },
-          { $push: { posts: updatedPost._id } },
-          { new: true }
-        );
-
-        return updatedPost;
-      }
-
-      throw new AuthenticationError("You need to be logged in!");
-    },
-    updateComment: async (parent, args, context) => {
-      if (context.user) {
-        const updatedComment = await Comment.findByIdAndUpdate(
-          Comment._id,
-          args,
-          {
-            new: true,
-            runValidators: true,
-          }
-        );
-
-        await User.findByIdAndUpdate(
-          { _id: context.user._id },
-          { $push: { posts: updatedComment._id } },
-          { new: true }
-        );
-
-        return updatedComment;
       }
 
       throw new AuthenticationError("You need to be logged in!");

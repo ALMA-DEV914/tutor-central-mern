@@ -27,6 +27,21 @@ export const QUERY_TUTORS = gql`
     }
   }
 `;
+export const QUERY_STUDENT = gql`
+   query students {
+     students{
+       _id
+       userId {
+         username
+         email
+         photo
+         role
+       }
+       paymentInfo
+       bio
+     }
+   }
+`
 
 export const QUERY_ME = gql`
   query me {

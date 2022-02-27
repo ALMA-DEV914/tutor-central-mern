@@ -3,6 +3,7 @@ import Tutor from "../Tutor";
 import { Row, Col } from "react-bootstrap";
 import { QUERY_TUTORS } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
+<<<<<<< HEAD
 
 const TutorDisplay = (params) => {
   // const [data, setData] = useState([
@@ -13,12 +14,20 @@ const TutorDisplay = (params) => {
 
   //setData(params);
 
+=======
+import SearchBar from "../SearchBar";
+
+const TutorDisplay = () => {
+>>>>>>> develop
   const [query, setQuery] = useState("");
 
   const { loading, data } = useQuery(QUERY_TUTORS);
 
+<<<<<<< HEAD
   const tutors = data?.tutors || {};
 
+=======
+>>>>>>> develop
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -26,26 +35,30 @@ const TutorDisplay = (params) => {
   return (
     <Row>
       <input
-        placeholder="Enter search term"
+        placeholder='Enter search term'
         onChange={(event) => setQuery(event.target.value)}
       />
+<<<<<<< HEAD
       {tutors
         .filter((tutors) => {
           // console.log(tutors);
+=======
+      {data.tutors
+        .filter((tutor) => {
+>>>>>>> develop
           if (query === "") {
-            return tutors;
+            return tutor;
           } else if (
-            tutors.email.toLowerCase().includes(query.toLowerCase()) ||
-            tutors.username.toLowerCase().includes(query.toLowerCase())
+            tutor.userId.email.toLowerCase().includes(query.toLowerCase()) ||
+            tutor.userId.username.toLowerCase().includes(query.toLowerCase())
           ) {
-            return tutors;
+            return tutor;
           }
         })
         .map((tutor, index) => {
           return (
             <Col key={index} sm={4}>
-              <Tutor data={tutor}></Tutor>
-              <p>{tutor.username}</p>
+              <Tutor tutor={tutor}></Tutor>
             </Col>
           );
         })}

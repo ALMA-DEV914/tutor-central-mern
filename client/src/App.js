@@ -50,7 +50,7 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div
-          className="bg-light"
+          className='bg-light'
           style={{
             minHeight: "100vh",
             display: "flex",
@@ -60,14 +60,14 @@ function App() {
           <Header />
           <Container>
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/logout" element={<Home logout={true} />} />
-              <Route path="/student-signup" element={<StudentSignup />} />
-              <Route path="/tutor-signup" element={<TutorSignup />} />
-              <Route path="/tutor/:id" element={<TutorDetail />} />
-              <Route path="/tutor-profile" element={<TutorProfile />} />
-              <Route path="*" element={<NoMatch />} />
+              <Route path='/' element={<Home />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/logout' element={<Home logout={true} />} />
+              <Route path='/student-signup' element={<StudentSignup />} />
+              <Route path='/tutor-signup' element={<TutorSignup />} />
+              <Route path='/tutor/:id' element={<TutorDetail />} />
+              <Route path='/tutor-profile' element={<TutorProfile />} />
+              <Route path='*' element={<NoMatch />} />
             </Routes>
           </Container>
           <Footer />

@@ -4,11 +4,16 @@ import { Button } from "react-bootstrap";
 
 const TutorProfile = () => {
   const { id } = useParams();
+
+  const handleChatClick = () => {
+    // create the chat between student and tutor
+  };
+
   return (
     <div>
       <h1>TutorPage for {id}</h1>
       <p>
-        <Button>Start Chat</Button>
+        <Button onClick={handleChatClick}>Start Chat</Button>
       </p>
     </div>
   );

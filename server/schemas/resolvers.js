@@ -39,7 +39,9 @@ const resolvers = {
       return await User.findOne({ username }).select("-__v -password");
     },
     tutors: async (parent, { role = "tutor" }) => {
-      return await User.find({ role }).select("-__v -password");
+      const user = await User.find({ role }).select("-__v -password");
+      const tutor = await Tutor.find({ tutorId: user._id }).select("-__v");
+      return { user, tutor };
     },
   },
 

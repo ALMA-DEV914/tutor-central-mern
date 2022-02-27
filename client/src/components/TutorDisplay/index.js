@@ -15,7 +15,7 @@ const TutorDisplay = (params) => {
 
   const { loading, data } = useQuery(QUERY_TUTORS);
 
-  const tutors = data?.tutors || {};
+  const tutors = data.tutors || {};
   console.log(tutors);
 
   if (loading) {

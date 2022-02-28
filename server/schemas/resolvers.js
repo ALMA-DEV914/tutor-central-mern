@@ -16,7 +16,7 @@ const resolvers = {
       if (context.user) {
         // console.log(context.user);
         const userData = await User.findOne({ _id: context.user._id }).select(
-          "-__v -password"
+          "-__v"
         );
 
         if (userData.role === "tutor") {
@@ -103,6 +103,9 @@ const resolvers = {
         return await User.findByIdAndUpdate(context.user._id, args, {
           new: true,
         });
+        // const user = await User.find({ id: context.user._id });
+        // user.password = args.password;
+        // user.save();
       }
 
       throw new AuthenticationError("You need to be logged in!");

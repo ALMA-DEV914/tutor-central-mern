@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
-import { ADD_TUTOR } from "../utils/mutations";
+import { ADD_TUTOR, GET_S3_URL } from "../utils/mutations";
 import { Card, Form, Button, Modal } from "react-bootstrap";
 
 function TutorSignup() {
@@ -15,7 +15,7 @@ function TutorSignup() {
   });
   const fileInput = React.createRef();
   const [addTutor] = useMutation(ADD_TUTOR);
-  //const [fileUpload] = useMutation(SINGLE_FILE_UPLOAD);
+  const [getS3Url] = useMutation(GET_S3_URL);
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -27,6 +27,7 @@ function TutorSignup() {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    console.log(fileInput);
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       setErrorMessage("Check all fields are complete and try again");
@@ -43,14 +44,36 @@ function TutorSignup() {
       });
       console.log(mutationResponse);
       const token = mutationResponse.data.addTutor.token;
-      Auth.login(token);
 
-      // add mutation call to upload file
-      // const upload = await fileUpload({
-      //   variables: {
-      //     file: fileInput.current.files[0],
-      //   },
-      // });
+      //add mutation call to upload file
+      if (fileInput.files[0].size > 1024 * 1024 * 10) {
+        // 10mb file size limit
+        handleShowModal("photo is too big. 10Mb file size limit exceeded");
+        return;
+      }
+      const uploadUrl = await getS3Url({
+        variables: {
+          file: `${mutationResponse.data.addTutor.userId._id}.jpg`,
+        },
+      });
+
+      const formData = new FormData();
+      formData.append(
+        "file",
+        fileInput.files[0],
+        `${mutationResponse.data.addTutor.userId._id}.jpg`
+      );
+      const img_response = await fetch(uploadUrl, {
+        method: "PUT",
+        body: formData,
+      });
+      if (img_response.ok) {
+        console.log("image upload success");
+      } else {
+        console.log("image upload failed");
+      }
+
+      Auth.login(token);
     } catch (err) {
       handleShowModal(err.message);
       console.log(err);
@@ -100,9 +123,7 @@ function TutorSignup() {
           <Form.Group className='mb-3' controlId='formFileInput'>
             <Form.Label>Photo</Form.Label>
             <input
-              id='formFileInput'
               className='file-input form-control'
-              name='file'
               type='file'
               accept='image/png, image/jpeg'
               ref={fileInput}

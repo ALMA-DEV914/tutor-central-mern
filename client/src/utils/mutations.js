@@ -177,8 +177,8 @@ export const SINGLE_FILE_UPLOAD = gql`
 `;
 
 export const GET_S3_URL = gql`
-  mutation Mutation($isLoggedIn: Boolean!) {
-    getS3Url(isLoggedIn: $isLoggedIn)
+  mutation Mutation($filename: String!) {
+    signedLink(filename: $filename)
   }
 `;
 

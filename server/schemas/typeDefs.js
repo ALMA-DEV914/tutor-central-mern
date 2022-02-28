@@ -102,6 +102,7 @@ const typeDefs = gql`
     addMessage(chatId: ID, messageText: String): Message
 
     singleUpload(file: Upload!): File
+    signedLink(filename: String!): String
   }
 
   type Auth {

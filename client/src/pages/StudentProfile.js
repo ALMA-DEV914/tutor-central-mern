@@ -1,15 +1,14 @@
-import React, { useState, useReducer} from "react";
+import React, { useState, useReducer, useContext} from "react";
 import Auth from "../utils/auth";
 import { USER_UPDATE_PASSWORD, UPDATE_PROFILE_PIC, GET_S3_URL } from "../utils/mutations";
 import { QUERY_STUDENT } from "../utils/queries";
 import { useMutation, useQuery } from "@apollo/client";
-import { useParams } from "react-router-dom";
+//import { useParams } from "react-router-dom";
 
 const Profile = (params) => {
-
     const { loading, data } = useQuery(QUERY_STUDENT);
     console.log(data);
-    const student = Auth.getProfile();
+    const user = Auth.getProfile();
 
     //graphql mutation to update password
     const [updatePassword] = useMutation(USER_UPDATE_PASSWORD);
@@ -17,8 +16,7 @@ const Profile = (params) => {
     const [oldPassword, setOldPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [repeatNewPassword, setRepeatNewPassword] = useState("");
-    const [isDisabled, setIsDisabled] = useState(false);
-    const [validatorPassword] = useState(new useState());
+    const [isDisabled] = useState(false);
     // eslint-disable-next-line
     const [_, forceUpdate] = useReducer((x) => x + 1, 0);
 
@@ -44,70 +42,38 @@ const Profile = (params) => {
         if (loading) {
             return <div>Loading...</div>;
           }
-        
-        if (validatorPassword.allValid()) {
+    
             try {
                 //update password via graphql
                 const { data } = await updatePassword({
                     variables: {
-                        email: student.email,
+                        email: user.email,
                         oldPassword,
                         newPassword,
                     },
                 });
                 //give user feedback of action
                 if (data) {
-                     useParams.updateAndShowModal(
-                            "Success",
+                        return ("Success",
                             "Your password has been updated successfully."
                         )
             
                 } else {
-                    useParams.updateAndShowModal(
+                    return (
                             "Error",
                             "There was a problem updating your password."
                         )
                 }
-                //disable update button to prevent spamming
-                setIsDisabled(true);
-                setOldPassword("");
-                setNewPassword("");
-                setRepeatNewPassword("");
+                
             } catch (err) {
-                useState.updateAndShowModal("Error", err.message);
+                return ("Error", err.message);
             }
-        } else {
-            //show issues with validation
-            validatorPassword.showMessages();
             //force update state to show validation messages to user
-            forceUpdate();
         }
-    };
+        
     const handleModalExit = params.handleModalExit;
     const [imageFile, setImageFile] = useState(null);
     const [imageIsSquare, setImageIsSquare] = useState(true);
-
-     const [validatorProfilePic] = useState(
-        new useState({
-            validators: {
-                maxFileSize: {
-                    // name the rule
-                    message: "The max file size is 250kb.",
-                    rule: (val, params, validator) => {
-                        if (val) {
-                            const fileSize = val.size / 1024 / 1024; // in MiB
-                            if (fileSize > 0.25) {
-                                return false;
-                            } else {
-                                return true;
-                            }
-                        }
-                    },
-                    required: true, // optional
-                },
-            },
-        })
-    );
 
     //mutations to upload the file to s3 and update db with its URL
     const [getS3UrlAuthenticated] = useMutation(GET_S3_URL);
@@ -116,7 +82,7 @@ const Profile = (params) => {
     const onSubmit = async (event) => {
         event.preventDefault();
         //check both SimpleReactValidator and custom image is square validator
-        if (validatorProfilePic.allValid() && imageIsSquare) {
+        if (imageIsSquare) {
             try {
                 let imageUrl = "";
                 if (imageFile) {
@@ -142,8 +108,8 @@ const Profile = (params) => {
                         //update db with s3 URL
                         await updateProfilePic({
                             variables: {
-                               userId: student.id,
-                                profilePic: imageUrl,
+                               userId: user.id,
+                               profilePic: imageUrl,
                             },
                         });
                         //let user know it was updated
@@ -165,7 +131,7 @@ const Profile = (params) => {
 
                     } catch (err) {
                         setTimeout(function () {
-                           useState.updateAndShowModal(
+                           useContext.updateAndShowModal(
                                     "Error",
                                     "There was an error either with graphQL, MongoDB, or Amazon s3. Please try again later."
                                 )
@@ -174,12 +140,10 @@ const Profile = (params) => {
                 }
             } catch (error) {
                 console.log(error);
-               useState.updateAndShowModal("Error", error.message)
+               useContext.updateAndShowModal("Error", error.message)
 
             }
         } else {
-            //show issues with validation
-            validatorProfilePic.showMessages();
             //force update state to show validation messages to user
             forceUpdate();
         }
@@ -230,10 +194,10 @@ const Profile = (params) => {
                 <div className="container">
                     <div>
                         <img
-                            className="img-fluid mx-auto d-block large-profile-pic"
-                            src={student.profilePic}
+                            className="mr-3 avatar avatar-xl rounded profile-pic"
+                            src={user.profilePic}
                             alt="profile pic"
-                        />
+                        />{user.username}
                     </div>
                     <div className="row">
                         <div className="col-md-12">
@@ -286,7 +250,7 @@ const Profile = (params) => {
                                         className="form-control"
                                         id="username"
                                         aria-describedby="username"
-                                        placeholder={student.username}
+                                        placeholder={user.username}
                                         disabled
                                     />
                                 </div>
@@ -301,7 +265,7 @@ const Profile = (params) => {
                                         className="form-control"
                                         id="email"
                                         aria-describedby="email"
-                                        placeholder={student.email}
+                                        placeholder={user.email}
                                         disabled
                                     />
                                 </div>
@@ -314,7 +278,7 @@ const Profile = (params) => {
                                         type="checkbox"
                                         className="custom-control-input"
                                         id="customCheckDisabled"
-                                        checked={student.isVerified}
+                                        checked={user.isVerified}
                                         disabled
                                     />
                                     <label
@@ -328,7 +292,7 @@ const Profile = (params) => {
                         </div>
                         <hr className="mt-2 mb-2" />
                         <div className="form-row">
-                            <div className="col-lg-6 col-xs-12">
+                        <div className="col-lg-6 col-xs-12">
                                 <h5 className="mb-2 fs-20 font-weight-normal">
                                     Update Password
                                 </h5>

@@ -19,6 +19,7 @@ function Header() {
                 <Nav.Link href='/tutor-profile'>Profile</Nav.Link>
                 <Nav.Link href='/logout'>Logout</Nav.Link>
                 <Nav.Link href='/student-profile'>Student Profile</Nav.Link>
+               
               </>
             )}
             {!Auth.loggedIn() && (

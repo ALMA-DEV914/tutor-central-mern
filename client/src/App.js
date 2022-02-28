@@ -22,6 +22,7 @@ import Footer from "./components/Footer";
 import TutorProfile from "./pages/TutorProfile";
 import ChatDetail from "./pages/ChatDetail";
 import StudentProfile from "./pages/StudentProfile";
+import  {Pricing} from "./components/Pricing";
 
 
 // import Tutor from "./components/Tutor";
@@ -71,6 +72,7 @@ function App() {
               <Route path='/tutor/:id' element={<TutorDetail />} />
               <Route path='/tutor-profile' element={<TutorProfile />} />
               <Route path='/student-profile' element={<StudentProfile />}/>
+              <Route path="/pricing" element={<Pricing/>}/>
               <Route path='/chat/:id' element={<ChatDetail />} />
               <Route path='*' element={<NoMatch />} />
             </Routes>

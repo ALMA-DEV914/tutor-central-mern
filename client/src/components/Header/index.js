@@ -3,6 +3,8 @@ import Auth from "../../utils/auth";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 
 function Header() {
+  const handleShow = () => (true);
+
   return (
     <Navbar bg='primary' variant='dark' collapseOnSelect expand='lg'>
       <Container fluid>
@@ -12,7 +14,7 @@ function Header() {
           <Nav className='me-auto'>
             <Nav.Link href='/'>Home</Nav.Link>
             <Nav.Link href='/features'>Features</Nav.Link>
-            <Nav.Link href='/pricing'>Pricing</Nav.Link>
+            <Nav.Link href='/pricing' onClick={handleShow}>Pricing</Nav.Link>
 
             {Auth.loggedIn() && (
               <>

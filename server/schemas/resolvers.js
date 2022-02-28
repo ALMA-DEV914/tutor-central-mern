@@ -98,18 +98,45 @@ const resolvers = {
 
       return { token, user };
     },
+    // updateUser: async (parent, args, context) => {
+    //   if (context.user) {
+    //     return await User.findByIdAndUpdate(context.user._id, args, {
+    //       new: true,
+    //     });
+    //     // const user = await User.find({ id: context.user._id });
+    //     // user.password = args.password;
+    //     // user.save();
+    //   }
+
+    //   throw new AuthenticationError("You need to be logged in!");
+    // },
+    // updateUser: async (parent, args, context) => {
+    //   if (context.user) {
+    //     const user = await User.findByIdAndUpdate(
+    //       { _id: context.user._id },
+    //       args,
+    //       { new: true }
+    //     );
+    //     console.log(user);
+    //     return user;
+    //   }
+
+    //   throw new AuthenticationError("You need to be logged in!");
+    // },
     updateUser: async (parent, args, context) => {
       if (context.user) {
-        return await User.findByIdAndUpdate(context.user._id, args, {
-          new: true,
-        });
-        // const user = await User.find({ id: context.user._id });
-        // user.password = args.password;
-        // user.save();
+        const user = await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          args,
+          { new: true }
+        );
+        // console.log(user);
+        return user;
       }
 
       throw new AuthenticationError("You need to be logged in!");
     },
+
     createChat: async (parent, { tutor }, context) => {
       if (context.user) {
         let chat = await Chat.findOne({

@@ -11,17 +11,25 @@ function TutorProfile() {
   // let navigate = useNavigate();
 
   const { loading, data } = useQuery(QUERY_ME);
-  // console.log(data);
+  // console.log(data.me.user.username);
+  const [errorMessage, setErrorMessage] = useState("");
   const [formState, setFormState] = useState({
     // username: `${data.me.user.username}`,
-    username: "",
-    password: "",
+    // username: data.me.user.username,
+    // password: `${data.me.user.password}`,
+    username: ``,
+    password: ``,
   });
 
   const [updateUser] = useMutation(UPDATE_USER);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+    if (!event.target.value.length) {
+      setErrorMessage(`${event.target.name} is required.`);
+    } else {
+      setErrorMessage("");
+    }
 
     setFormState({
       ...formState,
@@ -63,12 +71,12 @@ function TutorProfile() {
         <div>
           <p>{data.me.user.username}</p>
           <p>{data.me.user.email}</p>
-          <p>{data.me.tutor._id}</p>
+          {/* <p>{data.me.tutor._id}</p> */}
         </div>
         <form onSubmit={handleFormSubmit}>
           <input
             className="form-input"
-            placeholder="Your username"
+            placeholder="username"
             name="username"
             type="username"
             id="username"
@@ -84,6 +92,11 @@ function TutorProfile() {
             value={formState.password}
             onChange={handleChange}
           />
+          {errorMessage && (
+            <div>
+              <p className="error-text">{errorMessage}</p>
+            </div>
+          )}
           <button className="btn d-block w-100" type="submit">
             Submit
           </button>

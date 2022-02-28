@@ -1,15 +1,18 @@
-import {  useHistory } from "react-router-dom";
 import React, { useState, useReducer} from "react";
 import Auth from "../utils/auth";
-import { ADD_STUDENT, USER_UPDATE_PASSWORD, UPDATE_PROFILE_PIC, GET_S3_URL_AUTHENTICATED } from "../utils/mutations";
+import { USER_UPDATE_PASSWORD, UPDATE_PROFILE_PIC, GET_S3_URL } from "../utils/mutations";
+import { QUERY_STUDENT } from "../utils/queries";
 import { useMutation, useQuery } from "@apollo/client";
+import { useParams } from "react-router-dom";
 
 const Profile = (params) => {
-    //to save and get data
-    const {loading, data} = useQuery(ADD_STUDENT);
-    console.log(data);
-    const user = useHistory((state) => state.loggedInUser);
 
+    const { loading, data } = useQuery(QUERY_STUDENT);
+    console.log(data);
+    const student = Auth.getProfile();
+
+    //graphql mutation to update password
+    const [updatePassword] = useMutation(USER_UPDATE_PASSWORD);
     //local component state
     const [oldPassword, setOldPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
@@ -18,9 +21,6 @@ const Profile = (params) => {
     const [validatorPassword] = useState(new useState());
     // eslint-disable-next-line
     const [_, forceUpdate] = useReducer((x) => x + 1, 0);
-
-    //graphql mutation to update password
-    const [updatePassword] = useMutation(USER_UPDATE_PASSWORD);
 
     //update state for password update field inputs
     const handleOldPasswordInputChange = (event) => {
@@ -50,19 +50,20 @@ const Profile = (params) => {
                 //update password via graphql
                 const { data } = await updatePassword({
                     variables: {
-                        email: user.email,
+                        email: student.email,
                         oldPassword,
                         newPassword,
                     },
                 });
                 //give user feedback of action
                 if (data) {
-                    useState.updateAndShowModal(
+                     useParams.updateAndShowModal(
                             "Success",
                             "Your password has been updated successfully."
                         )
+            
                 } else {
-                    useState.updateAndShowModal(
+                    useParams.updateAndShowModal(
                             "Error",
                             "There was a problem updating your password."
                         )
@@ -109,7 +110,7 @@ const Profile = (params) => {
     );
 
     //mutations to upload the file to s3 and update db with its URL
-    const [getS3UrlAuthenticated] = useMutation(GET_S3_URL_AUTHENTICATED);
+    const [getS3UrlAuthenticated] = useMutation(GET_S3_URL);
     const [updateProfilePic] = useMutation(UPDATE_PROFILE_PIC);
 
     const onSubmit = async (event) => {
@@ -141,7 +142,7 @@ const Profile = (params) => {
                         //update db with s3 URL
                         await updateProfilePic({
                             variables: {
-                                userId: user.id,
+                               userId: student.id,
                                 profilePic: imageUrl,
                             },
                         });
@@ -230,7 +231,7 @@ const Profile = (params) => {
                     <div>
                         <img
                             className="img-fluid mx-auto d-block large-profile-pic"
-                            src={data.user.student.profilePic}
+                            src={student.profilePic}
                             alt="profile pic"
                         />
                     </div>
@@ -252,19 +253,7 @@ const Profile = (params) => {
                                                 handleImageSelection(event);
                                             }}
                                         />
-                                        {validatorProfilePic.message(
-                                            "maxFileSize",
-                                            imageFile,
-                                            "maxFileSize"
-                                        )}
-                                        {imageIsSquare ? (
-                                            <></>
-                                        ) : (
-                                            <>
-                                                The image must be a perfect
-                                                square.
-                                            </>
-                                        )}
+                                        
                                     </div>
                                     <button
                                         type="submit"
@@ -297,7 +286,7 @@ const Profile = (params) => {
                                         className="form-control"
                                         id="username"
                                         aria-describedby="username"
-                                        placeholder={data.user.student.username}
+                                        placeholder={student.username}
                                         disabled
                                     />
                                 </div>
@@ -312,7 +301,7 @@ const Profile = (params) => {
                                         className="form-control"
                                         id="email"
                                         aria-describedby="email"
-                                        placeholder={data.user.student.email}
+                                        placeholder={student.email}
                                         disabled
                                     />
                                 </div>
@@ -325,7 +314,7 @@ const Profile = (params) => {
                                         type="checkbox"
                                         className="custom-control-input"
                                         id="customCheckDisabled"
-                                        checked={data.user.student.isVerified}
+                                        checked={student.isVerified}
                                         disabled
                                     />
                                     <label
@@ -357,11 +346,7 @@ const Profile = (params) => {
                                         disabled={isDisabled}
                                         required
                                     />
-                                    {validatorPassword.message(
-                                        "password",
-                                        oldPassword,
-                                        "required|min:5"
-                                    )}
+                                    
                                     <label htmlFor="userMail">
                                         New Password
                                     </label>
@@ -375,16 +360,6 @@ const Profile = (params) => {
                                         disabled={isDisabled}
                                         required
                                     />
-                                    {validatorPassword.message(
-                                        "password",
-                                        newPassword,
-                                        `required|in:${repeatNewPassword}|min:5`,
-                                        {
-                                            messages: {
-                                                in: "Passwords need to match.",
-                                            },
-                                        }
-                                    )}
                                     <label htmlFor="userMail">
                                         Repeat Password
                                     </label>
@@ -400,16 +375,7 @@ const Profile = (params) => {
                                         disabled={isDisabled}
                                         required
                                     />
-                                    {validatorPassword.message(
-                                        "password",
-                                        repeatNewPassword,
-                                        `required|in:${newPassword}|min:6`,
-                                        {
-                                            messages: {
-                                                in: "Passwords need to match.",
-                                            },
-                                        }
-                                    )}
+                    
                                 </div>
                             </div>
                         </div>

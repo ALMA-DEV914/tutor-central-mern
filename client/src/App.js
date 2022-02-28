@@ -21,6 +21,7 @@ import NoMatch from "./pages/NoMatch";
 import Footer from "./components/Footer";
 import TutorProfile from "./pages/TutorProfile";
 import ChatDetail from "./pages/ChatDetail";
+import StudentProfile from "./pages/StudentProfile";
 
 // import Tutor from "./components/Tutor";
 // import { QUERY_TUTORS } from "./utils/queries";
@@ -68,6 +69,7 @@ function App() {
               <Route path='/tutor-signup' element={<TutorSignup />} />
               <Route path='/tutor/:id' element={<TutorDetail />} />
               <Route path='/tutor-profile' element={<TutorProfile />} />
+              <Route path='/student-profile' element={<StudentProfile />}/>
               <Route path='/chat/:id' element={<ChatDetail />} />
               <Route path='*' element={<NoMatch />} />
             </Routes>

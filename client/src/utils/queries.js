@@ -27,7 +27,7 @@ export const QUERY_TUTORS = gql`
     }
   }
 `;
-export const QUERY_STUDENT = gql`
+export const QUERY_STUDENTS = gql`
    query students {
      students{
        _id
@@ -42,6 +42,21 @@ export const QUERY_STUDENT = gql`
      }
    }
 `
+export const QUERY_STUDENT = gql`
+query student($studentID: ID!) {
+student(id: $studentId) {
+    _id
+    userId {
+      _id
+      username
+      email
+      photo
+      role
+    }
+    paymentInfo
+    bio
+  }
+}`;
 
 export const QUERY_ME = gql`
   query me {

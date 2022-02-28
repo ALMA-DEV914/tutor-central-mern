@@ -1,6 +1,6 @@
 import React, { useState, useReducer, useContext} from "react";
 import Auth from "../utils/auth";
-import { USER_UPDATE_PASSWORD, UPDATE_PROFILE_PIC, GET_S3_URL } from "../utils/mutations";
+import { USER_UPDATE_PASSWORD, UPDATE_PROFILE_PIC, SINGLE_FILE_UPLOAD } from "../utils/mutations";
 import { QUERY_STUDENT } from "../utils/queries";
 import { useMutation, useQuery } from "@apollo/client";
 //import { useParams } from "react-router-dom";
@@ -76,7 +76,7 @@ const Profile = (params) => {
     const [imageIsSquare, setImageIsSquare] = useState(true);
 
     //mutations to upload the file to s3 and update db with its URL
-    const [getS3UrlAuthenticated] = useMutation(GET_S3_URL);
+    const [getFileUrlAuthenticated] = useMutation(SINGLE_FILE_UPLOAD);
     const [updateProfilePic] = useMutation(UPDATE_PROFILE_PIC);
 
     const onSubmit = async (event) => {
@@ -87,14 +87,14 @@ const Profile = (params) => {
                 let imageUrl = "";
                 if (imageFile) {
                     //get secure url from our server
-                    const urlReturnObject = await getS3UrlAuthenticated({
+                    const urlReturnObject = await getFileUrlAuthenticated({
                         variables: {
                             isLoggedIn: Auth.loggedIn(),
                         },
                     });
                     const urlObject = urlReturnObject.data;
-                    const url = urlObject.getS3UrlAuthenticated;
-                    //post the image directly to the s3 bucket
+                    const url = urlObject.getFileUrlAuthenticated;
+                    //post the image directly to the aws bucket
                     await fetch(url, {
                         method: "PUT",
                         headers: {

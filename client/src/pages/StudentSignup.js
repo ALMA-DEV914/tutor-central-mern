@@ -12,6 +12,7 @@ function StudentSignup() {
     username: "",
     email: "",
     password: "",
+    photo: "",
   });
   const [addStudent] = useMutation(ADD_STUDENT);
 
@@ -37,6 +38,7 @@ function StudentSignup() {
           email: formState.email,
           password: formState.password,
           username: formState.username,
+          photo: formState.photo
         },
       });
       console.log(mutationResponse);
@@ -59,6 +61,8 @@ function StudentSignup() {
     const { name, value } = event.currentTarget;
     setFormState({ ...formState, [name]: value });
   };
+
+  
 
   return (
     <Card className='my-3'>
@@ -85,7 +89,6 @@ function StudentSignup() {
               onChange={handleChange}
             />
           </Form.Group>
-
           <Form.Group className='mb-3' controlId='formBasicPassword'>
             <Form.Label>Password</Form.Label>
             <Form.Control

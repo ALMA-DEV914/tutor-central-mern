@@ -176,11 +176,6 @@ export const SINGLE_FILE_UPLOAD = gql`
   }
 `;
 
-export const GET_S3_URL = gql`
-  mutation Mutation($isLoggedIn: Boolean!) {
-    getS3Url(isLoggedIn: $isLoggedIn)
-  }
-`;
 
 export const UPDATE_PROFILE_PIC = gql`
   mutation Mutation($userId: ID!, $profilePic: String!) {

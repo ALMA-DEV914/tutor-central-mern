@@ -64,7 +64,7 @@ export const Pricing = () => {
   </Card.Body>
 </Card></Col>
 </Row>
-<Row><Button variant='success' type='submit' href='/signup' style={{width:'50%', margin: '3% auto', padding: '12px'}}>START YOUR FREE TRIAL</Button></Row>
+<Row><Button variant='success' type='submit' href='/student-signup' style={{width:'50%', margin: '3% auto', padding: '12px'}}>START YOUR FREE TRIAL</Button></Row>
 </Container>
     );
 }

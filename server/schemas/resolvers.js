@@ -153,6 +153,51 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in");
     },
+
+    updatePassword: async (
+      parent,
+      { email, oldPassword, newPassword },
+      context
+  ) => {
+      //context (set in app.js on the client) shows there is a valid token associated with the user for security
+      //checking the context has a user is server side validation that the login is valid, and should be used on all actions that require the user to be logged in
+      if (context.user) {
+          //find user by email
+          const user = await User.findOne({ email });
+          //if it doesn't exist let the user know (unlikely in this scenario)
+          if (!user) {
+              throw new AuthenticationError(
+                  "The email does not have a record associated with it."
+              );
+          }
+          //if the user exists confirm the existing password entered is correct
+          const correctPw = await user.isCorrectPassword(oldPassword);
+          //if not let user know
+          if (!correctPw) {
+              throw new AuthenticationError(
+                  "The existing password you entered is incorrect."
+              );
+          }
+          //the existing password is correct, so take the new one and encrypt it
+          var encryptedPw = signToken.hashSync(newPassword, 10);
+          //update database with new encrypted password
+          const userUpdated = await User.findOneAndUpdate(
+              { email },
+              { password: encryptedPw }
+          );
+          //if no data was returned there was an error updating the password
+          if (!userUpdated) {
+              throw new AuthenticationError(
+                  "There was a problem updating your password."
+              );
+          }
+          return userUpdated;
+      }
+      throw new AuthenticationError(
+          "You must be logged in to perform this action."
+      );
+  },
+  
     singleUpload: async (parent, { file }) => {
       if (context.user) {
         const { createReadStream, filename, mimetype, encoding } = await file;

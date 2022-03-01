@@ -32,7 +32,7 @@ const uploadFile = (filename, data) => {
 };
 
 const getS3UploadLink = (filename) => {
-  const signedUrlExpireSeconds = 60 * 3;
+  const signedUrlExpireSeconds = 60 * 10;
 
   const url = s3.getSignedUrl("getObject", {
     Bucket: process.env.AWS_BUCKET_NAME,

@@ -3,6 +3,7 @@ import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
 import { ADD_TUTOR, GET_S3_URL } from "../utils/mutations";
 import { Card, Form, Button, Modal } from "react-bootstrap";
+import FileUploader from "../components/FileUploader";
 
 function TutorSignup() {
   const [showModal, setShowModal] = useState(false);
@@ -13,7 +14,7 @@ function TutorSignup() {
     email: "",
     password: "",
   });
-  const fileInput = React.createRef();
+  const [photo, setPhoto] = useState(null);
   const [addTutor] = useMutation(ADD_TUTOR);
   const [getS3Url] = useMutation(GET_S3_URL);
 
@@ -27,43 +28,37 @@ function TutorSignup() {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(fileInput);
+    console.log(photo);
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       setErrorMessage("Check all fields are complete and try again");
       setShowModal(true);
     }
     setValidated(true);
+    const uniqueFilename = new Date().getTime() + ".jpg";
     try {
       const mutationResponse = await addTutor({
         variables: {
           email: formState.email,
           password: formState.password,
           username: formState.username,
+          photo: uniqueFilename,
         },
       });
       console.log(mutationResponse);
       const token = mutationResponse.data.addTutor.token;
 
       //add mutation call to upload file
-      if (fileInput.files[0].size > 1024 * 1024 * 10) {
-        // 10mb file size limit
-        handleShowModal("photo is too big. 10Mb file size limit exceeded");
-        return;
-      }
       const uploadUrl = await getS3Url({
         variables: {
-          file: `${mutationResponse.data.addTutor.userId._id}.jpg`,
+          filename: uniqueFilename,
         },
       });
+      console.log(uploadUrl.data);
 
       const formData = new FormData();
-      formData.append(
-        "file",
-        fileInput.files[0],
-        `${mutationResponse.data.addTutor.userId._id}.jpg`
-      );
-      const img_response = await fetch(uploadUrl, {
+      formData.append("file", photo, uniqueFilename);
+      const img_response = await fetch(uploadUrl.data.signedLink, {
         method: "PUT",
         body: formData,
       });
@@ -122,12 +117,10 @@ function TutorSignup() {
           </Form.Group>
           <Form.Group className='mb-3' controlId='formFileInput'>
             <Form.Label>Photo</Form.Label>
-            <input
-              className='file-input form-control'
-              type='file'
-              accept='image/png, image/jpeg'
-              ref={fileInput}
-            />
+            <FileUploader
+              onFileSelectSuccess={(file) => setPhoto(file)}
+              onFileSelectError={(message) => console.log(message)}
+            ></FileUploader>
           </Form.Group>
           <Button variant='primary' type='submit' onClick={handleFormSubmit}>
             Submit

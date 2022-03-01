@@ -61,7 +61,6 @@ function StudentSignup() {
     const { name, value } = event.currentTarget;
     setFormState({ ...formState, [name]: value });
   };
-
   
 
   return (
@@ -94,7 +93,7 @@ function StudentSignup() {
             <Form.Control
               type='password'
               name='password'
-              placeholder='Password'
+              placeholder='password'
               onChange={handleChange}
             />
           </Form.Group>

@@ -4,6 +4,7 @@ import { USER_UPDATE_PASSWORD,  SINGLE_FILE_UPLOAD } from "../utils/mutations";
 import { QUERY_STUDENT } from "../utils/queries";
 import { useMutation, useQuery } from "@apollo/client";
 //import { useParams } from "react-router-dom";
+import { Container, Col,Row } from "react-bootstrap";
 
 const Profile = (params) => {
     const { loading, data } = useQuery(QUERY_STUDENT);
@@ -77,135 +78,130 @@ const Profile = (params) => {
                       
     
 return (
-        <>
-        <div>
-      <h1>Welcome to Your Dashboard</h1>
-      {selectedImage && (
-        <div>
-        <img alt="not fount" width={"250px"} src={URL.createObjectURL(selectedImage)} />
-        <br />
-        <button onClick={()=>setSelectedImage(null)}>Remove</button>
-        </div>
-      )}
-      <br />
-     
-      <br /> 
-      <input
-        type="file"
-        name="myImage"
-        onChange={(event) => {
-          console.log(event.target.files[0]);
-          setSelectedImage(event.target.files[0]);
-        }}
-      />
-    </div>
-            
         
-        <div className="row justify-content-center">
-                <div className="col-md-10 col-lg-8">
-                    <h5 className="mb-2 fs-20 font-weight-normal">
-                        General Information
-                    </h5>
-                    <form>
-                        <div className="form-row">
-                            <div className="col-lg-6 col-xs-12">
-                                <div className="form-group">
-                                    <label htmlFor="firstName">Username</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        id="username"
-                                        aria-describedby="username"
-                                        placeholder={user.username}
-                                        disabled
-                                    />
-                                </div>
-                            </div>
-                            <div className="col-lg-6 col-xs-12">
-                                <div className="form-group">
-                                    <label htmlFor="secondName">
-                                        Email Address
-                                    </label>
-                                    <input
-                                        type="email"
-                                        className="form-control"
-                                        id="email"
-                                        aria-describedby="email"
-                                        placeholder={user.email}
-                                        disabled
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                       
-                        <hr className="mt-2 mb-2" />
-                        <div className="form-row">
-                        <div className="col-lg-6 col-xs-12">
-                                <h5 className="mb-2 fs-20 font-weight-normal">
-                                    Update Password
-                                </h5>
-                                <div className="form-group">
-                                    <label htmlFor="userMail">
-                                        Existing Password
-                                    </label>
-                                    <input
-                                        type="password"
-                                        className="form-control"
-                                        aria-describedby="userMail"
-                                        placeholder="********"
-                                        onChange={handleOldPasswordInputChange}
-                                        value={oldPassword}
-                                        disabled={isDisabled}
-                                        required
-                                    />
-                                    
-                                    <label htmlFor="userMail">
-                                        New Password
-                                    </label>
-                                    <input
-                                        type="password"
-                                        className="form-control"
-                                        aria-describedby="userMail"
-                                        placeholder="********"
-                                        onChange={handleNewPasswordInputChange}
-                                        value={newPassword}
-                                        disabled={isDisabled}
-                                        required
-                                    />
-                                    <label htmlFor="userMail">
-                                        Repeat Password
-                                    </label>
-                                    <input
-                                        type="password"
-                                        className="form-control"
-                                        aria-describedby="userMail"
-                                        placeholder="********"
-                                        onChange={
-                                            handleRepeatNewPasswordInputChange
-                                        }
-                                        value={repeatNewPassword}
-                                        disabled={isDisabled}
-                                        required
-                                    />
-                    
-                                </div>
-                            </div>
-                        </div>
-                        <div className="form-row mt-1 align-items-center">
-                            <div className="col-lg-3 col-xs-12">
-                                <button
-                                    className="btn btn-secondary col-lg-12 col-xs-12"
-                                    onClick={handleSubmit}
-                                    disabled={isDisabled}
-                                >
-                                    Save Changes
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+        <Container className="col-xs-12 col-md-12">
+            <Row>
+            <h1>Welcome to Your Dashboard</h1>
+        <Col className="col-xs-6 col-md-4">
+          <div className="justify-content-center">
+            {selectedImage && (
+                <div>
+                    <img  alt="not fount" width={"250px"} src={URL.createObjectURL(selectedImage)} />
+                    <br />
+                    <button onClick={() => setSelectedImage(null)}>Remove</button>
                 </div>
+            )}
+            <br />
+
+            <br />
+            <input
+                type="file"
+                name="myImage"
+                onChange={(event) => {
+                    console.log(event.target.files[0]);
+                    setSelectedImage(event.target.files[0]);
+                } }
+            >
+            </input>
             </div>
-        </>
+            </Col>
+            <Col className=" col-xs-8 col-md-8" style={{marginTop: "5%"}}>
+                <h5 className="mb-2 fs-20 font-weight-normal">
+                    General Information
+                </h5>
+                <form>
+                    <div className="form-row">
+                        <div className="col-lg-6 col-xs-12">
+                            <div className="form-group">
+                                <label htmlFor="firstName">Username</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="username"
+                                    aria-describedby="username"
+                                    placeholder={user.username}
+                                    disabled />
+                            </div>
+                        </div>
+                        <div className="col-lg-6 col-xs-12">
+                            <div className="form-group">
+                                <label htmlFor="secondName">
+                                    Email Address
+                                </label>
+                                <input
+                                    type="email"
+                                    className="form-control"
+                                    id="email"
+                                    aria-describedby="email"
+                                    placeholder={user.email}
+                                    disabled />
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr className="mt-2 mb-2" />
+                    <div className="col-lg-6 col-xs-12">
+                        <h5 className="mb-2 fs-20 font-weight-normal">
+                            Update Password
+                        </h5>
+                        <div className="form-group">
+                            <label htmlFor="userMail">
+                                Existing Password
+                            </label>
+                            <input
+                                type="password"
+                                className="form-control"
+                                aria-describedby="userMail"
+                                placeholder="********"
+                                onChange={handleOldPasswordInputChange}
+                                value={oldPassword}
+                                disabled={isDisabled}
+                                required />
+
+                            <label htmlFor="userMail">
+                                New Password
+                            </label>
+                            <input
+                                type="password"
+                                className="form-control"
+                                aria-describedby="userMail"
+                                placeholder="********"
+                                onChange={handleNewPasswordInputChange}
+                                value={newPassword}
+                                disabled={isDisabled}
+                                required />
+                            <label htmlFor="userMail">
+                                Repeat Password
+                            </label>
+                            <input
+                                type="password"
+                                className="form-control"
+                                aria-describedby="userMail"
+                                placeholder="********"
+                                onChange={handleRepeatNewPasswordInputChange}
+                                value={repeatNewPassword}
+                                disabled={isDisabled}
+                                required />
+
+                        </div>
+                    </div>
+                    <div className="form-row mt-1 align-items-center">
+                        <div className="col-lg-3 col-xs-12">
+                            <button
+                                className="btn btn-secondary col-lg-12 col-xs-12"
+                                onClick={handleSubmit}
+                                disabled={isDisabled}
+                            >
+                                Save Changes
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            
+            </Col>
+         </Row>
+       </Container>
+    
     );
 };
     

@@ -4,7 +4,7 @@ import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ME } from "../utils/queries";
 // import { useNavigate } from "react-router-dom";
 // import { useParams } from "react-router-dom";
-import { UPDATE_USER } from "../utils/mutations";
+import { UPDATE_USER} from "../utils/mutations";
 
 function TutorProfile() {
   // return <div>Profile</div>;

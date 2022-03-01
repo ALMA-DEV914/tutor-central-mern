@@ -127,16 +127,16 @@ const resolvers = {
       if (context.user) {
         const user = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          args,
-          { new: true }
+        args,
+         { new: true }
         );
-        // console.log(user);
+         console.log(user);
         return user;
       }
 
       throw new AuthenticationError("You need to be logged in!");
     },
-
+    
     createChat: async (parent, { tutor }, context) => {
       if (context.user) {
         let chat = await Chat.findOne({

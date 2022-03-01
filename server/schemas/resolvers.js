@@ -125,12 +125,27 @@ const resolvers = {
     // },
     updateUser: async (parent, args, context) => {
       if (context.user) {
+        // for (const property in args) {
+        //   console.log(args[property]);
+        //   if (args[property] === "") {
+        //     args[property] = args[property];
+        //   }
+        // }
         const user = await User.findByIdAndUpdate(
           { _id: context.user._id },
           args,
           { new: true }
         );
+        // for (const property in args) {
+        //   // console.log(args[property]);
+        //   console.log(context.user.args);
+        //   if (args[property] === "") {
+        //     args[property] = context.user.args[property];
+        //   }
+        // }
+
         // console.log(user);
+        console.log(args);
         return user;
       }
 

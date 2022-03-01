@@ -6,6 +6,7 @@ import { useQuery } from "@apollo/client";
 import SearchBar from "../SearchBar";
 
 const TutorDisplay = () => {
+    
   const [query, setQuery] = useState("");
 
   const { loading, data } = useQuery(QUERY_TUTORS);

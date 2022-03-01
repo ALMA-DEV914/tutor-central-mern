@@ -1,19 +1,22 @@
 import React, { useState, useReducer} from "react";
 import Auth from "../utils/auth";
-import { USER_UPDATE_PASSWORD,  SINGLE_FILE_UPLOAD } from "../utils/mutations";
-import { QUERY_STUDENT } from "../utils/queries";
-import { useMutation, useQuery } from "@apollo/client";
+import { USER_UPDATE_PASSWORD} from "../utils/mutations";
+//import { QUERY_USER } from "../utils/queries";
+import { useMutation, useQuery} from "@apollo/client";
 //import { useParams } from "react-router-dom";
 import { Container, Col,Row } from "react-bootstrap";
+import { QUERY_USER } from "../utils/queries";
 
-const Profile = (params) => {
-    const { loading, data } = useQuery(QUERY_STUDENT);
+
+const Profile = () => {
+
+    const { loading, data} = useQuery(QUERY_USER);
     console.log(data);
     const user = Auth.getProfile();
-
+    
     //graphql mutation to update password
     const [updatePassword] = useMutation(USER_UPDATE_PASSWORD);
-    const [fileUpload] = useMutation(SINGLE_FILE_UPLOAD);
+    //const [fileUpload] = useMutation(SINGLE_FILE_UPLOAD);
     //local component state
     const [oldPassword, setOldPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
@@ -41,35 +44,35 @@ const Profile = (params) => {
         //prevent server reload of page on click
         event.preventDefault();
         //check that client field validation is good
-        if (loading) {
-            return <div>Loading...</div>;
-          }
-    
+     if(loading){
+         return(
+             <div>Loading......</div>
+         )
+     };
             try {
                 //update password via graphql
-                const { data } = await updatePassword && fileUpload({
+                const { data } = await updatePassword({
                     variables: {
                         email: user.email,
-                        photo: user.photo,
                         oldPassword,
                         newPassword,
                     },
                 });
                 //give user feedback of action
                 if (data) {
-                        return ("Success",
+                        return("Success",
                             "Your password has been updated successfully."
                         )
             
                 } else {
-                    return (
+                    return(
                             "Error",
                             "There was a problem updating your password."
                         )
                 }
                 
             } catch (err) {
-                return ("Error", err.message);
+                return("Error", err.message);
             }
             //force update state to show validation messages to user
         
@@ -89,6 +92,7 @@ return (
                     <img  alt="not fount" width={"250px"} src={URL.createObjectURL(selectedImage)} />
                     <br />
                     <button onClick={() => setSelectedImage(null)}>Remove</button>
+                    {user.role}
                 </div>
             )}
             <br />

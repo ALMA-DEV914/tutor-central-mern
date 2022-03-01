@@ -4,6 +4,7 @@ import Auth from "../utils/auth";
 import { ADD_STUDENT } from "../utils/mutations";
 import { Card, Form, Button, Modal } from "react-bootstrap";
 
+
 function StudentSignup() {
   const [showModal, setShowModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -12,7 +13,7 @@ function StudentSignup() {
     username: "",
     email: "",
     password: "",
-    photo: "",
+
   });
   const [addStudent] = useMutation(ADD_STUDENT);
 

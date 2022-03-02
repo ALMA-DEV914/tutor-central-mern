@@ -38,37 +38,41 @@ function TutorSignup() {
     const uniqueFilename = new Date().getTime() + ".jpg";
 
     //add mutation call to upload file
-    const uploadUrl = await getS3Url({
-      variables: {
-        filename: photo.name,
-      },
-    });
-    console.log(uploadUrl.data);
-
-    const formData = new FormData();
-    formData.append("file", photo, photo.name);
-    const img_response = await fetch(uploadUrl.data.signedLink, {
-      method: "PUT",
-      body: formData,
-      headers: {
-        "Content-Type": photo.type,
-      },
-    });
-    if (img_response.ok) {
-      console.log("image upload success");
-    } else {
-      console.log(img_response);
-      return;
-    }
-
-    try {
-      const mutationResponse = await addTutor({
+    if (photo) {
+      const uploadUrl = await getS3Url({
         variables: {
-          email: formState.email,
-          password: formState.password,
-          username: formState.username,
-          photo: photo.name,
+          filename: photo.name,
         },
+      });
+      console.log(uploadUrl.data);
+
+      const formData = new FormData();
+      formData.append("file", photo, photo.name);
+      const img_response = await fetch(uploadUrl.data.signedLink, {
+        method: "PUT",
+        body: formData,
+        headers: {
+          "Content-Type": photo.type,
+        },
+      });
+      if (img_response.ok) {
+        console.log("image upload success");
+      } else {
+        console.log(img_response);
+        return;
+      }
+    }
+    try {
+      let variables = {
+        email: formState.email,
+        password: formState.password,
+        username: formState.username,
+      };
+      if (photo) {
+        variables.photo = photo.name;
+      }
+      const mutationResponse = await addTutor({
+        variables,
       });
       console.log(mutationResponse);
       const token = mutationResponse.data.addTutor.token;

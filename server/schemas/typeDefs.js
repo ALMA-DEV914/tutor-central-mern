@@ -48,7 +48,7 @@ const typeDefs = gql`
     me: Me
     users: [User]
     tutors: [Tutor]
-    tutor: Tutor
+    tutor(id: ID): Tutor
     student(id: ID): Student
     user(username: String!): User
     chat(id: ID!): Chat

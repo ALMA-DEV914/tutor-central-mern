@@ -55,6 +55,44 @@ export const QUERY_ME = gql`
   }
 `;
 
+export const QUERY_TUTOR = gql`
+  query tutor($tutorId: ID!) {
+    tutor {
+      tutor {
+        _id
+        userId {
+          _id
+          username
+          email
+          photo
+          role
+        }
+        hourlyRate
+        knownSubjects
+        bio
+      }
+    }
+  }
+`;
+
+export const QUERY_STUDENT = gql`
+  query student($studentId: ID!) {
+    student {
+      student {
+        _id
+        userId {
+          _id
+          username
+          email
+          photo
+          role
+        }
+        bio
+      }
+    }
+  }
+`;
+
 export const QUERY_CHAT = gql`
   query Chat($chatId: ID!) {
     chat(id: $chatId) {

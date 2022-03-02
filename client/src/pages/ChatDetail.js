@@ -52,49 +52,47 @@ function ChatDetail() {
   }
 
   return (
-    <>
-      <Card className='my-3'>
-        <Card.Header>
-          <Card.Title>
-            Viewing Chat {data.chat._id} between {data.chat.tutor.username} and{" "}
-            {data.chat.student.username} on {data.chat.createdAt}
-          </Card.Title>
-        </Card.Header>
+    <Card className='my-3'>
+      <Card.Header>
+        <Card.Title>
+          Viewing Chat {data.chat._id} between {data.chat.tutor.username} and{" "}
+          {data.chat.student.username} on {data.chat.createdAt}
+        </Card.Title>
+      </Card.Header>
 
-        <Card.Body>
-          <Form onSubmit={handleFormSubmit}>
-            <Form.Group className='mb-3'>
-              <Form.Label>Message</Form.Label>
-              <Form.Control
-                type='text'
-                name='messageText'
-                onChange={handleChange}
-              ></Form.Control>
-            </Form.Group>
-            <Button
-              className='mb-3'
-              variant='primary'
-              type='submit'
-              onClick={handleFormSubmit}
-            >
-              Send
-            </Button>
-          </Form>
-          {data.chat.messages.map((message, index) => {
-            return (
-              <Card key={index} className='mb-3'>
-                <Card.Body>
-                  <p>Date: {message.createdAt}</p>
-                  <p>From: {getUsername(message.from._id)}</p>
-                  <p>To: {getUsername(message.to._id)}</p>
-                  <p>Message: {message.messageText}</p>
-                </Card.Body>
-              </Card>
-            );
-          })}
-        </Card.Body>
-      </Card>
-    </>
+      <Card.Body>
+        <Form onSubmit={handleFormSubmit}>
+          <Form.Group className='mb-3'>
+            <Form.Label>Message</Form.Label>
+            <Form.Control
+              type='text'
+              name='messageText'
+              onChange={handleChange}
+            ></Form.Control>
+          </Form.Group>
+          <Button
+            className='mb-3'
+            variant='primary'
+            type='submit'
+            onClick={handleFormSubmit}
+          >
+            Send
+          </Button>
+        </Form>
+        {data.chat.messages.map((message, index) => {
+          return (
+            <Card key={index} className='mb-3'>
+              <Card.Body>
+                <p>Date: {message.createdAt}</p>
+                <p>From: {getUsername(message.from._id)}</p>
+                <p>To: {getUsername(message.to._id)}</p>
+                <p>Message: {message.messageText}</p>
+              </Card.Body>
+            </Card>
+          );
+        })}
+      </Card.Body>
+    </Card>
   );
 }
 

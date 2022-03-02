@@ -4,7 +4,6 @@ const { GraphQLUpload } = require("graphql-upload");
 const aws = require("../utils/aws-fileupload");
 const { signToken } = require("../utils/auth");
 const sharp = require("sharp");
-const { ChainableTemporaryCredentials } = require("aws-sdk");
 
 const resolvers = {
   Upload: GraphQLUpload,
@@ -67,6 +66,9 @@ const resolvers = {
   },
 
   Mutation: {
+    signedLink: async (parent, { filename }) => {
+      return aws.getS3UploadLink(filename);
+    },
     addStudent: async (parent, args) => {
       const user = await User.create({ ...args, role: "student" });
       const token = signToken(user);

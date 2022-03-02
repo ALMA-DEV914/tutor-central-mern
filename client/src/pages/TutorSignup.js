@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
-import { ADD_TUTOR } from "../utils/mutations";
+import { ADD_TUTOR, GET_S3_URL } from "../utils/mutations";
 import { Card, Form, Button, Modal } from "react-bootstrap";
+import FileUploader from "../components/FileUploader";
 
 function TutorSignup() {
   const [showModal, setShowModal] = useState(false);
@@ -13,9 +14,9 @@ function TutorSignup() {
     email: "",
     password: "",
   });
-  const fileInput = React.createRef();
+  const [photo, setPhoto] = useState(null);
   const [addTutor] = useMutation(ADD_TUTOR);
-  //const [fileUpload] = useMutation(SINGLE_FILE_UPLOAD);
+  const [getS3Url] = useMutation(GET_S3_URL);
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -27,30 +28,51 @@ function TutorSignup() {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    console.log(photo);
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       setErrorMessage("Check all fields are complete and try again");
       setShowModal(true);
     }
     setValidated(true);
+    const uniqueFilename = new Date().getTime() + ".jpg";
+
+    //add mutation call to upload file
+    const uploadUrl = await getS3Url({
+      variables: {
+        filename: photo.name,
+      },
+    });
+    console.log(uploadUrl.data);
+
+    const formData = new FormData();
+    formData.append("file", photo, photo.name);
+    const img_response = await fetch(uploadUrl.data.signedLink, {
+      method: "PUT",
+      body: formData,
+      headers: {
+        "Content-Type": photo.type,
+      },
+    });
+    if (img_response.ok) {
+      console.log("image upload success");
+    } else {
+      console.log(img_response);
+      return;
+    }
+
     try {
       const mutationResponse = await addTutor({
         variables: {
           email: formState.email,
           password: formState.password,
           username: formState.username,
+          photo: photo.name,
         },
       });
       console.log(mutationResponse);
       const token = mutationResponse.data.addTutor.token;
       Auth.login(token);
-
-      // add mutation call to upload file
-      // const upload = await fileUpload({
-      //   variables: {
-      //     file: fileInput.current.files[0],
-      //   },
-      // });
     } catch (err) {
       handleShowModal(err.message);
       console.log(err);
@@ -99,14 +121,10 @@ function TutorSignup() {
           </Form.Group>
           <Form.Group className='mb-3' controlId='formFileInput'>
             <Form.Label>Photo</Form.Label>
-            <input
-              id='formFileInput'
-              className='file-input form-control'
-              name='file'
-              type='file'
-              accept='image/png, image/jpeg'
-              ref={fileInput}
-            />
+            <FileUploader
+              onFileSelectSuccess={(file) => setPhoto(file)}
+              onFileSelectError={(message) => console.log(message)}
+            ></FileUploader>
           </Form.Group>
           <Button variant='primary' type='submit' onClick={handleFormSubmit}>
             Submit

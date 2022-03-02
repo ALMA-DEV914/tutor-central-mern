@@ -117,12 +117,6 @@ const typeDefs = gql`
     student: Student
     user: User
   }
-
-  type File {
-    filename: String
-    mimetype: String
-    encoding: String
-  }
 `;
 
 // export the typeDefs

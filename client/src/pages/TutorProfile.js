@@ -19,6 +19,7 @@ function TutorProfile() {
     // password: `${data.me.user.password}`,
     username: ``,
     password: ``,
+
   });
 
   const [updateUser] = useMutation(UPDATE_USER);
@@ -72,10 +73,11 @@ function TutorProfile() {
 
   return (
     <>
+   
       <div>
         <h2>Viewing {data.me.user.username} profile</h2>
       </div>
-
+      
       <div>
         <div>
           <p>{data.me.user.username}</p>

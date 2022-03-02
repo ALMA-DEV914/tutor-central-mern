@@ -11,7 +11,9 @@ const FileUploader = ({ onFileSelectSuccess, onFileSelectError }) => {
         onFileSelectError({ error: "File size cannot exceed more than 10MB" });
       else onFileSelectSuccess(file);
     }
+
   };
+
   return (
     <div className="file-uploader">
       <input
@@ -22,6 +24,7 @@ const FileUploader = ({ onFileSelectSuccess, onFileSelectError }) => {
         onChange={handleFileInput}
       />
     </div>
+    
   );
 };
 

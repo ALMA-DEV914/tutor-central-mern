@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 // import { useNavigate } from "react-router-dom";
 
-async function completeSearch() {
-  //make network search call here
-  return JSON.parse("{results: []");
+function completeSearch() {
+ // make network search call here
+ return JSON.parse("{results: []");
 }
 
 const SearchButton = () => {
@@ -12,14 +12,14 @@ const SearchButton = () => {
 
   const [isSearching, setSearching] = useState(false);
   useEffect(() => {
-    if (isSearching) {
+   if (isSearching) {
       const results = completeSearch();
       setSearching(false);
     }
   }, [isSearching]);
 
   return (
-    <Button
+    <Button 
       variant="primary"
       className="my-2"
       disabled={isSearching}
@@ -30,24 +30,36 @@ const SearchButton = () => {
   );
 };
 
+export default SearchButton;
+
 // const SearchBar = ({ searchQuery, setSearchQuery }) => {
-const SearchBar = () => {
+//const SearchBar = () => {
   // const navigate = useNavigate();
   // const onSubmit = (e) => {
   //   navigate.push(`?s=${searchQuery}`);
   //   e.preventDefault();
   // };
-  const [query, setQuery] = useState("");
+  //const [query, setQuery] = useState("");
   // function setQuery(e) {
   //   e.preventdefault();
   //   console.log(e.target);
   //   query = "";
   // }
+
+  //const [isSearching, setSearching] = useState(false);
+  //useEffect(() => {
+   /* if (isSearching) {
+      
+      setSearching(false);
+    }
+  }, [isSearching]);
+
+
   return (
     <>
       <Form>
         <Form.Group className="search" controlId="formBasicEmail">
-          <Form.Label>Find a Tutor</Form.Label>
+         <Form.Label>Find a Tutor</Form.Label>
           <Form.Control
             // value={searchQuery}
             // onInput={(e) => setSearchQuery(e.target.value)}
@@ -58,11 +70,9 @@ const SearchBar = () => {
             placeholder="What subject do you need help with"
           />
         </Form.Group>
-        <SearchButton />
       </Form>
-      {/* Add search results component here */}
     </>
-  );
+ );
 };
 
-export default SearchBar;
+export default SearchBar; */

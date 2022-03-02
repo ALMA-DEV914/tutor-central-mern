@@ -15,7 +15,7 @@ const resolvers = {
       if (context.user) {
         // console.log(context.user);
         const userData = await User.findOne({ _id: context.user._id }).select(
-          "-__v -password"
+          "-__v"
         );
 
         if (userData.role === "tutor") {
@@ -100,15 +100,60 @@ const resolvers = {
 
       return { token, user };
     },
+    // updateUser: async (parent, args, context) => {
+    //   if (context.user) {
+    //     return await User.findByIdAndUpdate(context.user._id, args, {
+    //       new: true,
+    //     });
+    //     // const user = await User.find({ id: context.user._id });
+    //     // user.password = args.password;
+    //     // user.save();
+    //   }
+
+    //   throw new AuthenticationError("You need to be logged in!");
+    // },
+    // updateUser: async (parent, args, context) => {
+    //   if (context.user) {
+    //     const user = await User.findByIdAndUpdate(
+    //       { _id: context.user._id },
+    //       args,
+    //       { new: true }
+    //     );
+    //     console.log(user);
+    //     return user;
+    //   }
+
+    //   throw new AuthenticationError("You need to be logged in!");
+    // },
     updateUser: async (parent, args, context) => {
       if (context.user) {
-        return await User.findByIdAndUpdate(context.user._id, args, {
-          new: true,
-        });
+        // for (const property in args) {
+        //   console.log(args[property]);
+        //   if (args[property] === "") {
+        //     args[property] = args[property];
+        //   }
+        // }
+        const user = await User.findByIdAndUpdate(
+          { _id: context.user._id },
+        args,
+         { new: true }
+        );
+        // for (const property in args) {
+        //   // console.log(args[property]);
+        //   console.log(context.user.args);
+        //   if (args[property] === "") {
+        //     args[property] = context.user.args[property];
+        //   }
+        // }
+
+        // console.log(user);
+        console.log(args);
+        return user;
       }
 
       throw new AuthenticationError("You need to be logged in!");
     },
+
     createChat: async (parent, { tutor }, context) => {
       if (context.user) {
         let chat = await Chat.findOne({

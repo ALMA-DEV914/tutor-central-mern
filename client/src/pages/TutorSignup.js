@@ -63,13 +63,16 @@ function TutorSignup() {
       }
     }
     try {
+      let variables = {
+        email: formState.email,
+        password: formState.password,
+        username: formState.username,
+      };
+      if (photo) {
+        variables.photo = photo.name;
+      }
       const mutationResponse = await addTutor({
-        variables: {
-          email: formState.email,
-          password: formState.password,
-          username: formState.username,
-          photo: photo.name,
-        },
+        variables,
       });
       console.log(mutationResponse);
       const token = mutationResponse.data.addTutor.token;
@@ -86,48 +89,48 @@ function TutorSignup() {
   };
 
   return (
-    <Card className="my-3">
+    <Card className='my-3'>
       <Card.Header>
         <Card.Title>Tutor Signup</Card.Title>
       </Card.Header>
       <Card.Body>
         <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
-          <Form.Group className="mb-3" controlId="formBasicUsername">
+          <Form.Group className='mb-3' controlId='formBasicUsername'>
             <Form.Label>Username</Form.Label>
             <Form.Control
-              type="text"
-              name="username"
-              placeholder="Enter username"
+              type='text'
+              name='username'
+              placeholder='Enter username'
               onChange={handleChange}
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Group className='mb-3' controlId='formBasicEmail'>
             <Form.Label>Email address</Form.Label>
             <Form.Control
-              type="email"
-              name="email"
-              placeholder="Enter email"
+              type='email'
+              name='email'
+              placeholder='Enter email'
               onChange={handleChange}
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Group className='mb-3' controlId='formBasicPassword'>
             <Form.Label>Password</Form.Label>
             <Form.Control
-              type="password"
-              name="password"
-              placeholder="Password"
+              type='password'
+              name='password'
+              placeholder='Password'
               onChange={handleChange}
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formFileInput">
+          <Form.Group className='mb-3' controlId='formFileInput'>
             <Form.Label>Photo</Form.Label>
             <FileUploader
               onFileSelectSuccess={(file) => setPhoto(file)}
               onFileSelectError={(message) => console.log(message)}
             ></FileUploader>
           </Form.Group>
-          <Button variant="primary" type="submit" onClick={handleFormSubmit}>
+          <Button variant='primary' type='submit' onClick={handleFormSubmit}>
             Submit
           </Button>
         </Form>
@@ -137,7 +140,7 @@ function TutorSignup() {
           </Modal.Header>
           <Modal.Body>{errorMessage}</Modal.Body>
           <Modal.Footer>
-            <Button variant="danger" onClick={handleCloseModal}>
+            <Button variant='danger' onClick={handleCloseModal}>
               Close
             </Button>
           </Modal.Footer>

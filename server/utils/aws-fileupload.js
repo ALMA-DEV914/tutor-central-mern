@@ -31,10 +31,10 @@ const uploadFile = (filename, data) => {
   });
 };
 
-const getS3UploadLink = (filename) => {
+const getS3UploadLink = async (filename) => {
   const signedUrlExpireSeconds = 60 * 10;
 
-  const url = s3.getSignedUrl("getObject", {
+  const url = await s3.getSignedUrl("putObject", {
     Bucket: process.env.AWS_BUCKET_NAME,
     Key: filename,
     Expires: signedUrlExpireSeconds,

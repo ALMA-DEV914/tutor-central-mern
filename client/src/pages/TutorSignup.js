@@ -36,38 +36,42 @@ function TutorSignup() {
     }
     setValidated(true);
     const uniqueFilename = new Date().getTime() + ".jpg";
+
+    //add mutation call to upload file
+    const uploadUrl = await getS3Url({
+      variables: {
+        filename: photo.name,
+      },
+    });
+    console.log(uploadUrl.data);
+
+    const formData = new FormData();
+    formData.append("file", photo, photo.name);
+    const img_response = await fetch(uploadUrl.data.signedLink, {
+      method: "PUT",
+      body: formData,
+      headers: {
+        "Content-Type": photo.type,
+      },
+    });
+    if (img_response.ok) {
+      console.log("image upload success");
+    } else {
+      console.log(img_response);
+      return;
+    }
+
     try {
       const mutationResponse = await addTutor({
         variables: {
           email: formState.email,
           password: formState.password,
           username: formState.username,
-          photo: uniqueFilename,
+          photo: photo.name,
         },
       });
       console.log(mutationResponse);
       const token = mutationResponse.data.addTutor.token;
-
-      //add mutation call to upload file
-      const uploadUrl = await getS3Url({
-        variables: {
-          filename: uniqueFilename,
-        },
-      });
-      console.log(uploadUrl.data);
-
-      const formData = new FormData();
-      formData.append("file", photo, uniqueFilename);
-      const img_response = await fetch(uploadUrl.data.signedLink, {
-        method: "PUT",
-        body: formData,
-      });
-      if (img_response.ok) {
-        console.log("image upload success");
-      } else {
-        console.log("image upload failed");
-      }
-
       Auth.login(token);
     } catch (err) {
       handleShowModal(err.message);

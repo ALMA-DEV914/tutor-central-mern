@@ -38,29 +38,30 @@ function TutorSignup() {
     const uniqueFilename = new Date().getTime() + ".jpg";
 
     //add mutation call to upload file
-    const uploadUrl = await getS3Url({
-      variables: {
-        filename: photo.name,
-      },
-    });
-    console.log(uploadUrl.data);
+    if (photo) {
+      const uploadUrl = await getS3Url({
+        variables: {
+          filename: photo.name,
+        },
+      });
+      console.log(uploadUrl.data);
 
-    const formData = new FormData();
-    formData.append("file", photo, photo.name);
-    const img_response = await fetch(uploadUrl.data.signedLink, {
-      method: "PUT",
-      body: formData,
-      headers: {
-        "Content-Type": photo.type,
-      },
-    });
-    if (img_response.ok) {
-      console.log("image upload success");
-    } else {
-      console.log(img_response);
-      return;
+      const formData = new FormData();
+      formData.append("file", photo, photo.name);
+      const img_response = await fetch(uploadUrl.data.signedLink, {
+        method: "PUT",
+        body: formData,
+        headers: {
+          "Content-Type": photo.type,
+        },
+      });
+      if (img_response.ok) {
+        console.log("image upload success");
+      } else {
+        console.log(img_response);
+        return;
+      }
     }
-
     try {
       const mutationResponse = await addTutor({
         variables: {
@@ -85,48 +86,48 @@ function TutorSignup() {
   };
 
   return (
-    <Card className='my-3'>
+    <Card className="my-3">
       <Card.Header>
         <Card.Title>Tutor Signup</Card.Title>
       </Card.Header>
       <Card.Body>
         <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
-          <Form.Group className='mb-3' controlId='formBasicUsername'>
+          <Form.Group className="mb-3" controlId="formBasicUsername">
             <Form.Label>Username</Form.Label>
             <Form.Control
-              type='text'
-              name='username'
-              placeholder='Enter username'
+              type="text"
+              name="username"
+              placeholder="Enter username"
               onChange={handleChange}
             />
           </Form.Group>
-          <Form.Group className='mb-3' controlId='formBasicEmail'>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
-              type='email'
-              name='email'
-              placeholder='Enter email'
+              type="email"
+              name="email"
+              placeholder="Enter email"
               onChange={handleChange}
             />
           </Form.Group>
 
-          <Form.Group className='mb-3' controlId='formBasicPassword'>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
-              type='password'
-              name='password'
-              placeholder='Password'
+              type="password"
+              name="password"
+              placeholder="Password"
               onChange={handleChange}
             />
           </Form.Group>
-          <Form.Group className='mb-3' controlId='formFileInput'>
+          <Form.Group className="mb-3" controlId="formFileInput">
             <Form.Label>Photo</Form.Label>
             <FileUploader
               onFileSelectSuccess={(file) => setPhoto(file)}
               onFileSelectError={(message) => console.log(message)}
             ></FileUploader>
           </Form.Group>
-          <Button variant='primary' type='submit' onClick={handleFormSubmit}>
+          <Button variant="primary" type="submit" onClick={handleFormSubmit}>
             Submit
           </Button>
         </Form>
@@ -136,7 +137,7 @@ function TutorSignup() {
           </Modal.Header>
           <Modal.Body>{errorMessage}</Modal.Body>
           <Modal.Footer>
-            <Button variant='danger' onClick={handleCloseModal}>
+            <Button variant="danger" onClick={handleCloseModal}>
               Close
             </Button>
           </Modal.Footer>

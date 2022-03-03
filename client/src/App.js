@@ -23,6 +23,8 @@ import TutorProfile from "./pages/TutorProfile";
 import ChatDetail from "./pages/ChatDetail";
 import StudentProfile from "./pages/StudentProfile";
 import { Pricing } from "./components/Pricing";
+import hero1 from '../src/assets/hero.jpeg'
+
 // import Tutor from "./components/Tutor";
 // import { QUERY_TUTORS } from "./utils/queries";
 // import { useQuery } from "@apollo/client";
@@ -57,9 +59,12 @@ function App() {
             minHeight: "100vh",
             display: "flex",
             flexDirection: "column",
+            backgroundImage: `url(${hero1})`,
+            backgroundSize: 'cover',
           }}
-        >
-          <Header />
+              >
+            
+      <Header />
           <Container>
             <Routes>
               <Route path='/' element={<Home />} />

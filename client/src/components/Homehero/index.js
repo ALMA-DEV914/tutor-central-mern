@@ -1,5 +1,6 @@
 import React from "react";
 import Container from "react-bootstrap/Container";
+import background from '../../assets/background.jpg'
 
 const HomeHero = () => {
   return (

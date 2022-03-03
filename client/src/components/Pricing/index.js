@@ -1,12 +1,13 @@
 import React from 'react'
-import { Container, Row, Col, Card, Button, Spinner } from 'react-bootstrap'
+import { Container, Row, Col, Card, Button, Spinner} from 'react-bootstrap'
 
 export const Pricing = () => {
     return (
-        <Container className='text-center mt-4'>
+       
+<Container className='text-center mt-4'>
   <Row style={{margin: '5% auto'}}>
     <Col className='mb-4 mt-4'><h1>Get tutoring at an affordable price</h1>
-    <p>We help student or individuals how to manage their pocket.</p></Col>
+</Col>
   </Row>
   <Row style={{margin: '5% auto'}}>
     <Col><Card style={{ width: '18rem' }}>
@@ -15,9 +16,11 @@ export const Pricing = () => {
     <Card.Title className='mt-4 mb-4' style={{color: 'green', fontSize: '35px'}}>2 hours</Card.Title>
     <Card.Subtitle>MONHTLY</Card.Subtitle>
     <Card.Text className='mb-4 mt-4'>
-      24/7 on-demand help<br></br>
+        
+     24/7 on-demand help<br></br>
       300+ subjects covered<br></br>
-      Highest quality tutors
+     Highest quality tutors
+      
     </Card.Text>
     <Card body>$69/month<br></br>
 58¢/additional minute </Card>
@@ -68,5 +71,6 @@ export const Pricing = () => {
 </Row>
 <Row><Button variant='success' type='submit' href='/student-signup' style={{width:'50%', margin: '3% auto', padding: '12px'}}>START YOUR FREE TRIAL</Button></Row>
 </Container>
+
     );
 }

@@ -51,8 +51,8 @@ function Login() {
   return (
     <>
      
-    <Container className="p-4" style={{ backgroundImage: `url(${background})`, height:'100vh', backgroundSize: 'cover', width: '100vw'}}>
-      <Row className="justify-content-md-center">
+    <Container className="p-4" style={{ backgroundImage: `url(${background})`, height:'70vh', backgroundSize: 'cover', marginTop: '5%'}}>
+      <Row className="justify-content-md-center" style={{marginTop: '10%'}}>
     <Card className="col-lg-8 mt-4 p-3">
       <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
         <Form.Group className='mb-3' controlId='formBasicEmail'>

@@ -63,8 +63,8 @@ function StudentSignup() {
 
   return (
 
-    <Container className="py-4" style={{backgroundImage: `url(${background})`, height:'100vh', backgroundSize: 'cover'}}>
-      <Row className="justify-content-md-center">
+    <Container className="py-4" style={{backgroundImage: `url(${background})`, height:'70vh', backgroundSize: 'cover', marginTop: '5%'}}>
+      <Row className="justify-content-md-center" style={{marginTop: '10%'}}>
     <Card className='col-lg-8 my-3'>
       <Card.Header>
         <Card.Title>Student Signup</Card.Title>

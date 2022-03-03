@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
 import { ADD_STUDENT } from "../utils/mutations";
 import { Card, Form, Button, Modal, Container, Row } from "react-bootstrap";
- import background from '../assets/background.jpg';
+ 
 
 function StudentSignup() {
   const [showModal, setShowModal] = useState(false);
@@ -63,7 +63,7 @@ function StudentSignup() {
 
   return (
 
-    <Container className="py-4" style={{backgroundImage: `url(${background})`, height:'70vh', backgroundSize: 'cover', marginTop: '5%'}}>
+    <Container className="py-4" style={{ height:'70vh', backgroundSize: 'cover'}}>
       <Row className="justify-content-md-center" style={{marginTop: '10%'}}>
     <Card className='col-lg-8 my-3'>
       <Card.Header>

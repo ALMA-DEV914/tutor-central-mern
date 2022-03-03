@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Form, Button, Modal, Card } from "react-bootstrap";
+import { Form, Button, Modal, Card, Row, Container } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 import { LOGIN } from "../utils/mutations";
 import Auth from "../utils/auth";
+import background from '../assets/background.jpg'
 
 function Login() {
   const [showModal, setShowModal] = useState(false);
@@ -49,7 +50,10 @@ function Login() {
 
   return (
     <>
-    <Card className="mt-4 p-3">
+     
+    <Container className="p-4" style={{ backgroundImage: `url(${background})`, height:'100vh', backgroundSize: 'cover', width: '100vw'}}>
+      <Row className="justify-content-md-center">
+    <Card className="col-lg-8 mt-4 p-3">
       <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
         <Form.Group className='mb-3' controlId='formBasicEmail'>
           <Form.Label>Email</Form.Label>
@@ -88,7 +92,11 @@ function Login() {
         </Modal.Footer>
       </Modal>
       </Card>
+      </Row>
+      </Container>
+      
     </>
+  
   );
 }
 

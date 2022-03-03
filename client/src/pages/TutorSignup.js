@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
 import { ADD_TUTOR, GET_S3_URL } from "../utils/mutations";
-import { Card, Form, Button, Modal } from "react-bootstrap";
+import { Card, Form, Button, Modal, Container,Row } from "react-bootstrap";
 import FileUploader from "../components/FileUploader";
 
 
@@ -98,7 +98,9 @@ function TutorSignup() {
   };
 
   return (
-    <Card className='my-3'>
+    <Container className="p-4">
+      <Row className="justify-content-md-center">
+    <Card className='col-lg-8 my-3'>
       <Card.Header>
         <Card.Title>Tutor Signup</Card.Title>
       </Card.Header>
@@ -183,6 +185,8 @@ function TutorSignup() {
         </Modal>
       </Card.Body>
     </Card>
+    </Row>
+    </Container>
   );
 }
 

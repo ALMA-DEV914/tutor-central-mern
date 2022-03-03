@@ -21,7 +21,8 @@ import NoMatch from "./pages/NoMatch";
 import Footer from "./components/Footer";
 import TutorProfile from "./pages/TutorProfile";
 import ChatDetail from "./pages/ChatDetail";
-
+import StudentProfile from "./pages/StudentProfile";
+import { Pricing } from "./components/Pricing";
 // import Tutor from "./components/Tutor";
 // import { QUERY_TUTORS } from "./utils/queries";
 // import { useQuery } from "@apollo/client";
@@ -64,7 +65,9 @@ function App() {
               <Route path='/' element={<Home />} />
               <Route path='/login' element={<Login />} />
               <Route path='/logout' element={<Home logout={true} />} />
+               <Route path='/pricing' element= {<Pricing/>}/>
               <Route path='/student-signup' element={<StudentSignup />} />
+              <Route path='/studen-profile' element={<StudentProfile/>}/>
               <Route path='/tutor-signup' element={<TutorSignup />} />
               <Route path='/tutor/:id' element={<TutorDetail />} />
               <Route path='/tutor-profile' element={<TutorProfile />} />

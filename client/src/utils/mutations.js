@@ -31,9 +31,9 @@ export const ADD_TUTOR = gql`
     $email: String!
     $photo: String
     $password: String!
-    $hourlyRate: String
-    $knownSubjects: String
-    $bio: String
+    $hourlyRate: String!
+    $knownSubjects: String!
+    $bio: String!
   ) {
     addTutor(
       firstName: $firstName
@@ -188,3 +188,4 @@ export const UPDATE_PROFILE_PIC = gql`
     }
   }
 `;
+ 

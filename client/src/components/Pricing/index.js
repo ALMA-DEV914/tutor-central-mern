@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Row, Col, Card, Button, Spinner, Modal } from 'react-bootstrap'
+import { Container, Row, Col, Card, Button, Spinner} from 'react-bootstrap'
 
 export const Pricing = () => {
     return (

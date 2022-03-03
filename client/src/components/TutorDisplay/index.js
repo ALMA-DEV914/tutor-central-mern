@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Tutor from "../Tutor";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col} from "react-bootstrap";
 import { QUERY_TUTORS } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
 
@@ -9,6 +9,7 @@ const TutorDisplay = () => {
   const [query, setQuery] = useState("");
 
   const { loading, data } = useQuery(QUERY_TUTORS);
+
 
   if (loading) {
     return <div>Loading...</div>;
@@ -36,7 +37,7 @@ const TutorDisplay = () => {
           return (
             <Col key={index} sm={4}>
               <Tutor tutor={tutor}></Tutor>
-            </Col>
+              </Col>
           );
         })}
     </Row>

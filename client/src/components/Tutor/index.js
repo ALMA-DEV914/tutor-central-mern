@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+/* eslint-disable no-template-curly-in-string */
+import React from "react";
 import { Card, Button } from "react-bootstrap";
 import profile from '../../assets/tutor.jpeg';
 
 const Tutor = ({ tutor }) => {
-  const [card, setCard] = useState(null)
+  
+  
   return (
-    <Card className="p-2 mt-4">
+    <Card className="p-2 mt-4"  >
       <Card.Img variant='top' src={profile} style={{borderRadius: '50px'}} />
       <Card.Body>
         <Card.Title>{tutor.userId.username}</Card.Title>
@@ -20,7 +22,7 @@ const Tutor = ({ tutor }) => {
         <Button variant='success' href={`/tutor/${tutor.userId._id}`}>
           Sign up with {tutor.userId.username}
         </Button>
-        <Button variant="danger" className="m-2" onClick={() => setCard(null)}>Delete</Button>
+        <Button variant="danger" href={`mailto:${tutor.userId.email}`} className="m-2">Email</Button>
       </Card.Body>
     </Card>
   );

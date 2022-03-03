@@ -5,6 +5,7 @@ import { ADD_TUTOR, GET_S3_URL } from "../utils/mutations";
 import { Card, Form, Button, Modal } from "react-bootstrap";
 import FileUploader from "../components/FileUploader";
 
+
 function TutorSignup() {
   const [showModal, setShowModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -13,6 +14,9 @@ function TutorSignup() {
     username: "",
     email: "",
     password: "",
+    hourlyRate: "",
+    knownSubjects: "",
+    bio: ""
   });
   const [photo, setPhoto] = useState(null);
   const [addTutor] = useMutation(ADD_TUTOR);
@@ -62,17 +66,22 @@ function TutorSignup() {
         return;
       }
     }
+
     try {
       let variables = {
         email: formState.email,
         password: formState.password,
         username: formState.username,
+        hourlyRate: formState.hourlyRate,
+        knownSubjects: formState.knownSubjects,
+        bio: formState.bio
       };
       if (photo) {
         variables.photo = photo.name;
       }
       const mutationResponse = await addTutor({
         variables,
+       
       });
       console.log(mutationResponse);
       const token = mutationResponse.data.addTutor.token;
@@ -113,7 +122,34 @@ function TutorSignup() {
               onChange={handleChange}
             />
           </Form.Group>
-
+          <Form.Group className='mb-3' controlId='formBasicText'>
+            <Form.Label>Hourly Rate $</Form.Label>
+            <Form.Control
+               type='text'
+              name='hourlyRate'
+              placeholder='Hourly rate'
+              onChange={handleChange}
+            
+            />
+          </Form.Group>
+          <Form.Group className='mb-3' controlId='FormBasicText'>
+            <Form.Label>Expertises</Form.Label>
+            <Form.Control
+              type='text'
+              name='knownSubjects'
+              placeholder='Know subjects/expertises'
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group className='mb-3' controlId='formBasicTextarea'>
+            <Form.Label>Write a Short Bio</Form.Label>
+            <Form.Control as="textarea" rows={3}
+              type='text'
+              name='bio'
+              placeholder='Descriptive bio '
+              onChange={handleChange}
+            />
+          </Form.Group>
           <Form.Group className='mb-3' controlId='formBasicPassword'>
             <Form.Label>Password</Form.Label>
             <Form.Control

@@ -6,11 +6,13 @@ import { QUERY_ME } from "../utils/queries";
 // import { useParams } from "react-router-dom";
 import { UPDATE_USER} from "../utils/mutations";
 
+
 function TutorProfile() {
   // return <div>Profile</div>;
   // let navigate = useNavigate();
 
   const { loading, data } = useQuery(QUERY_ME);
+  
   // console.log(data.me.user.username);
   // const [errorMessage, setErrorMessage] = useState("");
   const [formState, setFormState] = useState({
@@ -19,6 +21,7 @@ function TutorProfile() {
     // password: `${data.me.user.password}`,
     username: ``,
     password: ``,
+
   });
 
   const [updateUser] = useMutation(UPDATE_USER);
@@ -78,10 +81,15 @@ function TutorProfile() {
 
       <div>
         <div>
-          <p>{data.me.user.username}</p>
-          <p>{data.me.user.email}</p>
+          <p><b>Name:</b> {data.me.user.username}</p>
+          <p><b>Email Address:</b> {data.me.user.email}</p>
+          <p><b>Hourly rate: $</b>{data.me.tutor.hourlyRate}</p>
+          <p><b>Expertises:</b> {data.me.tutor.knownSubjects}</p>
+          <p><b>Bio:</b> {data.me.tutor.bio}</p>
+         
           {/* <p>{data.me.tutor._id}</p> */}
         </div>
+
         <form onSubmit={handleFormSubmit}>
           <input
             className="form-input"

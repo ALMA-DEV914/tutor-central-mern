@@ -10,7 +10,7 @@ const Tutor = ({ tutor }) => {
         <Card.Text>
           <span>Rating: 5 Stars</span>
           <span>Hourly Rate: {tutor?.hourlyRate}</span>
-          <span>Experise: JavaScript, CSS, HTML</span>
+          <span>Expertise: JavaScript, CSS, HTML</span>
           <span>
             Bio: Some quick example text to build on the card title and make up
             the bulk of the card's content.

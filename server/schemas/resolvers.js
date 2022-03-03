@@ -17,6 +17,8 @@ const resolvers = {
         const userData = await User.findOne({ _id: context.user._id }).select(
           "-__v"
         );
+        // .populate("Chat");
+        console.log(userData.chats);
 
         if (userData.role === "tutor") {
           const tutorData = await Tutor.findOne({
@@ -30,7 +32,7 @@ const resolvers = {
           }).populate("userId");
           return { user: userData, student: studentData };
         }
-
+        // console.log(userData);
         // return userData;
       }
       throw new AuthenticationError("Not logged in");
@@ -135,8 +137,8 @@ const resolvers = {
         // }
         const user = await User.findByIdAndUpdate(
           { _id: context.user._id },
-        args,
-         { new: true }
+          args,
+          { new: true }
         );
         // for (const property in args) {
         //   // console.log(args[property]);

@@ -4,14 +4,14 @@ import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ME } from "../utils/queries";
 // import { useNavigate } from "react-router-dom";
 // import { useParams } from "react-router-dom";
-import { UPDATE_USER} from "../utils/mutations";
+import { UPDATE_USER } from "../utils/mutations";
 
 function TutorProfile() {
   // return <div>Profile</div>;
   // let navigate = useNavigate();
 
   const { loading, data } = useQuery(QUERY_ME);
-  // console.log(data.me.user.username);
+  console.log(data);
   // const [errorMessage, setErrorMessage] = useState("");
   const [formState, setFormState] = useState({
     // username: `${data.me.user.username}`,
@@ -80,6 +80,7 @@ function TutorProfile() {
         <div>
           <p>{data.me.user.username}</p>
           <p>{data.me.user.email}</p>
+          <p>{data.me.user.chats}</p>
           {/* <p>{data.me.tutor._id}</p> */}
         </div>
         <form onSubmit={handleFormSubmit}>

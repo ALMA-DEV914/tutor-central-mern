@@ -3,9 +3,10 @@ import Auth from "../utils/auth";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ME } from "../utils/queries";
 // import { useNavigate } from "react-router-dom";
-// import { useParams } from "react-router-dom";
+//import { useParams } from "react-router-dom";
 import { UPDATE_USER} from "../utils/mutations";
-import { Button, Col, Form, Row} from 'react-bootstrap'
+import { Button, Card, Col, Form, Row, Alert} from 'react-bootstrap'
+import tutorProfile from '../assets/tutor.jpeg'
 
 function TutorProfile() {
   // return <div>Profile</div>;
@@ -22,6 +23,7 @@ function TutorProfile() {
     username: ``,
     password: ``,
 
+
   });
 
   const [updateUser] = useMutation(UPDATE_USER);
@@ -35,10 +37,12 @@ function TutorProfile() {
     // }
     console.log(data.me.user);
     console.log(event.target.value);
+
     if (!event.target.value.length) {
       setFormState({
         // ...formState,
         formState: { ...data.me.user },
+      
       });
       // return { ...data.me.user };
     }
@@ -46,6 +50,7 @@ function TutorProfile() {
     setFormState({
       ...formState,
       [name]: value,
+      
     });
   };
 
@@ -59,13 +64,14 @@ function TutorProfile() {
       const { data } = await updateUser({
         variables: { ...formState },
       });
+      
       // console.log(data);
       Auth.loggedIn(data.updateUser.token);
     } catch (e) {
       console.error(e);
     }
   };
-
+  
   // const user = data?.me ||  {};
   // console.log(user);
 
@@ -73,11 +79,31 @@ function TutorProfile() {
     return <div>Loading...</div>;
   }
 
+  function AlertDismissibleExample() {
+    const [show, setShow] = useState(true);
+  
+    if (show) {
+      return (
+        <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+          <Alert.Heading>Hey! You got a new message!</Alert.Heading>
+          
+            Viewing Chat {data.chat} between {data.chat} and {" "}
+            {data.messageText} on {data.createdAt}
+    
+        
+          </Alert>
+      );
+    }
+    return <Button onClick={() => setShow(true)}>Show Messages</Button>;
+  }
+
+
+  
   return (
     <>
     <Row className="mt-4">
       <Col>
-     <img  src='https://via.placeholder.com/150' alt="profile" style={{width: '400px'}}/>
+     <img  src={tutorProfile} alt="profile" style={{width: '400px', borderRadius:"100%", height: '400px'}}/>
      </Col>
    <Col className="mt-4">
       <div>
@@ -95,9 +121,13 @@ function TutorProfile() {
           {/* <p>{data.me.tutor._id}</p> */}
         </div>
       </div>
+      <div><h3>Messages</h3>
+      <AlertDismissibleExample />
+      </div>
       <div><h3>Student Lists</h3></div>
       </Col>
       <Form.Group>
+        <Card className="p-4" style={{ width: '28rem' }}>
           <h3>Update Username and Password</h3>
         <form onSubmit={handleFormSubmit}>
           <input
@@ -108,7 +138,7 @@ function TutorProfile() {
             id="username"
             value={formState.username}
             onChange={handleChange}
-            disabled
+            
           />
           <input
             className="form-input"
@@ -118,7 +148,7 @@ function TutorProfile() {
             id="password"
             value={formState.password}
             onChange={handleChange}
-            disabled
+            
           />
           {/* {errorMessage && (
             <div>
@@ -129,7 +159,9 @@ function TutorProfile() {
             Submit
           </Button>
         </form>
+        </Card>
         </Form.Group>
+        
       </Row>
       
     </>

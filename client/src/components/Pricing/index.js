@@ -5,7 +5,8 @@ export const Pricing = () => {
     return (
         <Container className='text-center mt-4'>
   <Row style={{margin: '5% auto'}}>
-    <Col className='mb-4 mt-4'><h1>Get tutoring at an affordable price</h1></Col>
+    <Col className='mb-4 mt-4'><h1>Get tutoring at an affordable price</h1>
+    <p>We help student or individuals how to manage their pocket.</p></Col>
   </Row>
   <Row style={{margin: '5% auto'}}>
     <Col><Card style={{ width: '18rem' }}>

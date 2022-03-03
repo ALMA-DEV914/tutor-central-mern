@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React from "react";
 import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
 import { ADD_CHAT } from "../utils/mutations";
@@ -8,7 +8,7 @@ import { Button } from "react-bootstrap";
 const TutorDetail = () => {
   const { id } = useParams();
   const [addChat] = useMutation(ADD_CHAT);
-
+  
   const handleChatClick = async () => {
     // create the chat between student and tutor
     const user = Auth.getProfile();

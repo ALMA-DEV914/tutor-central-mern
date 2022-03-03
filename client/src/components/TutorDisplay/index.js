@@ -3,7 +3,7 @@ import Tutor from "../Tutor";
 import { Row, Col } from "react-bootstrap";
 import { QUERY_TUTORS } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
-import SearchButton from "../SearchBar";
+
 
 const TutorDisplay = () => {
   const [query, setQuery] = useState("");
@@ -15,15 +15,12 @@ const TutorDisplay = () => {
   }
 
   return (
-    <Row className="mt-4 p-4">
-      <Col>
-      <input className="col-lg-11 p-1"
+    <Row className="mt-4 p-4 justify-content-center">
+       <input className="col-lg-8 p-3" style={{borderRadius: '20px', backgroundColor: 'blanchedalmond', borderStyle: 'hidden' }}
         placeholder='Enter search term'
         onChange={(event) => setQuery(event.target.value)}
       />
-      {<SearchButton />}
-    </Col>
-  <Row className="mt-4">
+    <Row className="mt-4">
       {data.tutors
         .filter((tutor) => {
           if (query === "") {

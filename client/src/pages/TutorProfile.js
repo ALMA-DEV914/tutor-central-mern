@@ -5,13 +5,15 @@ import { QUERY_ME } from "../utils/queries";
 // import { useNavigate } from "react-router-dom";
 // import { useParams } from "react-router-dom";
 import { UPDATE_USER } from "../utils/mutations";
+import { Button, Col, Form, Row } from "react-bootstrap";
 
 function TutorProfile() {
   // return <div>Profile</div>;
   // let navigate = useNavigate();
 
   const { loading, data } = useQuery(QUERY_ME);
-  console.log(data);
+
+  // console.log(data.me.user.username);
   // const [errorMessage, setErrorMessage] = useState("");
   const [formState, setFormState] = useState({
     // username: `${data.me.user.username}`,
@@ -72,46 +74,79 @@ function TutorProfile() {
 
   return (
     <>
-      <div>
-        <h2>Viewing {data.me.user.username} profile</h2>
-      </div>
+      <Row className="mt-4">
+        <Col>
+          <img
+            src="https://via.placeholder.com/150"
+            alt="profile"
+            style={{ width: "400px" }}
+          />
+        </Col>
+        <Col className="mt-4">
+          <div>
+            <h2>Your Dashboard</h2>
+          </div>
 
-      <div>
-        <div>
-          <p>{data.me.user.username}</p>
-          <p>{data.me.user.email}</p>
-          <p>{data.me.user.chats}</p>
-          {/* <p>{data.me.tutor._id}</p> */}
-        </div>
-        <form onSubmit={handleFormSubmit}>
-          <input
-            className="form-input"
-            placeholder="username"
-            name="username"
-            type="username"
-            id="username"
-            value={formState.username}
-            onChange={handleChange}
-          />
-          <input
-            className="form-input"
-            placeholder="******"
-            name="password"
-            type="password"
-            id="password"
-            value={formState.password}
-            onChange={handleChange}
-          />
-          {/* {errorMessage && (
+          <div>
+            <div>
+              <p>
+                <b>Name:</b> {data.me.user.username}
+              </p>
+              <p>
+                <b>Email Address:</b> {data.me.user.email}
+              </p>
+              <p>
+                <b>Hourly rate: $</b>
+                {data.me.tutor.hourlyRate}
+              </p>
+              <p>
+                <b>Expertises:</b> {data.me.tutor.knownSubjects}
+              </p>
+              <p>
+                <b>Bio:</b> {data.me.tutor.bio}
+              </p>
+
+              {/* <p>{data.me.tutor._id}</p> */}
+            </div>
+          </div>
+          <div>
+            <h3>Student Lists</h3>
+          </div>
+        </Col>
+        <Form.Group>
+          <h3>Update Username and Password</h3>
+          <form onSubmit={handleFormSubmit}>
+            <input
+              className="form-input m-2"
+              placeholder="username"
+              name="username"
+              type="username"
+              id="username"
+              value={formState.username}
+              onChange={handleChange}
+              disabled
+            />
+            <input
+              className="form-input"
+              placeholder="******"
+              name="password"
+              type="password"
+              id="password"
+              value={formState.password}
+              onChange={handleChange}
+              disabled
+            />
+            {/* {errorMessage && (
             <div>
               <p className="error-text">{errorMessage}</p>
             </div>
           )} */}
-          <button className="btn d-block w-100" type="submit">
-            Submit
-          </button>
-        </form>
-      </div>
+            <Button className="btn d-block" variant="primary" type="submit">
+              Submit
+            </Button>
+          </form>
+        </Form.Group>
+      </Row>
     </>
   );
 }

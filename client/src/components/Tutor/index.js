@@ -8,12 +8,11 @@ const Tutor = ({ tutor }) => {
       <Card.Body>
         <Card.Title>{tutor.userId.username}</Card.Title>
         <Card.Text>
-          <span>Rating: 5 Stars</span>
-          <span>Hourly Rate: {tutor?.hourlyRate}</span>
-          <span>Experise: JavaScript, CSS, HTML</span>
+          <span><b>Rating:</b> 5 Stars</span><br></br>
+          <span><b>Hourly Rate: $</b> {tutor?.hourlyRate}</span><br></br>
+          <span><b>Expertise:</b> {tutor?.knownSubjects}</span><br></br>
           <span>
-            Bio: Some quick example text to build on the card title and make up
-            the bulk of the card's content.
+          <b>Bio:</b> {tutor?.bio}
           </span>
         </Card.Text>
         <Button variant='primary' href={`/tutor/${tutor.userId._id}`}>

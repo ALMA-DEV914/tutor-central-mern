@@ -4,7 +4,7 @@ import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 
 function Header() {
   return (
-    <Navbar bg='primary' variant='dark' collapseOnSelect expand='lg'>
+    <Navbar bg='primary p-4' variant='dark' collapseOnSelect expand='lg'>
       <Container fluid>
         <Navbar.Brand href='/'>Tutor and Student</Navbar.Brand>
         <Navbar.Toggle aria-controls='responsive-navbar' />

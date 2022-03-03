@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button, Modal } from "react-bootstrap";
+import { Form, Button, Modal, Card } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 import { LOGIN } from "../utils/mutations";
 import Auth from "../utils/auth";
@@ -49,6 +49,7 @@ function Login() {
 
   return (
     <>
+    <Card className="mt-4 p-3">
       <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
         <Form.Group className='mb-3' controlId='formBasicEmail'>
           <Form.Label>Email</Form.Label>
@@ -86,6 +87,7 @@ function Login() {
           </Button>
         </Modal.Footer>
       </Modal>
+      </Card>
     </>
   );
 }

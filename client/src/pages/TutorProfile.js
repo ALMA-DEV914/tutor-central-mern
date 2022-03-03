@@ -5,7 +5,7 @@ import { QUERY_ME } from "../utils/queries";
 // import { useNavigate } from "react-router-dom";
 // import { useParams } from "react-router-dom";
 import { UPDATE_USER} from "../utils/mutations";
-
+import { Button, Col, Form, Row} from 'react-bootstrap'
 
 function TutorProfile() {
   // return <div>Profile</div>;
@@ -75,8 +75,13 @@ function TutorProfile() {
 
   return (
     <>
+    <Row className="mt-4">
+      <Col>
+     <img  src='https://via.placeholder.com/150' alt="profile" style={{width: '400px'}}/>
+     </Col>
+   <Col className="mt-4">
       <div>
-        <h2>Viewing {data.me.user.username} profile</h2>
+        <h2>Your Dashboard</h2>
       </div>
 
       <div>
@@ -89,16 +94,21 @@ function TutorProfile() {
          
           {/* <p>{data.me.tutor._id}</p> */}
         </div>
-
+      </div>
+      <div><h3>Student Lists</h3></div>
+      </Col>
+      <Form.Group>
+          <h3>Update Username and Password</h3>
         <form onSubmit={handleFormSubmit}>
           <input
-            className="form-input"
+            className="form-input m-2"
             placeholder="username"
             name="username"
             type="username"
             id="username"
             value={formState.username}
             onChange={handleChange}
+            disabled
           />
           <input
             className="form-input"
@@ -108,17 +118,20 @@ function TutorProfile() {
             id="password"
             value={formState.password}
             onChange={handleChange}
+            disabled
           />
           {/* {errorMessage && (
             <div>
               <p className="error-text">{errorMessage}</p>
             </div>
           )} */}
-          <button className="btn d-block w-100" type="submit">
+          <Button className="btn d-block" variant="primary" type="submit">
             Submit
-          </button>
+          </Button>
         </form>
-      </div>
+        </Form.Group>
+      </Row>
+      
     </>
   );
 }

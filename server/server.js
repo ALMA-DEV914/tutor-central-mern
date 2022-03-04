@@ -1,6 +1,9 @@
 const express = require("express");
 const path = require("path");
 const db = require("./config/connection");
+const cors = require("cors");
+const striperoutes = require('./routes/stripe-routes');
+
 // import apollo server
 const { ApolloServer } = require("apollo-server-express");
 const { GraphQLUpload, graphqlUploadExpress } = require("graphql-upload");
@@ -10,6 +13,7 @@ const { authMiddleware } = require("./utils/auth");
 const PORT = process.env.PORT || 3001;
 const app = express();
 
+app.use(cors());
 app.use(graphqlUploadExpress());
 
 const startServer = async () => {
@@ -26,7 +30,7 @@ const startServer = async () => {
 };
 
 startServer();
-
+app.use('api/stripe', striperoutes)
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 

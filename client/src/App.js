@@ -1,5 +1,7 @@
 // import React from "react";
 import React from "react";
+//import axios from 'axios';
+//import Stripe from "react-stripe-checkout";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import {
@@ -23,8 +25,7 @@ import TutorProfile from "./pages/TutorProfile";
 import ChatDetail from "./pages/ChatDetail";
 import StudentProfile from "./pages/StudentProfile";
 import { Pricing } from "./components/Pricing";
-import hero1 from '../src/assets/hero.jpeg'
-
+import Cart from './components/Cart'
 // import Tutor from "./components/Tutor";
 // import { QUERY_TUTORS } from "./utils/queries";
 // import { useQuery } from "@apollo/client";
@@ -35,7 +36,7 @@ const httpLink = createHttpLink({
 });
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem("id_token");
+const token = localStorage.getItem("id_token");
   return {
     headers: {
       ...headers,
@@ -49,22 +50,12 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-function App() {
+
+function App (){
   return (
     <ApolloProvider client={client}>
-      <Router>
-        <div
-          className='bg-light'
-          style={{
-            minHeight: "100vh",
-            display: "flex",
-            flexDirection: "column",
-            backgroundImage: `url(${hero1})`,
-            backgroundSize: 'cover',
-          }}
-              >
-            
-      <Header />
+      <Router >
+        <Header />
           <Container>
             <Routes>
               <Route path='/' element={<Home />} />
@@ -72,17 +63,16 @@ function App() {
               <Route path='/logout' element={<Home logout={true} />} />
                <Route path='/pricing' element= {<Pricing/>}/>
               <Route path='/student-signup' element={<StudentSignup />} />
-              <Route path='/studen-profile' element={<StudentProfile/>}/>
+              <Route path='/student-profile' element={<StudentProfile/>}/>
               <Route path='/tutor-signup' element={<TutorSignup />} />
-             
+              <Route path='/pay' element={<Cart/>}/>
               <Route path='/tutor/:id' element={<TutorDetail />} />
-              <Route path='/tutor-profile' element={<TutorProfile />} />
+              <Route path='/tutor-profile/' element={<TutorProfile />} />
               <Route path='/chat/:id' element={<ChatDetail />} />
               <Route path='*' element={<NoMatch />} />
             </Routes>
           </Container>
           <Footer />
-        </div>
       </Router>
     </ApolloProvider>
   );

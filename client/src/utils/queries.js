@@ -82,3 +82,10 @@ export const QUERY_CHAT = gql`
     }
   }
 `;
+export const QUERY_CHECKOUT = gql`
+  query getCheckout($userId: ID!) {
+    checkout(user: $userId) {
+      session
+    }
+  }
+`;

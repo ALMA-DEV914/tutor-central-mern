@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Row, Col, Card, Button, Spinner} from 'react-bootstrap'
-
+import Cart from '../Cart';
 export const Pricing = () => {
 
     return (
@@ -25,8 +25,8 @@ export const Pricing = () => {
       
     </Card.Text>
     <Card body>$69/month<br></br>
-58¢/additional minute </Card>
-
+   58¢/additional minute </Card>
+   <Button>{<Cart/>}</Button>
   </Card.Body>
 </Card>
 </Col>
@@ -44,7 +44,7 @@ export const Pricing = () => {
     </Card.Text>
     <Card body>$119/month<br></br>
 58¢/additional minute</Card>
-
+<Button>{<Cart/>}</Button>
   </Card.Body>
 </Card></Col>
     <Col><Card >
@@ -58,7 +58,7 @@ export const Pricing = () => {
     </Card.Text>
     <Card body>$209/month<br></br>
 58¢/additional minute</Card>
-
+<Button>{<Cart/>}</Button>
   </Card.Body>
 </Card></Col>
     <Col><Card>
@@ -73,7 +73,7 @@ export const Pricing = () => {
     </Card.Text>
     <Card body>$1 per minute of tutoring<br></br>
 58¢/additional minute</Card>
-
+<Button>{<Cart/>}</Button>
   </Card.Body>
 </Card></Col>
 </Row>

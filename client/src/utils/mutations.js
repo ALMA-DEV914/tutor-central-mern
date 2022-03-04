@@ -173,11 +173,7 @@ export const SINGLE_FILE_UPLOAD = gql`
   }
 `;
 
-export const GET_S3_URL = gql`
-  mutation Mutation($filename: String!) {
-    signedLink(filename: $filename)
-  }
-`;
+
 
 export const UPDATE_PROFILE_PIC = gql`
   mutation Mutation($userId: ID!, $profilePic: String!) {
@@ -188,4 +184,13 @@ export const UPDATE_PROFILE_PIC = gql`
     }
   }
 `;
- 
+export const GET_S3_URL = gql`
+    mutation Mutation($isLoggedIn: Boolean!) {
+        getS3Url(isLoggedIn: $isLoggedIn)
+    }
+`;
+export const GET_S3_URL_AUTHENTICATED = gql`
+mutation Mutation($isLoggedIn: Boolean!) {
+    getS3UrlAuthenticated(isLoggedIn: $isLoggedIn)
+}
+`;

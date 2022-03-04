@@ -6,12 +6,10 @@ import { QUERY_ME } from "../utils/queries";
 //import { useParams } from "react-router-dom";
 import { UPDATE_USER} from "../utils/mutations";
 import { Button, Card, Col, Form, Row, Alert} from 'react-bootstrap'
-import tutorProfile from '../assets/tutor.jpeg'
-
-function TutorProfile() {
+import profile from '../assets/tutor.jpeg'
+function TutorProfile (){
   // return <div>Profile</div>;
   // let navigate = useNavigate();
-
   const { loading, data } = useQuery(QUERY_ME);
   
   // console.log(data.me.user.username);
@@ -103,7 +101,7 @@ function TutorProfile() {
     <>
     <Row className="mt-4">
       <Col>
-     <img  src={tutorProfile} alt="profile" style={{width: '400px', borderRadius:"100%", height: '400px'}}/>
+      <img  src={profile} alt="profile" style={{width: '400px', borderRadius:"100%", height: '400px'}}/>
      </Col>
    <Col className="mt-4">
       <div>
@@ -117,7 +115,6 @@ function TutorProfile() {
           <p><b>Hourly rate: $</b>{data.me.tutor.hourlyRate}</p>
           <p><b>Expertises:</b> {data.me.tutor.knownSubjects}</p>
           <p><b>Bio:</b> {data.me.tutor.bio}</p>
-         
           {/* <p>{data.me.tutor._id}</p> */}
         </div>
       </div>

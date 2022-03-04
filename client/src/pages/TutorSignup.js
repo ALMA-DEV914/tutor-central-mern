@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
-import { ADD_TUTOR, GET_S3_URL } from "../utils/mutations";
+import { ADD_TUTOR} from "../utils/mutations";
 import { Card, Form, Button, Modal, Container,Row } from "react-bootstrap";
-import FileUploader from "../components/FileUploader";
-
+//import FileUploader from "../components/FileUploader";
+import {GET_S3_URL_AUTHENTICATED} from "../utils/mutations"
 
 function TutorSignup() {
   const [showModal, setShowModal] = useState(false);
@@ -16,11 +16,12 @@ function TutorSignup() {
     password: "",
     hourlyRate: "",
     knownSubjects: "",
-    bio: ""
+    bio: "",
+    
   });
-  const [photo, setPhoto] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
   const [addTutor] = useMutation(ADD_TUTOR);
-  const [getS3Url] = useMutation(GET_S3_URL);
+  const [getS3UrlAuthenticated] = useMutation(GET_S3_URL_AUTHENTICATED);
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -30,41 +31,38 @@ function TutorSignup() {
     setShowModal(true);
   };
 
-  const handleFormSubmit = async (event) => {
+const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(photo);
     const form = event.currentTarget;
+   
     if (form.checkValidity() === false) {
       setErrorMessage("Check all fields are complete and try again");
       setShowModal(true);
-    }
-    setValidated(true);
+    } else{
+     setValidated(true);
     const uniqueFilename = new Date().getTime() + ".jpg";
-
+    
     //add mutation call to upload file
-    if (photo) {
-      const uploadUrl = await getS3Url({
+    let imageUrl = ""
+    if(imageUrl){
+      const urlReturnObject = await getS3UrlAuthenticated({
         variables: {
-          filename: photo.name,
+          isLoggedIn: Auth.loggedIn()
         },
       });
-      console.log(uploadUrl.data);
 
+    const urlObject = urlReturnObject.data;
+      const url = urlObject;
       const formData = new FormData();
-      formData.append("file", photo, photo.name);
-      const img_response = await fetch(uploadUrl.data.signedLink, {
+      formData.append("file", imageFile);
+      await fetch(url, {
         method: "PUT",
-        body: formData,
-        headers: {
-          "Content-Type": photo.type,
+        headers:{
+          "Content-Type": "multipart/form-data",
         },
+        body: formData,
       });
-      if (img_response.ok) {
-        console.log("image upload success");
-      } else {
-        console.log(img_response);
-        return;
-      }
+      imageUrl = url.split("?")[0];
     }
 
     try {
@@ -74,15 +72,14 @@ function TutorSignup() {
         username: formState.username,
         hourlyRate: formState.hourlyRate,
         knownSubjects: formState.knownSubjects,
-        bio: formState.bio
+        bio: formState.bio,
+  
       };
-      if (photo) {
-        variables.photo = photo.name;
-      }
-      const mutationResponse = await addTutor({
-        variables,
-       
-      });
+    
+     const mutationResponse = await addTutor({
+     variables,
+  });
+  
       console.log(mutationResponse);
       const token = mutationResponse.data.addTutor.token;
       Auth.login(token);
@@ -91,6 +88,13 @@ function TutorSignup() {
       console.log(err);
     }
   };
+}
+  const handleImageSelection = async (event) => {
+    //get the file that was submitted by user and add to state
+    const input = event.target;
+    setImageFile(input.files[0]);
+    
+};
 
   const handleChange = (event) => {
     const { name, value } = event.currentTarget;
@@ -163,10 +167,14 @@ function TutorSignup() {
           </Form.Group>
           <Form.Group className='mb-3' controlId='formFileInput'>
             <Form.Label>Photo</Form.Label>
-            <FileUploader
-              onFileSelectSuccess={(file) => setPhoto(file)}
-              onFileSelectError={(message) => console.log(message)}
-            ></FileUploader>
+            <Form.Control
+                        type="file"
+                        name="photo"
+                        accept="image/*"
+                        onChange={(event) => {
+                        handleImageSelection(event);
+                        }}
+                      />
           </Form.Group>
           <Button variant='primary' type='submit' onClick={handleFormSubmit}>
             Submit

@@ -1,14 +1,15 @@
 /* eslint-disable no-template-curly-in-string */
 import React from "react";
 import { Card, Button } from "react-bootstrap";
-import profile from '../../assets/tutor.jpeg';
+import profile from '../../assets/tutor.jpeg'
 
 const Tutor = ({ tutor }) => {
   
-  
   return (
     <Card className="p-2 mt-4"  >
-      <Card.Img variant='top' src={profile} style={{borderRadius: '50px'}} />
+      <img  src={profile} alt="profile" style={{width: '400px', borderRadius:"5%", height: '400px'}}/>
+      
+      
       <Card.Body>
         <Card.Title>{tutor.userId.username}</Card.Title>
         <Card.Text>

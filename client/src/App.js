@@ -74,6 +74,7 @@ function App() {
               <Route path='/student-signup' element={<StudentSignup />} />
               <Route path='/studen-profile' element={<StudentProfile/>}/>
               <Route path='/tutor-signup' element={<TutorSignup />} />
+             
               <Route path='/tutor/:id' element={<TutorDetail />} />
               <Route path='/tutor-profile' element={<TutorProfile />} />
               <Route path='/chat/:id' element={<ChatDetail />} />

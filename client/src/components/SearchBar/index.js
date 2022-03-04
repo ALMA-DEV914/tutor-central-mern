@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 // import { useNavigate } from "react-router-dom";
 
 function completeSearch() {
@@ -12,8 +12,8 @@ const SearchButton = () => {
 
   const [isSearching, setSearching] = useState(false);
   useEffect(() => {
+    const results = completeSearch();
    if (isSearching) {
-      const results = completeSearch();
       setSearching(false);
     }
   }, [isSearching]);

@@ -1,49 +1,32 @@
-const AWS = require("aws-sdk");
-require("dotenv").config();
+const dotenv = require("dotenv");
+const aws = require("aws-sdk");
 
-const s3 = new AWS.S3({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+dotenv.config();
+
+const region = "us-east-2";
+const bucketName = process.env.AWS_BUCKET_NAME;
+const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+
+//get s3 connection object to work with
+const s3 = new aws.S3({
+    region,
+    accessKeyId,
+    secretAccessKey,
+    
 });
 
-const uploadFile = (filename, data) => {
-  // data received from the client
-  // Setting up S3 upload parameters
-  const params = {
-    Bucket: process.env.AWS_BUCKET_NAME,
-    Key: filename, // File name you want to save as in S3
-    Body: data,
-    ContentType: "image/jpeg",
-  };
-
-  // Uploading files to the bucket
-  s3.upload(params, function (err, data) {
-    if (err) {
-      throw err;
-    }
-    // you would store this location in the database so that it can be included
-    // in any requests to show the job. You would need a new table called image
-    // and it should store the image_id, job_id, image_url
-    // You would need to associate to jobs via the id
-    // Jobs can have multiple images
-    // Image can have one job
-    console.log(`File uploaded successfully. ${data.Location}`);
-  });
-};
-
-const getS3UploadLink = async (filename) => {
-  const signedUrlExpireSeconds = 60 * 10;
-
-  const url = await s3.getSignedUrl("putObject", {
-    Bucket: process.env.AWS_BUCKET_NAME,
-    Key: filename,
-    Expires: signedUrlExpireSeconds,
-  });
-  console.log(url);
-  return url;
-};
-
+//create secure url that the client can use to post images to the s3 bucket
 module.exports = {
-  uploadFile,
-  getS3UploadLink,
+    generateUploadURL: async function () {
+      const signedUrlExpireSeconds = 60 * 10;
+  const params = {
+            Bucket: bucketName,
+            Key: imageName,
+            Expires: 60,
+        };
+        //upload image to s3 bucket and return the URL
+        const uploadURL = await s3.getSignedUrlPromise("putObject", params);
+        return uploadURL;
+    },
 };

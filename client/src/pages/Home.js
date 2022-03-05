@@ -4,7 +4,6 @@ import Auth from "../utils/auth";
 // import SearchBar from "../components/SearchBar";
 import TutorDisplay from "../components/TutorDisplay";
 
-
 const Home = (props) => {
   if (props.logout) {
     Auth.logout();
@@ -15,6 +14,7 @@ const Home = (props) => {
     <>
       
       <TutorDisplay />
+  
     </>
   );
 };

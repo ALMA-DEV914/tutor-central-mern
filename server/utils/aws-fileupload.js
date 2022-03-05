@@ -13,6 +13,7 @@ const getS3UploadLink = async (filename) => {
     filename = "test.jpg";
   }
   const signedUrlExpireSeconds = 60;
+  
   const params = {
     Bucket: process.env.AWS_BUCKET_NAME,
     Key: filename,

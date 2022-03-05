@@ -25,6 +25,7 @@ import StudentProfile from "./pages/StudentProfile";
 import { Pricing } from "./components/Pricing";
 import hero1 from '../src/assets/hero.jpeg'
 import Features from "./pages/Features";
+
 // import Tutor from "./components/Tutor";
 // import { QUERY_TUTORS } from "./utils/queries";
 // import { useQuery } from "@apollo/client";
@@ -78,6 +79,7 @@ function App() {
               <Route path='/tutor/:id' element={<TutorDetail />} />
               <Route path='/tutor-profile' element={<TutorProfile />} />
               <Route path='/chat/:id' element={<ChatDetail />} />
+              
               <Route path='*' element={<NoMatch />} />
             </Routes>
           </Container>

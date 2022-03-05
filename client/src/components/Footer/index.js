@@ -1,6 +1,7 @@
 import React from "react";
 import { FaGithub } from "react-icons/fa";
 import { Container, Row, Col } from "react-bootstrap";
+import BetaNoticeModalBody from "../BetaNoticeModalBody";
 
 const Footer = () => {
   return (
@@ -9,6 +10,9 @@ const Footer = () => {
       className="footer mt-auto p-4"
       style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
     >
+     
+      <BetaNoticeModalBody/>
+      
       <Row>
         <Col>Copyright © 2022@UC Berkely Bootcamp</Col>
         <Col>Alma Braun || Tarek Yousef || Tom Bellenger</Col>

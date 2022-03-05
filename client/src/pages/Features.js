@@ -5,6 +5,7 @@ import TutorSlide from "../components/TutorsSlide";
 const Features = () => {
 
     return(
+        
          <TutorSlide/>
     );
 };

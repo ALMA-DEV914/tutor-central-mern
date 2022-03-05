@@ -6,7 +6,8 @@ const HomeHero = ({ tutor }) => {
   
   return (
    
-    <Row className="justify-content-md-center my-4">
+    <Row className="col-lg-12
+    justify-content-md-center my-4 bg-light">
     <Col xs={6} md={4} className="p-4 mt-4">
       <img  src={tutor.userId.photo} alt="profile" style={{width: '400px', borderRadius:"5%", height: '400px'}}/>
       </Col>

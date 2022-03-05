@@ -71,19 +71,18 @@ const resolvers = {
     },
     addStudent: async (parent, args) => {
       const user = await User.create({ ...args, role: "student" });
-      const token = signToken(user);
       const student = await Student.create({ ...args, userId: user._id });
+      const token = signToken(user, student._id);
 
       return { token, student };
     },
     addTutor: async (parent, args) => {
       const user = await User.create({ ...args, role: "tutor" });
-      const token = signToken(user);
       const tutor = await Tutor.create({ ...args, userId: user._id });
+      const token = signToken(user, tutor._id);
 
       return { token, tutor };
     },
-
 
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
@@ -137,8 +136,8 @@ const resolvers = {
         // }
         const user = await User.findByIdAndUpdate(
           { _id: context.user._id },
-        args,
-         { new: true }
+          args,
+          { new: true }
         );
         // for (const property in args) {
         //   // console.log(args[property]);

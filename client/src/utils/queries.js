@@ -82,3 +82,16 @@ export const QUERY_CHAT = gql`
     }
   }
 `;
+export const GET_BETA_FEEDBACK = gql`
+    query BetaFeedback {
+        betaFeedback(sortBy: { field: "createdAt", order: DESC }) {
+            _id
+            username
+            email
+            message
+            image
+            createdAt
+            archived
+        }
+    }
+`;

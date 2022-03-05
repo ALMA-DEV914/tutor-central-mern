@@ -3,9 +3,10 @@ import Auth from "../utils/auth";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ME } from "../utils/queries";
 // import { useNavigate } from "react-router-dom";
-// import { useParams } from "react-router-dom";
+//import { useParams } from "react-router-dom";
 import { UPDATE_USER } from "../utils/mutations";
-import { Button, Col, Form, Row } from "react-bootstrap";
+
+import { Button, Card, Col, Form, Row, Alert } from "react-bootstrap";
 
 function TutorProfile() {
   // return <div>Profile</div>;
@@ -34,6 +35,7 @@ function TutorProfile() {
     // }
     console.log(data.me.user);
     console.log(event.target.value);
+
     if (!event.target.value.length) {
       setFormState({
         // ...formState,
@@ -58,6 +60,7 @@ function TutorProfile() {
       const { data } = await updateUser({
         variables: { ...formState },
       });
+
       // console.log(data);
       Auth.loggedIn(data.updateUser.token);
     } catch (e) {
@@ -72,21 +75,38 @@ function TutorProfile() {
     return <div>Loading...</div>;
   }
 
+  function AlertDismissibleExample() {
+    const [show, setShow] = useState(true);
+
+    if (show) {
+      return (
+        <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+          <Alert.Heading>Hey! You got a new message!</Alert.Heading>
+        </Alert>
+      );
+    }
+    return <Button onClick={() => setShow(true)}>Show Messages</Button>;
+  }
+
   return (
     <>
       <Row className="mt-4">
         <Col>
           <img
-            src="https://via.placeholder.com/150"
+            src={data.me.user.photo}
             alt="profile"
-            style={{ width: "400px" }}
+            style={{
+              width: "400px",
+              borderRadius: "100%",
+              height: "400px",
+              boxShadow: "8px 8px 8px gray",
+            }}
           />
         </Col>
         <Col className="mt-4">
           <div>
             <h2>Your Dashboard</h2>
           </div>
-
           <div>
             <div>
               <p>
@@ -110,41 +130,45 @@ function TutorProfile() {
             </div>
           </div>
           <div>
+            <h3>Messages</h3>
+            <AlertDismissibleExample />
+          </div>
+          <div>
             <h3>Student Lists</h3>
           </div>
         </Col>
         <Form.Group>
-          <h3>Update Username and Password</h3>
-          <form onSubmit={handleFormSubmit}>
-            <input
-              className="form-input m-2"
-              placeholder="username"
-              name="username"
-              type="username"
-              id="username"
-              value={formState.username}
-              onChange={handleChange}
-              disabled
-            />
-            <input
-              className="form-input"
-              placeholder="******"
-              name="password"
-              type="password"
-              id="password"
-              value={formState.password}
-              onChange={handleChange}
-              disabled
-            />
-            {/* {errorMessage && (
+          <Card className="p-4" style={{ width: "28rem" }}>
+            <h3>Update Username and Password</h3>
+            <form onSubmit={handleFormSubmit}>
+              <input
+                className="form-input m-2"
+                placeholder="username"
+                name="username"
+                type="username"
+                id="username"
+                value={formState.username}
+                onChange={handleChange}
+              />
+              <input
+                className="form-input"
+                placeholder="******"
+                name="password"
+                type="password"
+                id="password"
+                value={formState.password}
+                onChange={handleChange}
+              />
+              {/* {errorMessage && (
             <div>
               <p className="error-text">{errorMessage}</p>
             </div>
           )} */}
-            <Button className="btn d-block" variant="primary" type="submit">
-              Submit
-            </Button>
-          </form>
+              <Button className="btn d-block" variant="primary" type="submit">
+                Submit
+              </Button>
+            </form>
+          </Card>
         </Form.Group>
       </Row>
     </>

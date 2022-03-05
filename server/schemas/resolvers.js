@@ -85,6 +85,8 @@ const resolvers = {
 
       return { token, tutor };
     },
+
+
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
@@ -155,7 +157,6 @@ const resolvers = {
 
       throw new AuthenticationError("You need to be logged in!");
     },
-
     createChat: async (parent, { tutor }, context) => {
       if (context.user) {
         let chat = await Chat.findOne({

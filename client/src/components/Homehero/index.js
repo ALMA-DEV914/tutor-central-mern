@@ -1,15 +1,35 @@
 import React from "react";
-import Container from "react-bootstrap/Container";
+import { Button, Col, Row } from "react-bootstrap";
+import profile from '../../assets/tutor.jpeg'
 
-const HomeHero = () => {
+const HomeHero = ({ tutor }) => {
+  
   return (
-    <>
-      <Container className="p-4">
-        <h1 className='display-2 p-4' style={{fontWeight: '400'}}>
-          The <b style={{color: 'WindowText', fontFamily: ''}}>first place</b> to look when you study.
-        </h1>
-      </Container>
-    </>
+   
+    <Row className="justify-content-md-center">
+    <Col xs={6} md={4} className="p-4 mt-4">
+      <img  src={profile} alt="profile" style={{width: '400px', borderRadius:"5%", height: '400px'}}/>
+      </Col>
+      
+      <Col xs={12} md={8} className="p-4 mt-4">
+      <h3>{tutor.userId.username}</h3>
+       <p><span><b>Rating:</b> 5 Stars</span><br></br>
+          <span><b>Hourly Rate: $</b> {tutor?.hourlyRate}</span><br></br>
+          <span><b>Expertise:</b> {tutor?.knownSubjects}</span><br></br>
+          <span>
+          <b>Bio:</b> {tutor?.bio}
+          </span><br></br>
+          <span>
+          <b>Feedback:</b>
+          </span>
+          </p>
+       
+        <Button variant='success' href={`/tutor/${tutor.userId._id}`}>
+         Get Live tutoring
+        </Button>
+      </Col>
+      </Row>
+  
   );
 };
 

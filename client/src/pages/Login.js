@@ -51,7 +51,7 @@ function Login() {
   return (
     <>
      
-    <Container className="p-4" style={{ height:'70vh', backgroundSize: 'cover'}}>
+    <Container className="p-4" style={{height:'80vh', backgroundSize: 'cover'}}>
       <Row className="justify-content-md-center" style={{marginTop: '10%'}}>
     <Card className="col-lg-8 mt-4 p-3">
       <Form noValidate validated={validated} onSubmit={handleFormSubmit}>

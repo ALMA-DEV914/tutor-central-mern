@@ -5,13 +5,13 @@ import { QUERY_ME } from "../utils/queries";
 // import { useNavigate } from "react-router-dom";
 //import { useParams } from "react-router-dom";
 import { UPDATE_USER } from "../utils/mutations";
+
 import { Button, Card, Col, Form, Row, Alert } from "react-bootstrap";
-import tutorProfile from "../assets/tutor.jpeg";
 
 function TutorProfile() {
   // return <div>Profile</div>;
   // let navigate = useNavigate();
-
+  
   const { loading, data } = useQuery(QUERY_ME);
 
   // console.log(data.me.user.username);
@@ -82,14 +82,15 @@ function TutorProfile() {
       return (
         <Alert variant='danger' onClose={() => setShow(false)} dismissible>
           <Alert.Heading>Hey! You got a new message!</Alert.Heading>
-          Viewing Chat {data.chat} between {data.chat} and {data.messageText} on{" "}
-          {data.createdAt}
+  
         </Alert>
       );
     }
     return <Button onClick={() => setShow(true)}>Show Messages</Button>;
   }
 
+  
+  
   return (
     <>
       <Row className='mt-4'>
@@ -104,7 +105,6 @@ function TutorProfile() {
           <div>
             <h2>Your Dashboard</h2>
           </div>
-
           <div>
             <div>
               <p>
@@ -133,6 +133,7 @@ function TutorProfile() {
           </div>
           <div>
             <h3>Student Lists</h3>
+        
           </div>
         </Col>
         <Form.Group>

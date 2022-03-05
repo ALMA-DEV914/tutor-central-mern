@@ -22,7 +22,10 @@ const BetaNoticeModalBody = (params) => {
    
     const user = Auth.loggedIn();
     //params from parent component
-   
+    const selectedCategory = document
+    .querySelector(".feedback-type")
+    .querySelector(".selectric")
+    .querySelector(".label").innerHTML;
     useEffect(() => {
         //populate and disable fields for user and email if a user is logged in
         if (user.email) {
@@ -47,6 +50,7 @@ const BetaNoticeModalBody = (params) => {
                         variables: {
                             username,
                             email,
+                            category: selectedCategory,
                             message,
                             archived: false,
                         },

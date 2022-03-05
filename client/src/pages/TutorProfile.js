@@ -98,7 +98,7 @@ function TutorProfile() {
           <img
             src={data.me.user.photo}
             alt='profile'
-            style={{ width: "400px", borderRadius: "100%", height: "400px" }}
+            style={{ width: "400px", borderRadius: "100%", height: "400px", boxShadow:"8px 8px 8px gray" }}
           />
         </Col>
         <Col className='mt-4'>

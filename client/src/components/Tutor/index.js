@@ -17,7 +17,7 @@ const Tutor = ({ tutor }) => {
     };
   return (
     <Card className="p-2 mt-4"  >
-      <Card.Img variant='right' src={tutor.userId.photo} style={{borderRadius: '5px', width: '200px',boxShadow: '4px 4px 4px gray'}} />
+      <Card.Img variant='right' src={tutor.userId.photo} style={{borderRadius: '5px', width: '200px',boxShadow: '8px 8px 8px gray'}} />
       <Card.Body>
         <Card.Title>{tutor.userId.username}</Card.Title>
         <Card.Text>

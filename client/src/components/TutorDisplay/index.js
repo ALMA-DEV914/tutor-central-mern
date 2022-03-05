@@ -25,6 +25,7 @@ const TutorDisplay = () => {
         placeholder='Enter search term'
         onChange={(event) => setQuery(event.target.value)}
       /></Row>
+     
     <Row className="mt-4">
       {data.tutors
         .filter((tutor) => {
@@ -39,12 +40,14 @@ const TutorDisplay = () => {
         })
         .map((tutor, index) => {
           return (
+            
             <Col key={index} sm={4}>
               <Tutor tutor={tutor}></Tutor>
               </Col>
           );
         })}
     </Row>
+    
   </>
   );
 };

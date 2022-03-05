@@ -2,27 +2,30 @@ import React, { useState } from "react";
 import Auth from "../utils/auth";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ME } from "../utils/queries";
-// import { useNavigate } from "react-router-dom";
-//import { useParams } from "react-router-dom";
 import { UPDATE_USER } from "../utils/mutations";
 
-import { Button, Card, Col, Form, Row, Alert } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Col,
+  Form,
+  Row,
+  Image,
+  Container,
+} from "react-bootstrap";
 
 function TutorProfile() {
-  // return <div>Profile</div>;
-  // let navigate = useNavigate();
-  
+  const { username, role, email, role_id, _id } = Auth.getProfile();
   const { loading, data } = useQuery(QUERY_ME);
 
   // console.log(data.me.user.username);
   // const [errorMessage, setErrorMessage] = useState("");
   const [formState, setFormState] = useState({
-    // username: `${data.me.user.username}`,
-    // username: data.me.user.username,
-    // password: `${data.me.user.password}`,
-    username: ``,
-    password: ``,
+    username: username,
+    password: "",
   });
+
+  const [formEditable, setFormEditable] = useState(false);
 
   const [updateUser] = useMutation(UPDATE_USER);
 
@@ -68,109 +71,108 @@ function TutorProfile() {
     }
   };
 
-  // const user = data?.me ||  {};
-  // console.log(user);
+  const saveUpdates = async (event) => {
+    console.log("saving updates to form data");
+    setFormEditable(false);
+  };
+
+  const allowUpdates = async (event) => {
+    console.log("allow updates to form data");
+    setFormEditable(true);
+  };
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  function AlertDismissibleExample() {
-    const [show, setShow] = useState(true);
-
-    if (show) {
-      return (
-        <Alert variant='danger' onClose={() => setShow(false)} dismissible>
-          <Alert.Heading>Hey! You got a new message!</Alert.Heading>
-  
-        </Alert>
-      );
-    }
-    return <Button onClick={() => setShow(true)}>Show Messages</Button>;
-  }
-
-  
-  
   return (
-    <>
+    <Container>
       <Row className='mt-4'>
-        <Col>
-          <img
-            src={data.me.user.photo}
-            alt='profile'
-            style={{ width: "400px", borderRadius: "100%", height: "400px", boxShadow:"8px 8px 8px gray" }}
-          />
-        </Col>
-        <Col className='mt-4'>
-          <div>
-            <h2>Your Dashboard</h2>
-          </div>
-          <div>
-            <div>
-              <p>
-                <b>Name:</b> {data.me.user.username}
-              </p>
-              <p>
-                <b>Email Address:</b> {data.me.user.email}
-              </p>
-              <p>
-                <b>Hourly rate: $</b>
-                {data.me.tutor.hourlyRate}
-              </p>
-              <p>
-                <b>Expertises:</b> {data.me.tutor.knownSubjects}
-              </p>
-              <p>
-                <b>Bio:</b> {data.me.tutor.bio}
-              </p>
-
-              {/* <p>{data.me.tutor._id}</p> */}
-            </div>
-          </div>
-          <div>
-            <h3>Messages</h3>
-            <AlertDismissibleExample />
-          </div>
-          <div>
-            <h3>Student Lists</h3>
-        
-          </div>
-        </Col>
-        <Form.Group>
-          <Card className='p-4' style={{ width: "28rem" }}>
-            <h3>Update Username and Password</h3>
-            <form onSubmit={handleFormSubmit}>
-              <input
-                className='form-input m-2'
-                placeholder='username'
-                name='username'
-                type='username'
-                id='username'
-                value={formState.username}
-                onChange={handleChange}
-              />
-              <input
-                className='form-input'
-                placeholder='******'
-                name='password'
-                type='password'
-                id='password'
-                value={formState.password}
-                onChange={handleChange}
-              />
-              {/* {errorMessage && (
-            <div>
-              <p className="error-text">{errorMessage}</p>
-            </div>
-          )} */}
-              <Button className='btn d-block' variant='primary' type='submit'>
-                Submit
-              </Button>
-            </form>
+        <Col sm={6}>
+          <Card>
+            <Card.Header>
+              <Card.Title>Your Details</Card.Title>
+            </Card.Header>
+            <Card.Body>
+              <Card>
+                <Image
+                  thumbnail={true}
+                  src={data.me.user.photo}
+                  fluid={true}
+                ></Image>
+              </Card>
+              <Card>
+                <Form>
+                  <Form.Group>
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control
+                      as='input'
+                      disabled={!formEditable}
+                      value={data.me.user.username}
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control
+                      as='input'
+                      disabled={!formEditable}
+                      value={data.me.user.email}
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Hourly Rate</Form.Label>
+                    <Form.Control
+                      as='input'
+                      disabled={!formEditable}
+                      value={data.me.tutor.hourlyRate}
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Skills</Form.Label>
+                    <Form.Control
+                      as='input'
+                      disabled={!formEditable}
+                      value={data.me.tutor.knownSubjects}
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Bio</Form.Label>
+                    <Form.Control
+                      as='textarea'
+                      disabled={!formEditable}
+                      value={data.me.tutor.bio}
+                    />
+                  </Form.Group>
+                  <Button onClick={formEditable ? saveUpdates : allowUpdates}>
+                    {formEditable ? "Save" : "Edit"}
+                  </Button>
+                </Form>
+                <Form>
+                  <Form.Group>
+                    <Form.Label>Update Password</Form.Label>
+                    <Form.Control
+                      as='input'
+                      type='password'
+                      disabled={true}
+                      value=''
+                    />
+                  </Form.Group>
+                  <Button>Update Password</Button>
+                </Form>
+              </Card>
+            </Card.Body>
           </Card>
-        </Form.Group>
+        </Col>
+        <Col sm={6}>
+          <Card>
+            <Card.Header>
+              <Card.Title>Dashboard</Card.Title>
+            </Card.Header>
+            <Card.Body></Card.Body>
+          </Card>
+        </Col>
       </Row>
-    </>
+    </Container>
   );
 }
 

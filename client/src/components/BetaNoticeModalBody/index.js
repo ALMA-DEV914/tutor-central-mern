@@ -1,5 +1,6 @@
 import React, { useState, useEffect} from "react";
 import Auth from "../../utils/auth";
+import { Container, Button,Form, FormControl } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 import { ADD_BETA_FEEDBACK} from "../../utils/mutations";
 import { GET_BETA_FEEDBACK } from "../../utils/queries";
@@ -58,30 +59,28 @@ const BetaNoticeModalBody = (params) => {
 
     return (
         <>
-            <div className="modal-body text-left mt-n1">
-                <div className="container">
-                    <div className="text-center">
-                        <h2>Write Us</h2>
-                        <p className="lead">
-                            Did you find a bug? Want to make a suggestion? If
-                            you have any feedback please let us know.
+        <Container>
+        <div className="text-center">
+            <h2>Write Us</h2>
+            <p className="lead">
+                Did you find a bug? Want to make a suggestion? If you have any feedback please let us know.
                         </p>
-                    </div>
-                    <div className="row">
+                </div>
+                  <div className="row">
                         <div className="col-md-12">
-                            <form className="mt-2">
+                            <Form className="mt-2">
                                 <div className="row">
                                     <div className="col-md-6 mb-3">
-                                        <label htmlFor="firstName">
+                                        <Form.Label htmlFor="firstName">
                                             Username
-                                        </label>
+                                       </Form.Label>
                                         <div className="input-group">
                                             <div className="input-group-prepend">
                                                 <span className="input-group-text">
                                                     @
                                                 </span>
                                             </div>
-                                            <input
+                                            <FormControl
                                                 type="text"
                                                 className={`form-control ${isMuted}`}
                                                 onChange={(event) => {
@@ -97,8 +96,8 @@ const BetaNoticeModalBody = (params) => {
                         
                                     </div>
                                     <div className="col-md-6 mb-3">
-                                        <label htmlFor="lastName">Email</label>
-                                        <input
+                                        <Form.Label htmlFor="lastName">Email</Form.Label>
+                                        <FormControl
                                             type="email"
                                             className={`form-control ${isMuted}`}
                                             placeholder="user@tutor-student-connect.com"
@@ -113,19 +112,19 @@ const BetaNoticeModalBody = (params) => {
                                 </div>
 
                                 <div className="mb-3 mt-n5">
-                                    <label htmlFor="email">Category</label>
+                                    <Form.Label htmlFor="email">Category</Form.Label>
                                     <div className="form-group feedback-type">
-                                        <select className="form-control">
+                                        <Form.Select className="form-control">
                                             <option>Suggestion</option>
                                             <option>Bug</option>
                                             <option>Other</option>
-                                        </select>
+                                        </Form.Select>
                                     </div>
                                 </div>
 
                                 <div className="mb-3">
-                                    <label htmlFor="address">Message</label>
-                                    <textarea
+                                    <Form.Label htmlFor="address">Message</Form.Label>
+                                    <Form.Control as='textarea'
                                         type="text"
                                         className="form-control"
                                         rows="6"
@@ -142,19 +141,19 @@ const BetaNoticeModalBody = (params) => {
                                 </div>
                                 <hr className="mb-2" />
                                 <div>
-                                    <button
+                                    <Button
                                         type="submit"
                                         className="btn btn-lg btn-primary w-100"
                                         onClick={onSubmit}
                                     >
                                         Submit
-                                    </button>
+                                    </Button>
                                 </div>
-                            </form>
+                            </Form>
                         </div>
                     </div>
-                </div>
-            </div>
+
+             </Container>
         </>
     );
 };

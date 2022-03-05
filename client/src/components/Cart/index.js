@@ -21,12 +21,12 @@ const Cart = (props) => {
     }
 
 return(
-    
+    <>
         
         <Stripe stripeKey="pk_test_TYooMQauvdEDq54NiTphI7jx"
                   token={tokenHandler}
                 />
-        
+    </> 
     
    );
 }

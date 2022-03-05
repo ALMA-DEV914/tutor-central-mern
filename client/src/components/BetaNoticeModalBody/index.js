@@ -22,10 +22,8 @@ const BetaNoticeModalBody = (params) => {
    
     const user = Auth.loggedIn();
     //params from parent component
-    const selectedCategory = document
-    .querySelector(".feedback-type")
-    .querySelector(".selectric")
-    .querySelector(".label").innerHTML;
+    const selectedCategory = useState();
+
     useEffect(() => {
         //populate and disable fields for user and email if a user is logged in
         if (user.email) {

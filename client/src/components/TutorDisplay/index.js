@@ -14,7 +14,7 @@ const TutorDisplay = () => {
   if (data) {
     // console.log(data.tutors[0]);
     data.tutors.forEach((tutor) => {
-      idbPromise("tutors", "get", tutor);
+      idbPromise("tutors", "put", tutor);
     });
   }
 

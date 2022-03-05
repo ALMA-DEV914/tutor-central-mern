@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <Container
       fluid
-      className="footer mt-auto p-2"
+      className="footer mt-4 p-2"
       style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
     >
      

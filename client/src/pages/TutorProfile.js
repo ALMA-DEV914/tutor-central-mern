@@ -86,93 +86,97 @@ function TutorProfile() {
   }
 
   return (
-    <Container>
-      <Row className='mt-4'>
-        <Col sm={6}>
-          <Card>
-            <Card.Header>
-              <Card.Title>Your Details</Card.Title>
-            </Card.Header>
-            <Card.Body>
-              <Card>
-                <Image
-                  thumbnail={true}
-                  src={data.me.user.photo}
-                  fluid={true}
-                ></Image>
-              </Card>
-              <Card>
-                <Form>
-                  <Form.Group>
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control
-                      as='input'
-                      disabled={!formEditable}
-                      value={data.me.user.username}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control
-                      as='input'
-                      disabled={!formEditable}
-                      value={data.me.user.email}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>Hourly Rate</Form.Label>
-                    <Form.Control
-                      as='input'
-                      disabled={!formEditable}
-                      value={data.me.tutor.hourlyRate}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>Skills</Form.Label>
-                    <Form.Control
-                      as='input'
-                      disabled={!formEditable}
-                      value={data.me.tutor.knownSubjects}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>Bio</Form.Label>
-                    <Form.Control
-                      as='textarea'
-                      disabled={!formEditable}
-                      value={data.me.tutor.bio}
-                    />
-                  </Form.Group>
-                  <Button onClick={formEditable ? saveUpdates : allowUpdates}>
-                    {formEditable ? "Save" : "Edit"}
-                  </Button>
-                </Form>
-                <Form>
-                  <Form.Group>
-                    <Form.Label>Update Password</Form.Label>
-                    <Form.Control
-                      as='input'
-                      type='password'
-                      disabled={true}
-                      value=''
-                    />
-                  </Form.Group>
-                  <Button>Update Password</Button>
-                </Form>
-              </Card>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col sm={6}>
-          <Card>
-            <Card.Header>
-              <Card.Title>Dashboard</Card.Title>
-            </Card.Header>
-            <Card.Body></Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+    <Row className='mt-4'>
+      <Col sm={6}>
+        <Card>
+          <Card.Header>
+            <Card.Title>Your Details</Card.Title>
+          </Card.Header>
+          <Card.Body>
+            <Row>
+              <Col sm={6}>
+                <Card>
+                  <Image
+                    thumbnail={true}
+                    src={data.me.user.photo}
+                    fluid={true}
+                  ></Image>
+                </Card>
+              </Col>
+              <Col sm={6}>
+                <Card>
+                  <Form>
+                    <Form.Group>
+                      <Form.Label>Username</Form.Label>
+                      <Form.Control
+                        as='input'
+                        disabled={!formEditable}
+                        value={data.me.user.username}
+                      />
+                    </Form.Group>
+                    <Form.Group>
+                      <Form.Label>Email</Form.Label>
+                      <Form.Control
+                        as='input'
+                        disabled={!formEditable}
+                        value={data.me.user.email}
+                      />
+                    </Form.Group>
+                    <Form.Group>
+                      <Form.Label>Hourly Rate</Form.Label>
+                      <Form.Control
+                        as='input'
+                        disabled={!formEditable}
+                        value={data.me.tutor.hourlyRate}
+                      />
+                    </Form.Group>
+                    <Form.Group>
+                      <Form.Label>Skills</Form.Label>
+                      <Form.Control
+                        as='input'
+                        disabled={!formEditable}
+                        value={data.me.tutor.knownSubjects}
+                      />
+                    </Form.Group>
+                    <Form.Group>
+                      <Form.Label>Bio</Form.Label>
+                      <Form.Control
+                        as='textarea'
+                        disabled={!formEditable}
+                        value={data.me.tutor.bio}
+                      />
+                    </Form.Group>
+                    <Button onClick={formEditable ? saveUpdates : allowUpdates}>
+                      {formEditable ? "Save" : "Edit"}
+                    </Button>
+                  </Form>
+                  <Form>
+                    <Form.Group>
+                      <Form.Label>Update Password</Form.Label>
+                      <Form.Control
+                        as='input'
+                        type='password'
+                        disabled={true}
+                        value=''
+                      />
+                    </Form.Group>
+                    <Button>Update Password</Button>
+                  </Form>
+                </Card>
+              </Col>
+            </Row>
+          </Card.Body>
+        </Card>
+      </Col>
+      <Col sm={6}>
+        <Card>
+          <Card.Header>
+            <Card.Title>Dashboard</Card.Title>
+          </Card.Header>
+          <Card.Body></Card.Body>
+        </Card>
+      </Col>
+    </Row>
   );
 }
 

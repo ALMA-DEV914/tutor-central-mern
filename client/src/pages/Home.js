@@ -34,7 +34,7 @@ const Home = (props) => {
             </Button>
           </Modal.Footer>
         </Modal>
-        {!Auth.loggedIn && (
+        {!Auth.loggedIn() && (
           <Button variant='danger' onClick={handleShow}>
             GET HELP NOW
           </Button>

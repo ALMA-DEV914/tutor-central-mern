@@ -34,7 +34,7 @@ const TutorDisplay = () => {
             );
           })
           .map((tutor, index) => {
-            return <Tutor tutor={tutor}></Tutor>;
+            return <Tutor key={index} tutor={tutor}></Tutor>;
           })}
       </Col>
       <Col sm={4}>

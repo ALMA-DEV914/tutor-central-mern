@@ -10,6 +10,7 @@ function TutorProfile() {
   const { loading, data, refetch } = useQuery(QUERY_ME, {
     onCompleted: (d) => {
       console.log("setting form state with data");
+      console.log(d);
       const { email, username } = d.me.user;
       const { hourlyRate, knownSubjects, bio } = d.me.tutor;
       setFormState({
@@ -71,7 +72,7 @@ function TutorProfile() {
   }
 
   return (
-    <Row className="mt-4">
+    <Row className='mt-4'>
       <Col sm={6}>
         <Card>
           <Card.Header>
@@ -88,58 +89,58 @@ function TutorProfile() {
               </Col>
               <Col sm={6}>
                 <Form onSubmit={saveUpdates}>
-                  <Form.Group className="mb-2">
+                  <Form.Group className='mb-2'>
                     <Form.Label>Username</Form.Label>
                     <Form.Control
                       disabled={!formEditable}
-                      name="username"
-                      type="text"
+                      name='username'
+                      type='text'
                       value={formState.username}
                       onChange={handleChange}
                     />
                   </Form.Group>
-                  <Form.Group className="mb-2">
+                  <Form.Group className='mb-2'>
                     <Form.Label>Email</Form.Label>
                     <Form.Control
-                      as="input"
+                      as='input'
                       disabled={true}
-                      name="email"
+                      name='email'
                       value={formState.email}
                       onChange={handleChange}
                     />
                   </Form.Group>
-                  <Form.Group className="mb-2">
+                  <Form.Group className='mb-2'>
                     <Form.Label>Hourly Rate</Form.Label>
                     <Form.Control
-                      as="input"
+                      as='input'
                       disabled={!formEditable}
-                      name="hourlyRate"
+                      name='hourlyRate'
                       value={formState.hourlyRate}
                       onChange={handleChange}
                     />
                   </Form.Group>
-                  <Form.Group className="mb-2">
+                  <Form.Group className='mb-2'>
                     <Form.Label>Skills</Form.Label>
                     <Form.Control
-                      as="input"
+                      as='input'
                       disabled={!formEditable}
-                      name="knownSubjects"
+                      name='knownSubjects'
                       value={formState.knownSubjects}
                       onChange={handleChange}
                     />
                   </Form.Group>
-                  <Form.Group className="mb-2">
+                  <Form.Group className='mb-2'>
                     <Form.Label>Bio</Form.Label>
                     <Form.Control
-                      as="textarea"
-                      name="bio"
+                      as='textarea'
+                      name='bio'
                       disabled={!formEditable}
                       value={formState.bio}
                       onChange={handleChange}
                     />
                   </Form.Group>
                   <Button
-                    className="mb-2"
+                    className='mb-2'
                     variant={formEditable ? "danger" : "primary"}
                     onClick={formEditable ? saveUpdates : allowUpdates}
                   >
@@ -147,12 +148,12 @@ function TutorProfile() {
                   </Button>
                 </Form>
                 <Form>
-                  <Form.Group className="mb-2">
+                  <Form.Group className='mb-2'>
                     <Form.Label>Update Password</Form.Label>
                     <Form.Control
-                      as="input"
-                      name="password"
-                      type="password"
+                      as='input'
+                      name='password'
+                      type='password'
                       onChange={handleChange}
                     />
                   </Form.Group>
@@ -171,11 +172,11 @@ function TutorProfile() {
           <Card.Body>
             {data.me.user.chats.map((chatItem, index) => {
               return (
-                <Card key={index}>
+                <Card key={index} className='mb-3'>
                   <Card.Header>
                     <Card.Title>
                       <Link to={`/chat/${chatItem._id}`}>
-                        Chat Id# {chatItem.student._id}
+                        Chat with {chatItem.student.username}
                       </Link>
                     </Card.Title>
                   </Card.Header>

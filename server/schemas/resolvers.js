@@ -16,8 +16,10 @@ const resolvers = {
         // console.log(context.user);
         const userData = await User.findOne({ _id: context.user._id })
           .select("-__v")
-          .populate("chats chats.chat");
-
+          .populate("chats");
+        for (let i = 0; i < userData.chats.length; i++) {
+          await userData.chats[i].populate("student tutor");
+        }
         console.log(userData);
 
         if (userData.role === "tutor") {
@@ -63,6 +65,7 @@ const resolvers = {
         "tutor student messages"
       );
       chat.messages = chat.messages.reverse();
+      console.log(chat);
       return chat;
     },
   },

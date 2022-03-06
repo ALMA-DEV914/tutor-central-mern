@@ -17,11 +17,9 @@ function ChatDetail() {
   const { loading, data, refetch } = useQuery(QUERY_CHAT, {
     variables: { chatId: id },
   });
-  if (data) {
-    // console.log(data.tutors[0]);
-    data.chat.forEach((chat) => {
-      idbPromise("chats", "put", chat);
-    });
+  if (!loading && data) {
+    console.log(data);
+    idbPromise("chats", "put", data.chat);
   }
 
   const handleFormSubmit = async (event) => {
@@ -60,70 +58,62 @@ function ChatDetail() {
   } else if (!loading) {
     idbPromise("chats", "get").then((indexedChats) => {
       return (
-        <>
-          <Container className="mt-4 mb-4">
-            <Card className="my-3" style={{ padding: "20px" }}>
-              <Card.Header>
-                <Card.Title>
-                  Viewing Chat# {indexedChats._id} between{" "}
-                  {indexedChats.tutor.username} and{" "}
-                  {indexedChats.student.username} on {indexedChats.createdAt}
-                </Card.Title>
-              </Card.Header>
-            </Card>
-          </Container>
-        </>
+        <Card className='mb-3'>
+          <Card.Header>
+            <Card.Title>
+              Viewing Chat# {indexedChats._id} between{" "}
+              {indexedChats.tutor.username} and {indexedChats.student.username}{" "}
+              on {indexedChats.createdAt}
+            </Card.Title>
+          </Card.Header>
+        </Card>
       );
     });
   }
 
   return (
-    <>
-      <Container className="mt-4 mb-4">
-        <Card className="my-3" style={{ padding: "20px" }}>
-          <Card.Header>
-            <Card.Title>
-              Viewing Chat# {data.chat._id} between {data.chat.tutor.username}{" "}
-              and {data.chat.student.username} on {data.chat.createdAt}
-            </Card.Title>
-          </Card.Header>
+    <Card className='my-3'>
+      <Card.Header>
+        <Card.Title>
+          Viewing Chat between {data.chat.tutor.username} and{" "}
+          {data.chat.student.username} on {data.chat.createdAt}
+        </Card.Title>
+      </Card.Header>
 
-          <Card.Body>
-            <Form onSubmit={handleFormSubmit}>
-              <Form.Group className="mb-3">
-                <Form.Label>Message</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="messageText"
-                  value={formState.messageText}
-                  onChange={handleChange}
-                ></Form.Control>
-              </Form.Group>
-              <Button
-                className="mb-3"
-                variant="primary"
-                type="submit"
-                onClick={handleFormSubmit}
-              >
-                Send
-              </Button>
-            </Form>
-            {data.chat.messages.map((message, index) => {
-              return (
-                <Card key={index} className="mb-3">
-                  <Card.Body>
-                    <p>Date: {message.createdAt}</p>
-                    <p>From: {getUsername(message.from._id)}</p>
-                    <p>To: {getUsername(message.to._id)}</p>
-                    <p>Message: {message.messageText}</p>
-                  </Card.Body>
-                </Card>
-              );
-            })}
-          </Card.Body>
-        </Card>
-      </Container>
-    </>
+      <Card.Body>
+        <Form onSubmit={handleFormSubmit}>
+          <Form.Group className='mb-3'>
+            <Form.Label>Message</Form.Label>
+            <Form.Control
+              type='text'
+              name='messageText'
+              value={formState.messageText}
+              onChange={handleChange}
+            ></Form.Control>
+          </Form.Group>
+          <Button
+            className='mb-3'
+            variant='primary'
+            type='submit'
+            onClick={handleFormSubmit}
+          >
+            Send
+          </Button>
+        </Form>
+        {data.chat.messages.map((message, index) => {
+          return (
+            <Card key={index} className='mb-3'>
+              <Card.Body>
+                <p>Date: {message.createdAt}</p>
+                <p>From: {getUsername(message.from._id)}</p>
+                <p>To: {getUsername(message.to._id)}</p>
+                <p>Message: {message.messageText}</p>
+              </Card.Body>
+            </Card>
+          );
+        })}
+      </Card.Body>
+    </Card>
   );
 }
 

@@ -54,9 +54,11 @@ export const QUERY_ME = gql`
           _id
           tutor {
             _id
+            username
           }
           student {
             _id
+            username
           }
           createdAt
           messages {

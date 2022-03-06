@@ -10,12 +10,13 @@ const Footer = () => {
       style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
     >
       <Row className='p-4'>
-        <Col>Copyright © 2022@UC Berkely Bootcamp</Col>
-        <Col>Alma Braun || Tarek Yousef || Tom Bellenger</Col>
-        <Col className='justify-content-end align-items-end align-self-end'>
+        <Col className='text-start'>Copyright © 2022@UC Berkely Bootcamp</Col>
+        <Col className='text-center'>
+          Alma Braun || Tarek Yousef || Tom Bellenger
+        </Col>
+        <Col className='text-end'>
           <a href='https://github.com/tarekyou/project3' className='text-dark'>
-            <FaGithub className='text-dark' style={{ fontSize: "25px" }} />{" "}
-            Source Code
+            <FaGithub className='text-dark' style={{ fontSize: "25px" }} />
           </a>
         </Col>
       </Row>

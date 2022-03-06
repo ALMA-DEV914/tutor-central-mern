@@ -28,6 +28,7 @@ function ChatDetail() {
         },
       });
       console.log(mutationResponse);
+      setFormState({ messageText: "" });
       refetch();
     } catch (err) {
       console.log(err);
@@ -68,6 +69,7 @@ function ChatDetail() {
               <Form.Control
                 type='text'
                 name='messageText'
+                value={formState.messageText}
                 onChange={handleChange}
               ></Form.Control>
             </Form.Group>

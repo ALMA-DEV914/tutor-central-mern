@@ -1,88 +1,73 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Auth from "../utils/auth";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ME } from "../utils/queries";
-import { UPDATE_USER } from "../utils/mutations";
-
-import {
-  Button,
-  Card,
-  Col,
-  Form,
-  Row,
-  Image,
-  Container,
-} from "react-bootstrap";
+import { UPDATE_TUTOR } from "../utils/mutations";
+import { Button, Card, Col, Form, Row, Image } from "react-bootstrap";
 
 function TutorProfile() {
-  const { username, role, email, role_id, _id } = Auth.getProfile();
-  const { loading, data } = useQuery(QUERY_ME);
-
-  // console.log(data.me.user.username);
-  // const [errorMessage, setErrorMessage] = useState("");
+  const { loading, data, refetch } = useQuery(QUERY_ME, {
+    onCompleted: (d) => {
+      console.log("setting form state with data");
+      const { email, username } = d.me.user;
+      const { hourlyRate, knownSubjects, bio } = d.me.tutor;
+      setFormState({
+        ...formState,
+        username,
+        email,
+        hourlyRate,
+        knownSubjects,
+        bio,
+      });
+    },
+  });
   const [formState, setFormState] = useState({
-    username: username,
+    username: "",
     password: "",
+    hourlyRate: "",
+    email: "",
+    bio: "",
+    knownSubjects: "",
   });
 
-  const [formEditable, setFormEditable] = useState(false);
-
-  const [updateUser] = useMutation(UPDATE_USER);
-
   const handleChange = (event) => {
-    const { name, value } = event.target;
-    // if (!event.target.value.length) {
-    //   setErrorMessage(`${event.target.name} is required.`);
-    // } else {
-    //   setErrorMessage("");
-    // }
-    console.log(data.me.user);
-    console.log(event.target.value);
-
-    if (!event.target.value.length) {
-      setFormState({
-        // ...formState,
-        formState: { ...data.me.user },
-      });
-      // return { ...data.me.user };
-    }
-
-    setFormState({
-      ...formState,
-      [name]: value,
-    });
+    const { name, value } = event.currentTarget;
+    setFormState({ ...formState, [name]: value });
   };
 
-  // submit form
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-
-    // use try/catch instead of promises to handle errors
-    try {
-      // execute addUser mutation and pass in variable data from form
-      const { data } = await updateUser({
-        variables: { ...formState },
-      });
-
-      // console.log(data);
-      Auth.loggedIn(data.updateUser.token);
-    } catch (e) {
-      console.error(e);
-    }
-  };
+  const [formEditable, setFormEditable] = useState(false);
+  const [updateUser] = useMutation(UPDATE_TUTOR);
 
   const saveUpdates = async (event) => {
+    event.preventDefault();
     console.log("saving updates to form data");
+    const update = await updateUser({
+      variables: {
+        password: formState.password,
+        username: formState.username,
+        hourlyRate: formState.hourlyRate,
+        knownSubjects: formState.knownSubjects,
+        bio: formState.bio,
+      },
+    });
+    console.log(update);
+    refetch();
     setFormEditable(false);
   };
 
   const allowUpdates = async (event) => {
+    console.log(data);
     console.log("allow updates to form data");
     setFormEditable(true);
   };
 
   if (loading) {
     return <div>Loading...</div>;
+  }
+
+  if (!Auth.loggedIn()) {
+    return <div>Not logged in</div>;
   }
 
   return (
@@ -95,74 +80,84 @@ function TutorProfile() {
           <Card.Body>
             <Row>
               <Col sm={6}>
-                <Card>
-                  <Image
-                    thumbnail={true}
-                    src={data.me.user.photo}
-                    fluid={true}
-                  ></Image>
-                </Card>
+                <Image
+                  thumbnail={true}
+                  src={data.me.user.photo}
+                  fluid={true}
+                ></Image>
               </Col>
               <Col sm={6}>
-                <Card>
-                  <Form>
-                    <Form.Group>
-                      <Form.Label>Username</Form.Label>
-                      <Form.Control
-                        as='input'
-                        disabled={!formEditable}
-                        value={data.me.user.username}
-                      />
-                    </Form.Group>
-                    <Form.Group>
-                      <Form.Label>Email</Form.Label>
-                      <Form.Control
-                        as='input'
-                        disabled={!formEditable}
-                        value={data.me.user.email}
-                      />
-                    </Form.Group>
-                    <Form.Group>
-                      <Form.Label>Hourly Rate</Form.Label>
-                      <Form.Control
-                        as='input'
-                        disabled={!formEditable}
-                        value={data.me.tutor.hourlyRate}
-                      />
-                    </Form.Group>
-                    <Form.Group>
-                      <Form.Label>Skills</Form.Label>
-                      <Form.Control
-                        as='input'
-                        disabled={!formEditable}
-                        value={data.me.tutor.knownSubjects}
-                      />
-                    </Form.Group>
-                    <Form.Group>
-                      <Form.Label>Bio</Form.Label>
-                      <Form.Control
-                        as='textarea'
-                        disabled={!formEditable}
-                        value={data.me.tutor.bio}
-                      />
-                    </Form.Group>
-                    <Button onClick={formEditable ? saveUpdates : allowUpdates}>
-                      {formEditable ? "Save" : "Edit"}
-                    </Button>
-                  </Form>
-                  <Form>
-                    <Form.Group>
-                      <Form.Label>Update Password</Form.Label>
-                      <Form.Control
-                        as='input'
-                        type='password'
-                        disabled={true}
-                        value=''
-                      />
-                    </Form.Group>
-                    <Button>Update Password</Button>
-                  </Form>
-                </Card>
+                <Form onSubmit={saveUpdates}>
+                  <Form.Group className='mb-2'>
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control
+                      disabled={!formEditable}
+                      name='username'
+                      type='text'
+                      value={formState.username}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                  <Form.Group className='mb-2'>
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control
+                      as='input'
+                      disabled={true}
+                      name='email'
+                      value={formState.email}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                  <Form.Group className='mb-2'>
+                    <Form.Label>Hourly Rate</Form.Label>
+                    <Form.Control
+                      as='input'
+                      disabled={!formEditable}
+                      name='hourlyRate'
+                      value={formState.hourlyRate}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                  <Form.Group className='mb-2'>
+                    <Form.Label>Skills</Form.Label>
+                    <Form.Control
+                      as='input'
+                      disabled={!formEditable}
+                      name='knownSubjects'
+                      value={formState.knownSubjects}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                  <Form.Group className='mb-2'>
+                    <Form.Label>Bio</Form.Label>
+                    <Form.Control
+                      as='textarea'
+                      name='bio'
+                      disabled={!formEditable}
+                      value={formState.bio}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                  <Button
+                    className='mb-2'
+                    variant={formEditable ? "danger" : "primary"}
+                    onClick={formEditable ? saveUpdates : allowUpdates}
+                  >
+                    {formEditable ? "Save" : "Edit"}
+                  </Button>
+                </Form>
+                <Form>
+                  <Form.Group className='mb-2'>
+                    <Form.Label>Update Password</Form.Label>
+                    <Form.Control
+                      as='input'
+                      name='password'
+                      type='password'
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                  <Button>{`Update Password`}</Button>
+                </Form>
               </Col>
             </Row>
           </Card.Body>
@@ -173,7 +168,25 @@ function TutorProfile() {
           <Card.Header>
             <Card.Title>Dashboard</Card.Title>
           </Card.Header>
-          <Card.Body></Card.Body>
+          <Card.Body>
+            {data.me.user.chats.map((chatItem, index) => {
+              return (
+                <Card key={index}>
+                  <Card.Header>
+                    <Card.Title>
+                      <Link to={`/chat/${chatItem._id}`}>
+                        Chat with {chatItem.student._id}
+                      </Link>
+                    </Card.Title>
+                  </Card.Header>
+                  <Card.Body>
+                    Created {chatItem.createdAt} with {chatItem.messages.length}{" "}
+                    messages
+                  </Card.Body>
+                </Card>
+              );
+            })}
+          </Card.Body>
         </Card>
       </Col>
     </Row>

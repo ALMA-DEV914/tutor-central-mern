@@ -1,12 +1,15 @@
 import React from "react";
 import Auth from "../../utils/auth";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
+import logo from "../../assets/logo.jpg";
 
 function Header() {
   return (
     <Navbar bg='primary p-4' variant='dark' collapseOnSelect expand='lg'>
       <Container fluid>
-        <Navbar.Brand href='/'>Tutor-Student Connect</Navbar.Brand>
+        <Navbar.Brand href='/'>
+          <img src={logo} alt='logo' />
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls='responsive-navbar' />
         <Navbar.Collapse id='responsive-navbar'>
           <Nav className='me-auto' style={{ fontSize: "18px" }}>

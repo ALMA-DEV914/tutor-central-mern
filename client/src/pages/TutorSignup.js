@@ -6,7 +6,7 @@ import { Card, Form, Button, Modal, Container, Row } from "react-bootstrap";
 import FileUploader from "../components/FileUploader";
 
 function TutorSignup() {
-  
+
   const [showModal, setShowModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [validated, setValidated] = useState(false);
@@ -96,7 +96,7 @@ function TutorSignup() {
   };
 
   return (
-    <Container className='p-4'>
+    <Container className='p-4' style={{height: '100vh'}}>
       <Row className='justify-content-md-center'>
         <Card className='col-lg-8 my-3'>
           <Card.Header>

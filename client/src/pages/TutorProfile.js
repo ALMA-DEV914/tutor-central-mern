@@ -85,6 +85,7 @@ function TutorProfile() {
                   src={data.me.user.photo}
                   fluid={true}
                 ></Image>
+                
               </Col>
               <Col sm={6}>
                 <Form onSubmit={saveUpdates}>
@@ -175,7 +176,7 @@ function TutorProfile() {
                   <Card.Header>
                     <Card.Title>
                       <Link to={`/chat/${chatItem._id}`}>
-                        Chat with {chatItem.student._id}
+                        Chat Id# {chatItem.student._id}
                       </Link>
                     </Card.Title>
                   </Card.Header>

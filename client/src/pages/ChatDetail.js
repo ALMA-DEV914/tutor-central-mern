@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_CHAT } from "../utils/queries";
-import { Card, Form, Button, Container } from "react-bootstrap";
+import { Card, Form, Button } from "react-bootstrap";
 import { ADD_MESSAGE } from "../utils/mutations";
 import { idbPromise } from "../utils/helpers";
 
@@ -55,15 +55,19 @@ function ChatDetail() {
 
   if (loading) {
     return <div>Loading...</div>;
-  } else if (!loading) {
+  } else {
     idbPromise("chats", "get").then((indexedChats) => {
+      console.log(indexedChats);
+      const thisChat = indexedChats.find((indexedChat) => {
+        console.log(indexedChat);
+        return indexedChat._id === id;
+      });
       return (
-        <Card className='mb-3'>
+        <Card className='my-3'>
           <Card.Header>
             <Card.Title>
-              Viewing Chat# {indexedChats._id} between{" "}
-              {indexedChats.tutor.username} and {indexedChats.student.username}{" "}
-              on {indexedChats.createdAt}
+              Viewing Chat# {thisChat._id} between {thisChat.tutor.username} and{" "}
+              {thisChat.student.username} on {thisChat.createdAt}
             </Card.Title>
           </Card.Header>
         </Card>

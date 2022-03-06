@@ -80,14 +80,14 @@ function TutorProfile() {
           </Card.Header>
           <Card.Body>
             <Row>
-              <Col sm={6}>
+              <Col md={6}>
                 <Image
                   thumbnail={true}
                   src={data.me.user.photo}
                   fluid={true}
                 ></Image>
               </Col>
-              <Col sm={6}>
+              <Col md={6}>
                 <Form onSubmit={saveUpdates}>
                   <Form.Group className='mb-2'>
                     <Form.Label>Username</Form.Label>
@@ -187,6 +187,8 @@ function TutorProfile() {
                 </Card>
               );
             })}
+            {data.me.user.chats.length === 0 &&
+              "Student messages will appear here"}
           </Card.Body>
         </Card>
       </Col>

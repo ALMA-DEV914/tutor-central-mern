@@ -10,6 +10,7 @@ function TutorProfile() {
   const { loading, data, refetch } = useQuery(QUERY_ME, {
     onCompleted: (d) => {
       console.log("setting form state with data");
+      console.log(d);
       const { email, username } = d.me.user;
       const { hourlyRate, knownSubjects, bio } = d.me.tutor;
       setFormState({
@@ -79,15 +80,14 @@ function TutorProfile() {
           </Card.Header>
           <Card.Body>
             <Row>
-              <Col sm={6}>
+              <Col md={6}>
                 <Image
                   thumbnail={true}
                   src={data.me.user.photo}
                   fluid={true}
                 ></Image>
-                
               </Col>
-              <Col sm={6}>
+              <Col md={6}>
                 <Form onSubmit={saveUpdates}>
                   <Form.Group className='mb-2'>
                     <Form.Label>Username</Form.Label>
@@ -172,11 +172,11 @@ function TutorProfile() {
           <Card.Body>
             {data.me.user.chats.map((chatItem, index) => {
               return (
-                <Card key={index}>
+                <Card key={index} className='mb-3'>
                   <Card.Header>
                     <Card.Title>
                       <Link to={`/chat/${chatItem._id}`}>
-                        Chat Id# {chatItem.student._id}
+                        Chat with {chatItem.student.username}
                       </Link>
                     </Card.Title>
                   </Card.Header>
@@ -187,6 +187,8 @@ function TutorProfile() {
                 </Card>
               );
             })}
+            {data.me.user.chats.length === 0 &&
+              "Student messages will appear here"}
           </Card.Body>
         </Card>
       </Col>

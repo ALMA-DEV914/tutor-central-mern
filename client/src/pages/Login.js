@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button, Modal, Card, Container } from "react-bootstrap";
+import { Form, Button, Modal, Card } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 import { LOGIN } from "../utils/mutations";
 import Auth from "../utils/auth";
@@ -48,8 +48,7 @@ function Login() {
   };
 
   return (
-    <Container className="mt-4 p-4" >
-    <Card className='my-3 p-4'>
+    <Card className='my-3'>
       <Card.Header>
         <Card.Title>Login</Card.Title>
       </Card.Header>
@@ -93,7 +92,6 @@ function Login() {
         </Modal>
       </Card.Body>
     </Card>
-    </Container>
   );
 }
 

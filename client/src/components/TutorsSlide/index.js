@@ -19,9 +19,9 @@ const TutorSlide = (props) => {
           </Col>
         </Row>
        </Container>
-       <Container>
+       <Container className="py-4">
         <Row className="mt-4">
-          <h2>Why Use Tutor-Student Connect?</h2>
+          <h2>Why Use Tutor-Central?</h2>
           <Col sm={5} className="mt-4 p-4 mx-2 bg-light">
           <h4>On-demand tutoring</h4>
           

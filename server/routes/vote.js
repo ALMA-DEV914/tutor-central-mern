@@ -5,15 +5,15 @@ mongoose.set("useFindAndModify", false);
 const Rating = require("../models/Vote");
 
 router.get("/", (req, res) => {
-  Rating.find().then(ratings => res.json(ratings));
+  Vote.find().then(ratings => res.json(votes));
 });
 
 router.post("/", (req, res) => {
-  const newRating = new Vote({
-    totalRatings: req.body.newRating,
+  const newVote = new Vote({
+    totalVotes: req.body.newVote,
     userName: req.body.userName
   });
-  newRating.save().then(ratings => res.json(ratings));
+  newVote.save().then(votes => res.json(votes));
 });
 
 module.exports = router;

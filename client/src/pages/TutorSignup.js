@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
 import { ADD_TUTOR, GET_S3_URL } from "../utils/mutations";
-import { Card, Form, Button, Modal, Container, Row } from "react-bootstrap";
+import { Card, Form, Button, Modal } from "react-bootstrap";
 import FileUploader from "../components/FileUploader";
 
 function TutorSignup() {
@@ -95,100 +95,92 @@ function TutorSignup() {
   };
 
   return (
-    <Container className='p-4'>
-      <Row className='justify-content-md-center'>
-        <Card className='col-lg-8 my-3'>
-          <Card.Header>
-            <Card.Title>Tutor Signup</Card.Title>
-          </Card.Header>
-          <Card.Body>
-            <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
-              <Form.Group className='mb-3' controlId='formBasicUsername'>
-                <Form.Label>Username</Form.Label>
-                <Form.Control
-                  type='text'
-                  name='username'
-                  placeholder='Enter username'
-                  onChange={handleChange}
-                />
-              </Form.Group>
-              <Form.Group className='mb-3' controlId='formBasicEmail'>
-                <Form.Label>Email address</Form.Label>
-                <Form.Control
-                  type='email'
-                  name='email'
-                  placeholder='Enter email'
-                  onChange={handleChange}
-                />
-              </Form.Group>
-              <Form.Group className='mb-3' controlId='formBasicText'>
-                <Form.Label>Hourly Rate $</Form.Label>
-                <Form.Control
-                  type='text'
-                  name='hourlyRate'
-                  placeholder='Hourly rate'
-                  onChange={handleChange}
-                />
-              </Form.Group>
-              <Form.Group className='mb-3' controlId='FormBasicText'>
-                <Form.Label>Expertises</Form.Label>
-                <Form.Control
-                  type='text'
-                  name='knownSubjects'
-                  placeholder='Know subjects/expertises'
-                  onChange={handleChange}
-                />
-              </Form.Group>
-              <Form.Group className='mb-3' controlId='formBasicTextarea'>
-                <Form.Label>Write a Short Bio</Form.Label>
-                <Form.Control
-                  as='textarea'
-                  rows={3}
-                  type='text'
-                  name='bio'
-                  placeholder='Descriptive bio '
-                  onChange={handleChange}
-                />
-              </Form.Group>
-              <Form.Group className='mb-3' controlId='formBasicPassword'>
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type='password'
-                  name='password'
-                  placeholder='Password'
-                  onChange={handleChange}
-                />
-              </Form.Group>
-              <Form.Group className='mb-3' controlId='formFileInput'>
-                <Form.Label>Photo</Form.Label>
-                <FileUploader
-                  onFileSelectSuccess={(file) => setPhoto(file)}
-                  onFileSelectError={(message) => console.log(message)}
-                ></FileUploader>
-              </Form.Group>
-              <Button
-                variant='primary'
-                type='submit'
-                onClick={handleFormSubmit}
-              >
-                Submit
-              </Button>
-            </Form>
-            <Modal show={showModal} onHide={handleCloseModal}>
-              <Modal.Header closeButton>
-                <Modal.Title>Error</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>{errorMessage}</Modal.Body>
-              <Modal.Footer>
-                <Button variant='danger' onClick={handleCloseModal}>
-                  Close
-                </Button>
-              </Modal.Footer>
-            </Modal>
-          </Card.Body>
-        </Card>
-      </Row>
-    </Container>
+    <Card className='my-3'>
+      <Card.Header>
+        <Card.Title>Tutor Signup</Card.Title>
+      </Card.Header>
+      <Card.Body>
+        <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
+          <Form.Group className='mb-3' controlId='formBasicUsername'>
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              type='text'
+              name='username'
+              placeholder='Enter username'
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group className='mb-3' controlId='formBasicEmail'>
+            <Form.Label>Email address</Form.Label>
+            <Form.Control
+              type='email'
+              name='email'
+              placeholder='Enter email'
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group className='mb-3' controlId='formBasicText'>
+            <Form.Label>Hourly Rate $</Form.Label>
+            <Form.Control
+              type='text'
+              name='hourlyRate'
+              placeholder='Hourly rate'
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group className='mb-3' controlId='FormBasicText'>
+            <Form.Label>Expertises</Form.Label>
+            <Form.Control
+              type='text'
+              name='knownSubjects'
+              placeholder='Know subjects/expertises'
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group className='mb-3' controlId='formBasicTextarea'>
+            <Form.Label>Write a Short Bio</Form.Label>
+            <Form.Control
+              as='textarea'
+              rows={3}
+              type='text'
+              name='bio'
+              placeholder='Descriptive bio '
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group className='mb-3' controlId='formBasicPassword'>
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type='password'
+              name='password'
+              placeholder='Password'
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group className='mb-3' controlId='formFileInput'>
+            <Form.Label>Photo</Form.Label>
+            <FileUploader
+              onFileSelectSuccess={(file) => setPhoto(file)}
+              onFileSelectError={(message) => console.log(message)}
+            ></FileUploader>
+          </Form.Group>
+          <Button variant='primary' type='submit' onClick={handleFormSubmit}>
+            Submit
+          </Button>
+        </Form>
+        <Modal show={showModal} onHide={handleCloseModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Error</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{errorMessage}</Modal.Body>
+          <Modal.Footer>
+            <Button variant='danger' onClick={handleCloseModal}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </Card.Body>
+    </Card>
   );
 }
 

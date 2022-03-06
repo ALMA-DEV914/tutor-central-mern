@@ -1,14 +1,13 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Auth from "../utils/auth";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ME } from "../utils/queries";
-// import { useNavigate } from "react-router-dom";
-//import { useParams } from "react-router-dom";
-import { UPDATE_USER } from "../utils/mutations";
-
-import { Button, Card, Col, Form, Row, Alert } from "react-bootstrap";
+import { UPDATE_TUTOR } from "../utils/mutations";
+import { Button, Card, Col, Form, Row, Image } from "react-bootstrap";
 
 function TutorProfile() {
+<<<<<<< HEAD
   // return <div>Profile</div>;
   // let navigate = useNavigate();
 
@@ -16,65 +15,68 @@ function TutorProfile() {
 
   // console.log(data.me.user.username);
   // const [errorMessage, setErrorMessage] = useState("");
+=======
+  const { loading, data, refetch } = useQuery(QUERY_ME, {
+    onCompleted: (d) => {
+      console.log("setting form state with data");
+      const { email, username } = d.me.user;
+      const { hourlyRate, knownSubjects, bio } = d.me.tutor;
+      setFormState({
+        ...formState,
+        username,
+        email,
+        hourlyRate,
+        knownSubjects,
+        bio,
+      });
+    },
+  });
+>>>>>>> f2a17c1269ad2d4302b81f06c12a5c641126a0dd
   const [formState, setFormState] = useState({
-    // username: `${data.me.user.username}`,
-    // username: data.me.user.username,
-    // password: `${data.me.user.password}`,
-    username: ``,
-    password: ``,
+    username: "",
+    password: "",
+    hourlyRate: "",
+    email: "",
+    bio: "",
+    knownSubjects: "",
   });
 
-  const [updateUser] = useMutation(UPDATE_USER);
-
   const handleChange = (event) => {
-    const { name, value } = event.target;
-    // if (!event.target.value.length) {
-    //   setErrorMessage(`${event.target.name} is required.`);
-    // } else {
-    //   setErrorMessage("");
-    // }
-    console.log(data.me.user);
-    console.log(event.target.value);
-
-    if (!event.target.value.length) {
-      setFormState({
-        // ...formState,
-        formState: { ...data.me.user },
-      });
-      // return { ...data.me.user };
-    }
-
-    setFormState({
-      ...formState,
-      [name]: value,
-    });
+    const { name, value } = event.currentTarget;
+    setFormState({ ...formState, [name]: value });
   };
 
-  // submit form
-  const handleFormSubmit = async (event) => {
+  const [formEditable, setFormEditable] = useState(false);
+  const [updateUser] = useMutation(UPDATE_TUTOR);
+
+  const saveUpdates = async (event) => {
     event.preventDefault();
-
-    // use try/catch instead of promises to handle errors
-    try {
-      // execute addUser mutation and pass in variable data from form
-      const { data } = await updateUser({
-        variables: { ...formState },
-      });
-
-      // console.log(data);
-      Auth.loggedIn(data.updateUser.token);
-    } catch (e) {
-      console.error(e);
-    }
+    console.log("saving updates to form data");
+    const update = await updateUser({
+      variables: {
+        password: formState.password,
+        username: formState.username,
+        hourlyRate: formState.hourlyRate,
+        knownSubjects: formState.knownSubjects,
+        bio: formState.bio,
+      },
+    });
+    console.log(update);
+    refetch();
+    setFormEditable(false);
   };
 
-  // const user = data?.me ||  {};
-  // console.log(user);
+  const allowUpdates = async (event) => {
+    console.log(data);
+    console.log("allow updates to form data");
+    setFormEditable(true);
+  };
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
+<<<<<<< HEAD
   function AlertDismissibleExample() {
     const [show, setShow] = useState(true);
 
@@ -172,6 +174,133 @@ function TutorProfile() {
         </Form.Group>
       </Row>
     </>
+=======
+  if (!Auth.loggedIn()) {
+    return <div>Not logged in</div>;
+  }
+
+  return (
+    <Row className='mt-4'>
+      <Col sm={6}>
+        <Card>
+          <Card.Header>
+            <Card.Title>Your Details</Card.Title>
+          </Card.Header>
+          <Card.Body>
+            <Row>
+              <Col sm={6}>
+                <Image
+                  thumbnail={true}
+                  src={data.me.user.photo}
+                  fluid={true}
+                ></Image>
+                
+              </Col>
+              <Col sm={6}>
+                <Form onSubmit={saveUpdates}>
+                  <Form.Group className='mb-2'>
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control
+                      disabled={!formEditable}
+                      name='username'
+                      type='text'
+                      value={formState.username}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                  <Form.Group className='mb-2'>
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control
+                      as='input'
+                      disabled={true}
+                      name='email'
+                      value={formState.email}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                  <Form.Group className='mb-2'>
+                    <Form.Label>Hourly Rate</Form.Label>
+                    <Form.Control
+                      as='input'
+                      disabled={!formEditable}
+                      name='hourlyRate'
+                      value={formState.hourlyRate}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                  <Form.Group className='mb-2'>
+                    <Form.Label>Skills</Form.Label>
+                    <Form.Control
+                      as='input'
+                      disabled={!formEditable}
+                      name='knownSubjects'
+                      value={formState.knownSubjects}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                  <Form.Group className='mb-2'>
+                    <Form.Label>Bio</Form.Label>
+                    <Form.Control
+                      as='textarea'
+                      name='bio'
+                      disabled={!formEditable}
+                      value={formState.bio}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                  <Button
+                    className='mb-2'
+                    variant={formEditable ? "danger" : "primary"}
+                    onClick={formEditable ? saveUpdates : allowUpdates}
+                  >
+                    {formEditable ? "Save" : "Edit"}
+                  </Button>
+                </Form>
+                <Form>
+                  <Form.Group className='mb-2'>
+                    <Form.Label>Update Password</Form.Label>
+                    <Form.Control
+                      as='input'
+                      name='password'
+                      type='password'
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                  <Button>{`Update Password`}</Button>
+                </Form>
+              </Col>
+            </Row>
+          </Card.Body>
+        </Card>
+      </Col>
+      <Col sm={6}>
+        <Card>
+          <Card.Header>
+            <Card.Title>Dashboard</Card.Title>
+          </Card.Header>
+          <Card.Body>
+            {data.me.user.chats.map((chatItem, index) => {
+              return (
+                <Card key={index}>
+                  <Card.Header>
+                    <Card.Title>
+                      <Link to={`/chat/${chatItem._id}`}>
+                        Chat Id# {chatItem.student._id}
+                      </Link>
+                    </Card.Title>
+                  </Card.Header>
+                  <Card.Body>
+                    Created {chatItem.createdAt} with {chatItem.messages.length}{" "}
+                    messages
+                  </Card.Body>
+                </Card>
+              );
+            })}
+          </Card.Body>
+        </Card>
+      </Col>
+    </Row>
+>>>>>>> f2a17c1269ad2d4302b81f06c12a5c641126a0dd
   );
 }
 

@@ -14,11 +14,11 @@ const resolvers = {
     me: async (parent, args, context) => {
       if (context.user) {
         // console.log(context.user);
-        const userData = await User.findOne({ _id: context.user._id }).select(
-          "-__v"
-        );
-        // .populate("Chat");
-        console.log(userData.chats);
+        const userData = await User.findOne({ _id: context.user._id })
+          .select("-__v")
+          .populate("chats chats.chat");
+
+        console.log(userData);
 
         if (userData.role === "tutor") {
           const tutorData = await Tutor.findOne({
@@ -72,20 +72,20 @@ const resolvers = {
       return aws.getS3UploadLink(filename);
     },
     addStudent: async (parent, args) => {
+      console.log({ ...args, role: "student" });
       const user = await User.create({ ...args, role: "student" });
-      const token = signToken(user);
       const student = await Student.create({ ...args, userId: user._id });
+      const token = signToken(user, student._id);
 
       return { token, student };
     },
     addTutor: async (parent, args) => {
       const user = await User.create({ ...args, role: "tutor" });
-      const token = signToken(user);
       const tutor = await Tutor.create({ ...args, userId: user._id });
+      const token = signToken(user, tutor._id);
 
       return { token, tutor };
     },
-
 
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
@@ -157,6 +157,25 @@ const resolvers = {
 
       throw new AuthenticationError("You need to be logged in!");
     },
+    updateTutor: async (parent, args, context) => {
+      if (context.user) {
+        const user = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          args,
+          { new: true }
+        );
+        const tutor = await Tutor.findOneAndUpdate(
+          { userId: context.user._id },
+          args,
+          { new: true }
+        );
+        console.log(user);
+        console.log(tutor);
+        return { user, tutor };
+      }
+
+      throw new AuthenticationError("You need to be logged in!");
+    },
     createChat: async (parent, { tutor }, context) => {
       if (context.user) {
         let chat = await Chat.findOne({
@@ -185,7 +204,7 @@ const resolvers = {
         });
         let from = context.user._id;
         let to =
-          chat.tutor._id === context.user._id
+          chat.tutor._id.toString() === context.user._id
             ? chat.student._id
             : chat.tutor._id;
         let message = await Message.create({
@@ -194,7 +213,6 @@ const resolvers = {
           messageText,
         });
         message = await message.populate("from to");
-        console.log(message);
         chat.messages.push(message);
         chat.save();
         return message;

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Auth from "../utils/auth";
+//import Auth from "../utils/auth";
 import { useParams } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_CHAT } from "../utils/queries";
-import { Card, Form, Button } from "react-bootstrap";
+import { Card, Form, Button, Container } from "react-bootstrap";
 import { ADD_MESSAGE } from "../utils/mutations";
 
 function ChatDetail() {
@@ -28,6 +28,7 @@ function ChatDetail() {
         },
       });
       console.log(mutationResponse);
+      setFormState({ messageText: "" });
       refetch();
     } catch (err) {
       console.log(err);
@@ -53,10 +54,11 @@ function ChatDetail() {
 
   return (
     <>
-      <Card className='my-3'>
+    <Container className="mt-4 mb-4">
+      <Card className='my-3' style={{padding: "20px"}}>
         <Card.Header>
           <Card.Title>
-            Viewing Chat {data.chat._id} between {data.chat.tutor.username} and{" "}
+            Viewing Chat# {data.chat._id} between {data.chat.tutor.username} and{" "}
             {data.chat.student.username} on {data.chat.createdAt}
           </Card.Title>
         </Card.Header>
@@ -68,6 +70,7 @@ function ChatDetail() {
               <Form.Control
                 type='text'
                 name='messageText'
+                value={formState.messageText}
                 onChange={handleChange}
               ></Form.Control>
             </Form.Group>
@@ -94,6 +97,7 @@ function ChatDetail() {
           })}
         </Card.Body>
       </Card>
+      </Container>
     </>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import {  Button } from "react-bootstrap";
 // import { useNavigate } from "react-router-dom";
 
 function completeSearch() {
@@ -32,47 +32,3 @@ const SearchButton = () => {
 
 export default SearchButton;
 
-// const SearchBar = ({ searchQuery, setSearchQuery }) => {
-//const SearchBar = () => {
-  // const navigate = useNavigate();
-  // const onSubmit = (e) => {
-  //   navigate.push(`?s=${searchQuery}`);
-  //   e.preventDefault();
-  // };
-  //const [query, setQuery] = useState("");
-  // function setQuery(e) {
-  //   e.preventdefault();
-  //   console.log(e.target);
-  //   query = "";
-  // }
-
-  //const [isSearching, setSearching] = useState(false);
-  //useEffect(() => {
-   /* if (isSearching) {
-      
-      setSearching(false);
-    }
-  }, [isSearching]);
-
-
-  return (
-    <>
-      <Form>
-        <Form.Group className="search" controlId="formBasicEmail">
-         <Form.Label>Find a Tutor</Form.Label>
-          <Form.Control
-            // value={searchQuery}
-            // onInput={(e) => setSearchQuery(e.target.value)}
-            // id="header-search"
-            // name="s"
-            onChange={(event) => setQuery(event.target.value)}
-            type="text"
-            placeholder="What subject do you need help with"
-          />
-        </Form.Group>
-      </Form>
-    </>
- );
-};
-
-export default SearchBar; */

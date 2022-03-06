@@ -110,6 +110,41 @@ export const UPDATE_USER = gql`
   }
 `;
 
+export const UPDATE_TUTOR = gql`
+  mutation updateTutor(
+    $username: String
+    $password: String
+    $bio: String
+    $hourlyRate: String
+    $knownSubjects: String
+  ) {
+    updateTutor(
+      username: $username
+      password: $password
+      bio: $bio
+      hourlyRate: $hourlyRate
+      knownSubjects: $knownSubjects
+    ) {
+      user {
+        _id
+        username
+        email
+        photo
+        role
+        chats {
+          _id
+        }
+      }
+      tutor {
+        _id
+        knownSubjects
+        bio
+        hourlyRate
+      }
+    }
+  }
+`;
+
 export const ADD_CHAT = gql`
   mutation Mutation($tutor: ID) {
     createChat(tutor: $tutor) {
@@ -179,41 +214,5 @@ export const GET_S3_URL = gql`
   }
 `;
 
-export const ADD_BETA_FEEDBACK = gql`
-    mutation AddBetaFeedback(
-        $username: String!
-        $email: String!
-        $message: String!
-        $image: String
-    ) {
-        addBetaFeedback(
-            username: $username
-            email: $email
-            message: $message
-            image: $image
-        ) {
-            _id
-            username
-            email
-            message
-            image
-            createdAt
-            archived
-        }
-    }
-`;
 
-export const ARCHIVE_BETA_FEEDBACK = gql`
-    mutation ArchiveBetaFeedback($feedbackId: ID!) {
-        archiveBetaFeedback(feedbackId: $feedbackId) {
-            _id
-            username
-            email
-            message
-            image
-            createdAt
-            archived
-        }
-    }
-`;
-
+  

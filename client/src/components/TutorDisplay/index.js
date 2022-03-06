@@ -16,7 +16,7 @@ const TutorDisplay = () => {
 
   return (
     <Row>
-      <Col sm={8}>
+      <Col sm={8} className="py-4">
         <input
           className='col-12 p-3 rounded'
           style={{

@@ -36,13 +36,14 @@ const Tutor = ({ tutor }) => {
 
               <span>
                 <b>Expertise:</b>
-                {tutor?.knownSubjects.split(" ").map((subject, index) => {
-                  return (
-                    <Badge key={index} bg='secondary' className='m-1'>
-                      {subject}
-                    </Badge>
-                  );
-                })}
+                {tutor.knownSubjects &&
+                  tutor?.knownSubjects.split(" ").map((subject, index) => {
+                    return (
+                      <Badge key={index} bg='secondary' className='m-1'>
+                        {subject}
+                      </Badge>
+                    );
+                  })}
               </span>
               <br></br>
               <span>

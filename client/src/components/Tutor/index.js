@@ -1,6 +1,6 @@
 /* eslint-disable no-template-curly-in-string */
 import React from "react";
-import { Card, Button, Col, Row } from "react-bootstrap";
+import { Card, Button, Col, Row, Badge } from "react-bootstrap";
 
 const Tutor = ({ tutor }) => {
   return (
@@ -36,7 +36,13 @@ const Tutor = ({ tutor }) => {
 
               <span>
                 <b>Expertise:</b>
-                <button>{tutor?.knownSubjects}</button>
+                {tutor?.knownSubjects.split(" ").map((subject, index) => {
+                  return (
+                    <Badge key={index} bg='secondary' className='m-1'>
+                      {subject}
+                    </Badge>
+                  );
+                })}
               </span>
               <br></br>
               <span>

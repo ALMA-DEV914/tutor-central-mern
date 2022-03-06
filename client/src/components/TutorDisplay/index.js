@@ -17,7 +17,7 @@ const TutorDisplay = () => {
   return (
     <Row>
       <Col sm={8}>
-        <Form>
+        <Form className='mb-3'>
           <Form.Group>
             <Form.Control
               className='col-12 p-3 rounded border border-info'
@@ -30,11 +30,14 @@ const TutorDisplay = () => {
           .filter((tutor) => {
             return (
               query === "" ||
-              tutor.knownSubjects.toLowerCase().includes(query.toLowerCase())
+              (tutor.knownSubjects &&
+                tutor?.knownSubjects
+                  .toLowerCase()
+                  .includes(query.toLowerCase()))
             );
           })
           .map((tutor, index) => {
-            return <Tutor key={index} tutor={tutor}></Tutor>;
+            return <Tutor key={index} tutor={tutor} className='mb-3'></Tutor>;
           })}
       </Col>
       <Col sm={4}>

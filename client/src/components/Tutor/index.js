@@ -6,7 +6,7 @@ const Tutor = ({ tutor }) => {
   return (
     <Card className='mt-2 p-2 bg-light'>
       <Row>
-        <Col xs={4} className='m-3'>
+        <Col xs={4} className='m-3 text-center'>
           <Card.Img
             src={tutor.userId.photo}
             style={{

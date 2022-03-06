@@ -12,7 +12,7 @@ const Home = (props) => {
   return (
     //smooth scroll if on same page routing
     <>
-      
+    
       <TutorDisplay />
   
     </>

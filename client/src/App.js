@@ -79,7 +79,7 @@ function App() {
               <Route path='/tutor/:id' element={<TutorDetail />} />
               <Route path='/tutor-profile' element={<TutorProfile />} />
               <Route path='/chat/:id' element={<ChatDetail />} />
-              
+             
               <Route path='*' element={<NoMatch />} />
             </Routes>
           </Container>

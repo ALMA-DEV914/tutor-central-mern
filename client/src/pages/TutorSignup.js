@@ -95,8 +95,7 @@ function TutorSignup() {
   };
 
   return (
-    <Container className="mt-4 p-4">
-    <Card className='my-3 p-4'>
+    <Card className='my-3'>
       <Card.Header>
         <Card.Title>Tutor Signup</Card.Title>
       </Card.Header>
@@ -182,7 +181,6 @@ function TutorSignup() {
         </Modal>
       </Card.Body>
     </Card>
-    </Container>
   );
 }
 

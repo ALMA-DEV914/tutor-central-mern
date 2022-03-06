@@ -3,7 +3,6 @@ import Tutor from "../Tutor";
 import { Row, Col, Form } from "react-bootstrap";
 import { QUERY_TUTORS } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
-import StarRatingDemo from "../StarRating";
 
 const TutorDisplay = () => {
   const [query, setQuery] = useState("");
@@ -15,17 +14,17 @@ const TutorDisplay = () => {
   }
 
   return (
-    <Row>
-      <Col sm={8}>
-        <Form className='mb-3'>
-          <Form.Group>
-            <Form.Control
-              className='col-12 p-3 rounded border border-info'
-              placeholder='Search for a skill'
-              onChange={(event) => setQuery(event.target.value)}
-            />
-          </Form.Group>
-        </Form>
+    <>
+      <Form className='mb-3'>
+        <Form.Group>
+          <Form.Control
+            className='col-12 p-3 rounded border border-info'
+            placeholder='Search for a skill'
+            onChange={(event) => setQuery(event.target.value)}
+          />
+        </Form.Group>
+      </Form>
+      <Row>
         {data.tutors
           .filter((tutor) => {
             return (
@@ -37,14 +36,14 @@ const TutorDisplay = () => {
             );
           })
           .map((tutor, index) => {
-            return <Tutor key={index} tutor={tutor} className='mb-3'></Tutor>;
+            return (
+              <Col sm={6} key={index}>
+                <Tutor tutor={tutor} className='mb-3'></Tutor>
+              </Col>
+            );
           })}
-      </Col>
-      <Col sm={4}>
-        Feedback section goes here
-        <StarRatingDemo />
-      </Col>
-    </Row>
+      </Row>
+    </>
   );
 };
 

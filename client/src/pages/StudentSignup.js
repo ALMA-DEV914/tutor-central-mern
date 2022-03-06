@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
 import { ADD_STUDENT } from "../utils/mutations";
-import { Card, Form, Button, Modal } from "react-bootstrap";
+import { Card, Form, Button, Modal, Container } from "react-bootstrap";
 
 function StudentSignup() {
   const [showModal, setShowModal] = useState(false);
@@ -61,7 +61,8 @@ function StudentSignup() {
   };
 
   return (
-    <Card className='my-3'>
+    <Container className="mt-4 p-4">
+    <Card className='my-3 p-4'>
       <Card.Header>
         <Card.Title>Student Signup</Card.Title>
       </Card.Header>
@@ -112,6 +113,7 @@ function StudentSignup() {
         </Modal>
       </Card.Body>
     </Card>
+    </Container>
   );
 }
 

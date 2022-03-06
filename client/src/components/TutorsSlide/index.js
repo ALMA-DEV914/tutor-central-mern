@@ -1,131 +1,63 @@
 import React from "react";
-import "./tutor.css";
-import profile1 from "../../assets/profile1.jpg";
-import profile2 from "../../assets/profile2.jpg";
-import profile3 from "../../assets/profile3.jpg";
-import profile4 from "../../assets/profile4.png";
-import profile5 from "../../assets/profile5.png";
-import profile6 from "../../assets/profile6.jpg";
-import profile7 from "../../assets/profile7.jpeg";
+import { Container, Row, Col, Button } from "react-bootstrap";
+import tutor from '../../assets/tutor.jpeg';
+import { FaClock, FaTrophy, FaBookOpen, FaDesktop } from "react-icons/fa";
+const TutorSlide = (props) => {
+  
 
-import Button from "@material-ui/core/Button";
-import MobileStepper from "@material-ui/core/MobileStepper";
-import Paper from "@material-ui/core/Paper";
-import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
-import Typography from "@material-ui/core/Typography";
-import { useTheme } from "@material-ui/core/styles";
-import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
-
-const TutorsFeedback = [
-  {
-    label: "Tarek Yussof",
-    imgPath: profile1,
-    feedback:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  },
-  {
-    label: "Alma Braun",
-    imgPath: profile2,
-    feedback:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  },
-
-  {
-    label: "Tom Bellenger",
-    imgPath: profile3,
-    feedback:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  },
-  {
-    label: "Matthew",
-    imgPath: profile4,
-    feedback:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  },
-  {
-    label: "Hanah May",
-    imgPath: profile5,
-    feedback:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  },
-  {
-    label: "John Smith",
-    imgPath: profile6,
-    feedback:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  },
-  {
-    label: "David Mern",
-    imgPath: profile7,
-    feedback:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  },
-];
-
-const TutorSlide = () => {
-  const CollectionSize = TutorsFeedback.length;
-  const theme = useTheme();
-  const [index, setActiveStep] = React.useState(0);
-
-  const goToNextPicture = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
   return (
-    <div>
-      <h2>What students and customers say about our tutors?</h2>
-      <div
-        style={{
-          flexGrow: 1,
-          color: "black",
-        }}
-      >
-        <Paper
-          square
-          elevation={0}
-          style={{
-            height: 50,
-            display: "flex",
-            backgroundColor: theme.palette.background.default,
-            alignItems: "center",
-          }}
-        >
-          <Typography>{TutorsFeedback[index].label}</Typography>
-        </Paper>
-        <img
-          src={TutorsFeedback[index].imgPath}
-          style={{
-            maxWidth: "400px",
-            width: "100%",
-            borderRadius: "100%",
-            display: "block",
-            overflow: "hidden",
-            margin: "0 auto",
-          }}
-          alt={TutorsFeedback[index].label}
-        />
-        <Typography>{TutorsFeedback[index].feedback}</Typography>
-        <MobileStepper
-          variant="text"
-          position="static"
-          index={index}
-          steps={CollectionSize}
-          nextButton={
-            <Button
-              size="small"
-              onClick={goToNextPicture}
-              disabled={index === CollectionSize - 1}
-            >
-              Next
-              {theme.direction !== "rtl" ? (
-                <KeyboardArrowRight />
-              ) : (
-                <KeyboardArrowLeft />
-              )}
-            </Button>
-          }
-        />
-      </div>
-    </div>
+    <>
+      <Container className="p-4 text-center">
+        <Row style={{padding: '20px', margin: '5% auto'}}>
+        <Col sm={8} className="p-4">
+        <h1>Incoming virtual connection will be feature soon! Stay tuned.</h1>
+        <p>Tell us what you need help with and our smart matching system will connect you with an online tutor. Sign up for a free trial using a debit/credit card.</p>
+        <Button>REGISTER</Button>
+        </Col>
+         <Col sm={4}>
+         <img src={tutor} alt="tutor-pic" style={{width: '400px'}}/>
+          </Col>
+        </Row>
+       </Container>
+       <Container>
+        <Row className="mt-4">
+          <h2>Why Use Tutor-Student Connect?</h2>
+          <Col sm={5} className="mt-4 p-4 mx-2 bg-light">
+          <h4>On-demand tutoring</h4>
+          
+          <FaClock/>
+          <p>Connect with an online tutor in less than 30
+          seconds, 24/7. It doesn’t matter if you want help with
+          a single problem or you need a 3-hour lesson.</p>
+          </Col>
+          
+          <Col sm={5} className="mt-4 p-4 bg-light">
+          <h4>Learn from the best tutors</h4>
+          <FaDesktop/>
+          <p>Highly qualified tutors from the best universities
+           across the globe ready to help. An acceptance rate
+          of 4% means all our tutors are thoroughly screened.</p>
+          </Col>
+        </Row>
+       
+        <Row className="mt-4">
+          <Col sm={5} className="mt-4 mx-2 bg-light">
+            <h4>All the tools you need</h4>
+            <FaTrophy/>
+            <p>Our lesson space features a virtual whiteboard, text
+               editor, audio/video chat, screensharing and so much
+             more. All lessons are archived for your convenience.</p>
+          </Col>
+          <Col sm={5} className="mt-4 bg-light">
+          <h4>Get help in any subject</h4>
+          <FaBookOpen/>
+          <p>We cover over 300 subjects across all grade levels.
+         Whether it’s high school algebra or college-level
+         Spanish, we have a tutor that can help.</p>
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 };
 

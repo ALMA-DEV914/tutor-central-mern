@@ -31,9 +31,9 @@ export const ADD_TUTOR = gql`
     $email: String!
     $photo: String
     $password: String!
-    $hourlyRate: String
-    $knownSubjects: String
-    $bio: String
+    $hourlyRate: String!
+    $knownSubjects: String!
+    $bio: String!
   ) {
     addTutor(
       firstName: $firstName
@@ -103,11 +103,43 @@ export const LOGIN = gql`
 `;
 
 export const UPDATE_USER = gql`
-  mutation updateUser($username: String!, $password: String) {
+  mutation updateUser($username: String, $password: String) {
     updateUser(username: $username, password: $password) {
-      token
+      username
+    }
+  }
+`;
+
+export const UPDATE_TUTOR = gql`
+  mutation updateTutor(
+    $username: String
+    $password: String
+    $bio: String
+    $hourlyRate: String
+    $knownSubjects: String
+  ) {
+    updateTutor(
+      username: $username
+      password: $password
+      bio: $bio
+      hourlyRate: $hourlyRate
+      knownSubjects: $knownSubjects
+    ) {
       user {
         _id
+        username
+        email
+        photo
+        role
+        chats {
+          _id
+        }
+      }
+      tutor {
+        _id
+        knownSubjects
+        bio
+        hourlyRate
       }
     }
   }
@@ -177,17 +209,45 @@ export const SINGLE_FILE_UPLOAD = gql`
 `;
 
 export const GET_S3_URL = gql`
-  mutation Mutation($isLoggedIn: Boolean!) {
-    getS3Url(isLoggedIn: $isLoggedIn)
+  mutation Mutation($filename: String!) {
+    signedLink(filename: $filename)
   }
 `;
 
-export const UPDATE_PROFILE_PIC = gql`
-  mutation Mutation($userId: ID!, $profilePic: String!) {
-    updateProfilePic(userId: $userId, profilePic: $profilePic) {
+export const ADD_BETA_FEEDBACK = gql`
+  mutation AddBetaFeedback(
+    $username: String!
+    $email: String!
+    $message: String!
+    $image: String
+  ) {
+    addBetaFeedback(
+      username: $username
+      email: $email
+      message: $message
+      image: $image
+    ) {
       _id
       username
-      profilePic
+      email
+      message
+      image
+      createdAt
+      archived
+    }
+  }
+`;
+
+export const ARCHIVE_BETA_FEEDBACK = gql`
+  mutation ArchiveBetaFeedback($feedbackId: ID!) {
+    archiveBetaFeedback(feedbackId: $feedbackId) {
+      _id
+      username
+      email
+      message
+      image
+      createdAt
+      archived
     }
   }
 `;

@@ -11,6 +11,7 @@ const typeDefs = gql`
     email: String
     photo: String
     role: String
+    chats: [Chat]
   }
 
   type Tutor {
@@ -91,6 +92,14 @@ const typeDefs = gql`
       bio: String
     ): Auth
 
+    updateTutor(
+      username: String
+      password: String
+      hourlyRate: String
+      bio: String
+      knownSubjects: String
+    ): Me
+
     updateUser(
       firstName: String
       lastName: String
@@ -102,6 +111,7 @@ const typeDefs = gql`
     addMessage(chatId: ID, messageText: String): Message
 
     singleUpload(file: Upload!): File
+    signedLink(filename: String!): String
   }
 
   type Auth {

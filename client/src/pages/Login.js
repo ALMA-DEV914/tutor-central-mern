@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button, Modal } from "react-bootstrap";
+import { Form, Button, Modal, Card, Container } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 import { LOGIN } from "../utils/mutations";
 import Auth from "../utils/auth";
@@ -48,45 +48,52 @@ function Login() {
   };
 
   return (
-    <>
-      <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
-        <Form.Group className='mb-3' controlId='formBasicEmail'>
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            name='email'
-            onChange={handleChange}
-            type='email'
-            placeholder='Enter email'
-            required
-          />
-        </Form.Group>
+    <Container className="mt-4 p-4" >
+    <Card className='my-3 p-4'>
+      <Card.Header>
+        <Card.Title>Login</Card.Title>
+      </Card.Header>
+      <Card.Body>
+        <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
+          <Form.Group className='mb-3' controlId='formBasicEmail'>
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              name='email'
+              onChange={handleChange}
+              type='email'
+              placeholder='Enter email'
+              required
+            />
+          </Form.Group>
 
-        <Form.Group className='mb-3' controlId='formBasicPassword'>
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            name='password'
-            onChange={handleChange}
-            type='password'
-            placeholder='Password'
-            required
-          />
-        </Form.Group>
-        <Button variant='primary' type='submit' onClick={handleFormSubmit}>
-          Submit
-        </Button>
-      </Form>
-      <Modal show={showModal} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Error</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>{errorMessage}</Modal.Body>
-        <Modal.Footer>
-          <Button variant='danger' onClick={handleCloseModal}>
-            Close
+          <Form.Group className='mb-3' controlId='formBasicPassword'>
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              name='password'
+              onChange={handleChange}
+              type='password'
+              placeholder='Password'
+              required
+            />
+          </Form.Group>
+          <Button variant='primary' type='submit' onClick={handleFormSubmit}>
+            Submit
           </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
+        </Form>
+        <Modal show={showModal} onHide={handleCloseModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Error</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{errorMessage}</Modal.Body>
+          <Modal.Footer>
+            <Button variant='danger' onClick={handleCloseModal}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </Card.Body>
+    </Card>
+    </Container>
   );
 }
 

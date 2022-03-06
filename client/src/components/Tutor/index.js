@@ -1,25 +1,38 @@
+/* eslint-disable no-template-curly-in-string */
 import React from "react";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, Col,Container, Row } from "react-bootstrap";
+
 
 const Tutor = ({ tutor }) => {
+
   return (
-    <Card>
-      <Card.Img variant='top' src='https://via.placeholder.com/150' />
+    <Card className="mt-2 p-2 bg-light">
+      <Container>
+        <Row>
+      <Col xs={4} className='p-1' >
+      <Card.Img variant='right' src={tutor.userId.photo} style={{borderRadius: '100%', width: '150px',boxShadow: '8px 8px 8px gray',}} /><br></br>
+      <Button className="mt-4" variant='info' href={`/tutor/${tutor.userId._id}`}>
+         Get help
+        </Button>
+        <Button className="mt-4" variant="danger" href={`mailto:${tutor.userId.email}`} >Email</Button>
+        </Col>
+
+        <Col>
       <Card.Body>
         <Card.Title>{tutor.userId.username}</Card.Title>
         <Card.Text>
-          <span>Rating: 5 Stars</span>
-          <span>Hourly Rate: {tutor?.hourlyRate}</span>
-          <span>Experise: JavaScript, CSS, HTML</span>
+          <span><b>Hourly Rate: $</b> {tutor?.hourlyRate}</span><br></br>
+        
+          <span><b>Expertise:</b><button>{tutor?.knownSubjects}</button></span><br></br>
           <span>
-            Bio: Some quick example text to build on the card title and make up
-            the bulk of the card's content.
+          <b>Bio:</b> {tutor?.bio}
           </span>
-        </Card.Text>
-        <Button variant='primary' href={`/tutor/${tutor.userId._id}`}>
-          Sign up with {tutor.userId.username}
-        </Button>
+    
+      </Card.Text>
       </Card.Body>
+      </Col>
+      </Row>
+      </Container>
     </Card>
   );
 };

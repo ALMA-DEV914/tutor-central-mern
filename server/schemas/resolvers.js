@@ -4,7 +4,6 @@ const { GraphQLUpload } = require("graphql-upload");
 const aws = require("../utils/aws-fileupload");
 const { signToken } = require("../utils/auth");
 const sharp = require("sharp");
-const { ChainableTemporaryCredentials } = require("aws-sdk");
 
 const resolvers = {
   Upload: GraphQLUpload,
@@ -15,9 +14,11 @@ const resolvers = {
     me: async (parent, args, context) => {
       if (context.user) {
         // console.log(context.user);
-        const userData = await User.findOne({ _id: context.user._id }).select(
-          "-__v -password"
-        );
+        const userData = await User.findOne({ _id: context.user._id })
+          .select("-__v")
+          .populate("chats chats.chat");
+
+        console.log(userData);
 
         if (userData.role === "tutor") {
           const tutorData = await Tutor.findOne({
@@ -67,20 +68,25 @@ const resolvers = {
   },
 
   Mutation: {
+    signedLink: async (parent, { filename }) => {
+      return aws.getS3UploadLink(filename);
+    },
     addStudent: async (parent, args) => {
+      console.log({ ...args, role: "student" });
       const user = await User.create({ ...args, role: "student" });
-      const token = signToken(user);
       const student = await Student.create({ ...args, userId: user._id });
+      const token = signToken(user, student._id);
 
       return { token, student };
     },
     addTutor: async (parent, args) => {
       const user = await User.create({ ...args, role: "tutor" });
-      const token = signToken(user);
       const tutor = await Tutor.create({ ...args, userId: user._id });
+      const token = signToken(user, tutor._id);
 
       return { token, tutor };
     },
+
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
@@ -98,11 +104,74 @@ const resolvers = {
 
       return { token, user };
     },
+    // updateUser: async (parent, args, context) => {
+    //   if (context.user) {
+    //     return await User.findByIdAndUpdate(context.user._id, args, {
+    //       new: true,
+    //     });
+    //     // const user = await User.find({ id: context.user._id });
+    //     // user.password = args.password;
+    //     // user.save();
+    //   }
+
+    //   throw new AuthenticationError("You need to be logged in!");
+    // },
+    // updateUser: async (parent, args, context) => {
+    //   if (context.user) {
+    //     const user = await User.findByIdAndUpdate(
+    //       { _id: context.user._id },
+    //       args,
+    //       { new: true }
+    //     );
+    //     console.log(user);
+    //     return user;
+    //   }
+
+    //   throw new AuthenticationError("You need to be logged in!");
+    // },
     updateUser: async (parent, args, context) => {
       if (context.user) {
-        return await User.findByIdAndUpdate(context.user._id, args, {
-          new: true,
-        });
+        // for (const property in args) {
+        //   console.log(args[property]);
+        //   if (args[property] === "") {
+        //     args[property] = args[property];
+        //   }
+        // }
+        const user = await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          args,
+          { new: true }
+        );
+        // for (const property in args) {
+        //   // console.log(args[property]);
+        //   console.log(context.user.args);
+        //   if (args[property] === "") {
+        //     args[property] = context.user.args[property];
+        //   }
+        // }
+
+        // console.log(user);
+        console.log(args);
+        return user;
+      }
+
+      throw new AuthenticationError("You need to be logged in!");
+    },
+    updateTutor: async (parent, args, context) => {
+      if (context.user) {
+        const user = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          args,
+          { new: true }
+        );
+        const tutor = await Tutor.findOneAndUpdate(
+          { userId: context.user._id },
+          args,
+          { new: true }
+        );
+        console.log(user);
+        console.log(tutor);
+        return { user, tutor };
       }
 
       throw new AuthenticationError("You need to be logged in!");
@@ -135,7 +204,7 @@ const resolvers = {
         });
         let from = context.user._id;
         let to =
-          chat.tutor._id === context.user._id
+          chat.tutor._id.toString() === context.user._id
             ? chat.student._id
             : chat.tutor._id;
         let message = await Message.create({
@@ -144,7 +213,6 @@ const resolvers = {
           messageText,
         });
         message = await message.populate("from to");
-        console.log(message);
         chat.messages.push(message);
         chat.save();
         return message;

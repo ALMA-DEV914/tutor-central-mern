@@ -50,6 +50,19 @@ export const QUERY_ME = gql`
         email
         photo
         role
+        chats {
+          _id
+          tutor {
+            _id
+          }
+          student {
+            _id
+          }
+          createdAt
+          messages {
+            _id
+          }
+        }
       }
     }
   }
@@ -79,6 +92,19 @@ export const QUERY_CHAT = gql`
         }
         messageText
       }
+    }
+  }
+`;
+export const GET_BETA_FEEDBACK = gql`
+  query BetaFeedback {
+    betaFeedback(sortBy: { field: "createdAt", order: DESC }) {
+      _id
+      username
+      email
+      message
+      image
+      createdAt
+      archived
     }
   }
 `;

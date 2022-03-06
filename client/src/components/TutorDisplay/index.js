@@ -1,25 +1,30 @@
 import React, { useState } from "react";
 import Tutor from "../Tutor";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col} from "react-bootstrap";
 import { QUERY_TUTORS } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
-import SearchBar from "../SearchBar";
+import StarRatingDemo from "../StarRating";
 
 const TutorDisplay = () => {
   const [query, setQuery] = useState("");
 
   const { loading, data } = useQuery(QUERY_TUTORS);
-
+  
   if (loading) {
     return <div>Loading...</div>;
   }
 
   return (
-    <Row>
-      <input
+    <>
+     <Row>
+       <Col sm={7} className='mx-2'>
+       <input className="col-lg-12 p-3" style={{borderRadius: '5px', backgroundColor: 'blanchedalmond', borderStyle: 'hidden' }}
         placeholder='Enter search term'
-        onChange={(event) => setQuery(event.target.value)}
-      />
+        onChange={(event) => setQuery(event.target.value)}/>
+       
+    
+    
+    <p>Get help from our technologies experts!</p>
       {data.tutors
         .filter((tutor) => {
           if (query === "") {
@@ -33,12 +38,18 @@ const TutorDisplay = () => {
         })
         .map((tutor, index) => {
           return (
-            <Col key={index} sm={4}>
+            <>
+            <Col key={index} sm={12} className="mx-2">
               <Tutor tutor={tutor}></Tutor>
-            </Col>
+              </Col>
+          </>
           );
         })}
+    </Col>
+      <Col sm={4}>Feedback section goes here
+      <StarRatingDemo/></Col>
     </Row>
+  </>
   );
 };
 

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
-import { ADD_TUTOR } from "../utils/mutations";
-import { Card, Form, Button, Modal } from "react-bootstrap";
+import { ADD_TUTOR, GET_S3_URL } from "../utils/mutations";
+import { Card, Form, Button, Modal, Container } from "react-bootstrap";
+import FileUploader from "../components/FileUploader";
 
 function TutorSignup() {
   const [showModal, setShowModal] = useState(false);
@@ -12,10 +13,13 @@ function TutorSignup() {
     username: "",
     email: "",
     password: "",
+    hourlyRate: "",
+    knownSubjects: "",
+    bio: "",
   });
-  const fileInput = React.createRef();
+  const [photo, setPhoto] = useState(null);
   const [addTutor] = useMutation(ADD_TUTOR);
-  //const [fileUpload] = useMutation(SINGLE_FILE_UPLOAD);
+  const [getS3Url] = useMutation(GET_S3_URL);
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -27,30 +31,58 @@ function TutorSignup() {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    console.log(photo);
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       setErrorMessage("Check all fields are complete and try again");
       setShowModal(true);
     }
     setValidated(true);
-    try {
-      const mutationResponse = await addTutor({
+    let uniqueFilename = new Date().getTime() + ".jpg";
+
+    //add mutation call to upload file
+    if (photo) {
+      const uploadUrl = await getS3Url({
         variables: {
-          email: formState.email,
-          password: formState.password,
-          username: formState.username,
+          filename: uniqueFilename,
         },
+      });
+      console.log(uploadUrl.data);
+
+      const img_response = await fetch(uploadUrl.data.signedLink, {
+        method: "PUT",
+        body: photo,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      if (img_response.ok) {
+        console.log("image upload success");
+        uniqueFilename = uploadUrl.data.signedLink.split("?")[0];
+      } else {
+        console.log(img_response);
+        return;
+      }
+    }
+
+    try {
+      let variables = {
+        email: formState.email,
+        password: formState.password,
+        username: formState.username,
+        hourlyRate: formState.hourlyRate,
+        knownSubjects: formState.knownSubjects,
+        bio: formState.bio,
+      };
+      if (photo) {
+        variables.photo = uniqueFilename;
+      }
+      const mutationResponse = await addTutor({
+        variables,
       });
       console.log(mutationResponse);
       const token = mutationResponse.data.addTutor.token;
       Auth.login(token);
-
-      // add mutation call to upload file
-      // const upload = await fileUpload({
-      //   variables: {
-      //     file: fileInput.current.files[0],
-      //   },
-      // });
     } catch (err) {
       handleShowModal(err.message);
       console.log(err);
@@ -63,7 +95,8 @@ function TutorSignup() {
   };
 
   return (
-    <Card className='my-3'>
+    <Container className="mt-4 p-4">
+    <Card className='my-3 p-4'>
       <Card.Header>
         <Card.Title>Tutor Signup</Card.Title>
       </Card.Header>
@@ -87,7 +120,35 @@ function TutorSignup() {
               onChange={handleChange}
             />
           </Form.Group>
-
+          <Form.Group className='mb-3' controlId='formBasicText'>
+            <Form.Label>Hourly Rate $</Form.Label>
+            <Form.Control
+              type='text'
+              name='hourlyRate'
+              placeholder='Hourly rate'
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group className='mb-3' controlId='FormBasicText'>
+            <Form.Label>Expertises</Form.Label>
+            <Form.Control
+              type='text'
+              name='knownSubjects'
+              placeholder='Know subjects/expertises'
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group className='mb-3' controlId='formBasicTextarea'>
+            <Form.Label>Write a Short Bio</Form.Label>
+            <Form.Control
+              as='textarea'
+              rows={3}
+              type='text'
+              name='bio'
+              placeholder='Descriptive bio '
+              onChange={handleChange}
+            />
+          </Form.Group>
           <Form.Group className='mb-3' controlId='formBasicPassword'>
             <Form.Label>Password</Form.Label>
             <Form.Control
@@ -99,14 +160,10 @@ function TutorSignup() {
           </Form.Group>
           <Form.Group className='mb-3' controlId='formFileInput'>
             <Form.Label>Photo</Form.Label>
-            <input
-              id='formFileInput'
-              className='file-input form-control'
-              name='file'
-              type='file'
-              accept='image/png, image/jpeg'
-              ref={fileInput}
-            />
+            <FileUploader
+              onFileSelectSuccess={(file) => setPhoto(file)}
+              onFileSelectError={(message) => console.log(message)}
+            ></FileUploader>
           </Form.Group>
           <Button variant='primary' type='submit' onClick={handleFormSubmit}>
             Submit
@@ -125,6 +182,7 @@ function TutorSignup() {
         </Modal>
       </Card.Body>
     </Card>
+    </Container>
   );
 }
 

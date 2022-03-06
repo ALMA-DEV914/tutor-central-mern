@@ -1,7 +1,7 @@
 import React from "react";
 import { FaGithub } from "react-icons/fa";
 import { Container, Row, Col } from "react-bootstrap";
-import BetaNoticeModalBody from "../BetaNoticeModalBody";
+
 
 const Footer = () => {
   return (

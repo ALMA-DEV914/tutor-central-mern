@@ -7,15 +7,6 @@ import { UPDATE_TUTOR } from "../utils/mutations";
 import { Button, Card, Col, Form, Row, Image } from "react-bootstrap";
 
 function TutorProfile() {
-<<<<<<< HEAD
-  // return <div>Profile</div>;
-  // let navigate = useNavigate();
-
-  const { loading, data } = useQuery(QUERY_ME);
-
-  // console.log(data.me.user.username);
-  // const [errorMessage, setErrorMessage] = useState("");
-=======
   const { loading, data, refetch } = useQuery(QUERY_ME, {
     onCompleted: (d) => {
       console.log("setting form state with data");
@@ -31,7 +22,6 @@ function TutorProfile() {
       });
     },
   });
->>>>>>> f2a17c1269ad2d4302b81f06c12a5c641126a0dd
   const [formState, setFormState] = useState({
     username: "",
     password: "",

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Auth from "../utils/auth";
 import TutorDisplay from "../components/TutorDisplay";
-import { Container, Col, Modal, Button } from "react-bootstrap";
+import { Col, Modal, Button } from "react-bootstrap";
 import StudentSignup from "./StudentSignup";
 
 const Home = (props) => {
@@ -34,7 +34,7 @@ const Home = (props) => {
             </Button>
           </Modal.Footer>
         </Modal>
-        {!Auth.loggedIn && (
+        {!Auth.loggedIn() && (
           <Button variant='danger' onClick={handleShow}>
             GET HELP NOW
           </Button>

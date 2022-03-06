@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
 import { ADD_TUTOR, GET_S3_URL } from "../utils/mutations";
-import { Card, Form, Button, Modal, Container } from "react-bootstrap";
+import { Card, Form, Button, Modal } from "react-bootstrap";
 import FileUploader from "../components/FileUploader";
 
 function TutorSignup() {

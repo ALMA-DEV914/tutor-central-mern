@@ -21,13 +21,11 @@ const TutorDisplay = () => {
           <Form.Group>
             <Form.Control
               className='col-12 p-3 rounded border border-info'
-              placeholder='Enter search term'
+              placeholder='Search for a skill'
               onChange={(event) => setQuery(event.target.value)}
             />
           </Form.Group>
         </Form>
-
-        <p>Get help from our tutors!</p>
         {data.tutors
           .filter((tutor) => {
             return (
@@ -36,11 +34,7 @@ const TutorDisplay = () => {
             );
           })
           .map((tutor, index) => {
-            return (
-              <Col key={index} sm={12} className='mx-2'>
-                <Tutor tutor={tutor}></Tutor>
-              </Col>
-            );
+            return <Tutor tutor={tutor}></Tutor>;
           })}
       </Col>
       <Col sm={4}>

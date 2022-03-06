@@ -71,7 +71,7 @@ function StudentSignup() {
             <Form.Label>Username</Form.Label>
             <Form.Control
               type='text'
-              name='usernam'
+              name='username'
               placeholder='Enter username'
               onChange={handleChange}
             />

@@ -72,6 +72,7 @@ const resolvers = {
       return aws.getS3UploadLink(filename);
     },
     addStudent: async (parent, args) => {
+      console.log({ ...args, role: "student" });
       const user = await User.create({ ...args, role: "student" });
       const student = await Student.create({ ...args, userId: user._id });
       const token = signToken(user, student._id);

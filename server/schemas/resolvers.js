@@ -32,7 +32,7 @@ const resolvers = {
           }).populate("userId");
           return { user: userData, student: studentData };
         }
-
+        // console.log(userData);
         // return userData;
       }
       throw new AuthenticationError("Not logged in");

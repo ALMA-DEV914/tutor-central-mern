@@ -17,7 +17,7 @@ const TutorDisplay = () => {
   return (
     <>
      <Row>
-       <Col sm={7} className='mx-2'>
+       <Col sm={7} className='mx-2 my-4'>
        <input className="col-lg-12 p-3" style={{borderRadius: '5px', backgroundColor: 'blanchedalmond', borderStyle: 'hidden' }}
         placeholder='Enter search term'
         onChange={(event) => setQuery(event.target.value)}/>

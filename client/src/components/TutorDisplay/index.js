@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Tutor from "../Tutor";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Form } from "react-bootstrap";
 import { QUERY_TUTORS } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
 import StarRatingDemo from "../StarRating";
@@ -17,28 +17,23 @@ const TutorDisplay = () => {
   return (
     <Row>
       <Col sm={8} className="py-4">
-        <input
-          className='col-12 p-3 rounded'
-          style={{
-            backgroundColor: "rgba(0, 216,216, 1)",
-            borderStyle: "hidden",
-          }}
-          placeholder='Enter search term'
-          onChange={(event) => setQuery(event.target.value)}
-        />
+        <Form>
+          <Form.Group>
+            <Form.Control
+              className='col-12 p-3 rounded border border-info'
+              placeholder='Enter search term'
+              onChange={(event) => setQuery(event.target.value)}
+            />
+          </Form.Group>
+        </Form>
 
         <p>Get help from our tutors!</p>
         {data.tutors
           .filter((tutor) => {
-            if (query === "") {
-              return true;
-            } else if (
+            return (
+              query === "" ||
               tutor.knownSubjects.toLowerCase().includes(query.toLowerCase())
-            ) {
-              return true;
-            } else {
-              return false;
-            }
+            );
           })
           .map((tutor, index) => {
             return (

@@ -31,12 +31,13 @@ const TutorDisplay = () => {
         {data.tutors
           .filter((tutor) => {
             if (query === "") {
-              return tutor;
+              return true;
             } else if (
-              tutor.userId.email.toLowerCase().includes(query.toLowerCase()) ||
-              tutor.userId.username.toLowerCase().includes(query.toLowerCase())
+              tutor.knownSubjects.toLowerCase().includes(query.toLowerCase())
             ) {
-              return tutor;
+              return true;
+            } else {
+              return false;
             }
           })
           .map((tutor, index) => {

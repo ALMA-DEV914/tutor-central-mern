@@ -111,7 +111,7 @@ export const UPDATE_USER = gql`
 `;
 
 export const UPDATE_TUTOR = gql`
-  mutation updateUser(
+  mutation updateTutor(
     $username: String
     $password: String
     $bio: String

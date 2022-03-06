@@ -214,40 +214,5 @@ export const GET_S3_URL = gql`
   }
 `;
 
-export const ADD_BETA_FEEDBACK = gql`
-  mutation AddBetaFeedback(
-    $username: String!
-    $email: String!
-    $message: String!
-    $image: String
-  ) {
-    addBetaFeedback(
-      username: $username
-      email: $email
-      message: $message
-      image: $image
-    ) {
-      _id
-      username
-      email
-      message
-      image
-      createdAt
-      archived
-    }
-  }
-`;
 
-export const ARCHIVE_BETA_FEEDBACK = gql`
-  mutation ArchiveBetaFeedback($feedbackId: ID!) {
-    archiveBetaFeedback(feedbackId: $feedbackId) {
-      _id
-      username
-      email
-      message
-      image
-      createdAt
-      archived
-    }
-  }
-`;
+  

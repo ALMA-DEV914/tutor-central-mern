@@ -54,9 +54,11 @@ export const QUERY_ME = gql`
           _id
           tutor {
             _id
+            username
           }
           student {
             _id
+            username
           }
           createdAt
           messages {
@@ -92,19 +94,6 @@ export const QUERY_CHAT = gql`
         }
         messageText
       }
-    }
-  }
-`;
-export const GET_BETA_FEEDBACK = gql`
-  query BetaFeedback {
-    betaFeedback(sortBy: { field: "createdAt", order: DESC }) {
-      _id
-      username
-      email
-      message
-      image
-      createdAt
-      archived
     }
   }
 `;

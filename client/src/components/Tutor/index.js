@@ -4,33 +4,33 @@ import { Card, Button, Col, Row, Badge } from "react-bootstrap";
 
 const Tutor = ({ tutor, showHelpButton = true }) => {
   return (
-    <Card className='mt-2 bg-light'>
-      <Row>
-        <Col xs={4} className='text-center'>
-          <Card.Img
-            className='my-3'
-            src={tutor.userId.photo}
-            style={{
-              borderRadius: "100%",
-              width: "150px",
-              height: "150px",
-              objectFit: "cover",
-            }}
-          />
-          {showHelpButton && (
-            <Button
-              className='my-3'
-              variant='info'
-              href={`/tutor/${tutor.userId._id}`}
-            >
-              Get help
-            </Button>
-          )}
-        </Col>
-
-        <Col xs={8}>
-          <Card.Body>
-            <Card.Title>{tutor.userId.username}</Card.Title>
+    <Card className='bg-light'>
+      <Card.Header>
+        <Card.Title>{tutor.userId.username}</Card.Title>
+      </Card.Header>
+      <Card.Body>
+        <Row>
+          <Col sm={4} className='text-center' style={{ minWidth: "170px" }}>
+            <Card.Img
+              className='rounded-circle my-3'
+              src={tutor.userId.photo}
+              style={{
+                objectFit: "cover",
+                width: "150px",
+                height: "150px",
+              }}
+            />
+            {showHelpButton && (
+              <Button
+                className='mx-2'
+                variant='info'
+                href={`/tutor/${tutor.userId._id}`}
+              >
+                Get help
+              </Button>
+            )}
+          </Col>
+          <Col>
             <Card.Text>
               <span>
                 <b>Hourly Rate: $</b> {tutor?.hourlyRate}
@@ -42,7 +42,7 @@ const Tutor = ({ tutor, showHelpButton = true }) => {
                 {tutor.knownSubjects &&
                   tutor?.knownSubjects.split(" ").map((subject, index) => {
                     return (
-                      <Badge key={index} bg='secondary' className='m-1'>
+                      <Badge key={index} bg='secondary' className='mx-1'>
                         {subject}
                       </Badge>
                     );
@@ -53,9 +53,9 @@ const Tutor = ({ tutor, showHelpButton = true }) => {
                 <b>Bio:</b> {tutor?.bio}
               </span>
             </Card.Text>
-          </Card.Body>
-        </Col>
-      </Row>
+          </Col>
+        </Row>
+      </Card.Body>
     </Card>
   );
 };

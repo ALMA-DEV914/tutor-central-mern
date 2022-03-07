@@ -2,12 +2,13 @@
 import React from "react";
 import { Card, Button, Col, Row, Badge } from "react-bootstrap";
 
-const Tutor = ({ tutor }) => {
+const Tutor = ({ tutor, showHelpButton = true }) => {
   return (
-    <Card className='mt-2 p-2 bg-light'>
+    <Card className='mt-2 bg-light'>
       <Row>
-        <Col xs={4} className='m-3 text-center'>
+        <Col xs={4} className='text-center'>
           <Card.Img
+            className='my-3'
             src={tutor.userId.photo}
             style={{
               borderRadius: "100%",
@@ -16,16 +17,18 @@ const Tutor = ({ tutor }) => {
               objectFit: "cover",
             }}
           />
-          <Button
-            className='mt-4'
-            variant='info'
-            href={`/tutor/${tutor.userId._id}`}
-          >
-            Get help
-          </Button>
+          {showHelpButton && (
+            <Button
+              className='my-3'
+              variant='info'
+              href={`/tutor/${tutor.userId._id}`}
+            >
+              Get help
+            </Button>
+          )}
         </Col>
 
-        <Col>
+        <Col xs={8}>
           <Card.Body>
             <Card.Title>{tutor.userId.username}</Card.Title>
             <Card.Text>

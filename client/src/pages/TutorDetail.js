@@ -1,18 +1,22 @@
 import React from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import Auth from "../utils/auth";
 import { ADD_CHAT } from "../utils/mutations";
+import { QUERY_TUTOR } from "../utils/queries";
 import { useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import Tutor from "../components/Tutor";
 
 const TutorDetail = () => {
   const { id } = useParams();
   const [addChat] = useMutation(ADD_CHAT);
-  
+  const { loading, data } = useQuery(QUERY_TUTOR, {
+    variables: { userId: id },
+  });
+
   const handleChatClick = async () => {
     // create the chat between student and tutor
     const user = Auth.getProfile();
-    console.log(user.data);
     if (user.data.role === "tutor") {
       // should only be students allowed
       console.log("chat is between students and tutors");
@@ -36,13 +40,17 @@ const TutorDetail = () => {
     return document.location.replace("/student-signup");
   }
 
+  if (loading) {
+    return "Loading...";
+  }
+
   return (
-    <div>
-      <h1>TutorPage for {id}</h1>
-      <p>
-        <Button onClick={handleChatClick}>Start Chat</Button>
-      </p>
-    </div>
+    <>
+      <Tutor tutor={data.tutor} showHelpButton={false} className='my-3'></Tutor>
+      <Button className='mt-3' onClick={handleChatClick}>
+        Start Chat
+      </Button>
+    </>
   );
 };
 

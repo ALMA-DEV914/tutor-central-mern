@@ -1,16 +1,10 @@
 const { User, Student, Tutor, Chat, Message } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
-const { GraphQLUpload } = require("graphql-upload");
 const aws = require("../utils/aws-fileupload");
 const { signToken } = require("../utils/auth");
-const sharp = require("sharp");
 
 const resolvers = {
-  Upload: GraphQLUpload,
   Query: {
-    // thoughts: async () => {
-    //   return Thought.find().sort({ createdAt: -1 });
-    // },
     me: async (parent, args, context) => {
       if (context.user) {
         // console.log(context.user);
@@ -55,6 +49,14 @@ const resolvers = {
     },
     tutors: async (parent, args, context) => {
       const tutor = await Tutor.find().select("-__v").populate("userId");
+      return tutor;
+    },
+    tutor: async (parent, { id }, context) => {
+      console.log(id);
+      const tutor = await Tutor.findOne({ userId: id })
+        .select("-__V")
+        .populate("userId");
+      console.log(tutor);
       return tutor;
     },
     chat: async (parent, args) => {
@@ -107,53 +109,13 @@ const resolvers = {
 
       return { token, user };
     },
-    // updateUser: async (parent, args, context) => {
-    //   if (context.user) {
-    //     return await User.findByIdAndUpdate(context.user._id, args, {
-    //       new: true,
-    //     });
-    //     // const user = await User.find({ id: context.user._id });
-    //     // user.password = args.password;
-    //     // user.save();
-    //   }
-
-    //   throw new AuthenticationError("You need to be logged in!");
-    // },
-    // updateUser: async (parent, args, context) => {
-    //   if (context.user) {
-    //     const user = await User.findByIdAndUpdate(
-    //       { _id: context.user._id },
-    //       args,
-    //       { new: true }
-    //     );
-    //     console.log(user);
-    //     return user;
-    //   }
-
-    //   throw new AuthenticationError("You need to be logged in!");
-    // },
     updateUser: async (parent, args, context) => {
       if (context.user) {
-        // for (const property in args) {
-        //   console.log(args[property]);
-        //   if (args[property] === "") {
-        //     args[property] = args[property];
-        //   }
-        // }
         const user = await User.findByIdAndUpdate(
           { _id: context.user._id },
           args,
           { new: true }
         );
-        // for (const property in args) {
-        //   // console.log(args[property]);
-        //   console.log(context.user.args);
-        //   if (args[property] === "") {
-        //     args[property] = context.user.args[property];
-        //   }
-        // }
-
-        // console.log(user);
         console.log(args);
         return user;
       }
@@ -221,42 +183,6 @@ const resolvers = {
         return message;
       }
       throw new AuthenticationError("You need to be logged in");
-    },
-    singleUpload: async (parent, { file }) => {
-      if (context.user) {
-        const { createReadStream, filename, mimetype, encoding } = await file;
-
-        const stream = createReadStream();
-        try {
-          const uniqueFilename = context.user.id + "-" + new Date().getTime();
-          console.log("image upload");
-          // upload to s3
-          const compressed = await sharp(stream)
-            .resize({ width: 400, withoutEnlargement: true })
-            .webp()
-            .withMetadata()
-            .toBuffer();
-          aws.uploadFile(uniqueFilename + ".webp", compressed);
-          // create the DB entry associated with job id
-          const user = await User.findByIdAndUpdate(
-            {
-              _id: context.user._id,
-            },
-            {
-              photo:
-                "https://ucbstore.s3.us-west-1.amazonaws.com/" +
-                encodeURIComponent(uniqueFilename + ".webp"),
-            },
-            { new: true }
-          );
-          return user;
-        } catch (err) {
-          console.log(err);
-        }
-
-        return {};
-      }
-      throw new AuthenticationError("You must be signed in");
     },
   },
 };

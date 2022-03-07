@@ -98,6 +98,13 @@ const typeDefs = gql`
       knownSubjects: String
     ): Me
 
+    updateStudent(
+      username: String
+      password: String
+      paymentInfo: String
+      bio: String
+    ): Me
+
     updateUser(
       firstName: String
       lastName: String

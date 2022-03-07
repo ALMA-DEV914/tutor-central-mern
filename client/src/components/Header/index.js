@@ -15,9 +15,15 @@ function Header() {
           <Nav className='me-auto' style={{ fontSize: "18px" }}>
             <Nav.Link href='/'>Home</Nav.Link>
             <Nav.Link href='/features'>Features</Nav.Link>
-            {Auth.loggedIn() && (
+            {Auth.loggedIn() && Auth.getProfile().data.role === "tutor" && (
               <>
                 <Nav.Link href='/tutor-profile'>Profile</Nav.Link>
+                <Nav.Link href='/logout'>Logout</Nav.Link>
+              </>
+            )}
+            {Auth.loggedIn() && Auth.getProfile().data.role === "student" && (
+              <>
+                <Nav.Link href='/student-profile'>Profile</Nav.Link>
                 <Nav.Link href='/logout'>Logout</Nav.Link>
               </>
             )}

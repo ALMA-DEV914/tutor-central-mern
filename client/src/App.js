@@ -65,14 +65,14 @@ function App() {
           }}
         >
           <Header />
-          <Container>
+          <Container className='pb-3'>
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/login' element={<Login />} />
               <Route path='/logout' element={<Home logout={true} />} />
               <Route path='/features' element={<Features />} />
               <Route path='/student-signup' element={<StudentSignup />} />
-              <Route path='/studen-profile' element={<StudentProfile />} />
+              <Route path='/student-profile' element={<StudentProfile />} />
               <Route path='/tutor-signup' element={<TutorSignup />} />
               <Route path='/tutor/:id' element={<TutorDetail />} />
               <Route path='/tutor-profile' element={<TutorProfile />} />

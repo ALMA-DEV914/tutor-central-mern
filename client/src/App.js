@@ -65,7 +65,7 @@ function App() {
           }}
         >
           <Header />
-          <Container>
+          <Container className='pb-3'>
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/login' element={<Login />} />

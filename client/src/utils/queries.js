@@ -70,6 +70,22 @@ export const QUERY_ME = gql`
   }
 `;
 
+export const QUERY_TUTOR = gql`
+  query Tutor($userId: ID) {
+    tutor(id: $userId) {
+      _id
+      bio
+      knownSubjects
+      hourlyRate
+      userId {
+        username
+        email
+        photo
+      }
+    }
+  }
+`;
+
 export const QUERY_CHAT = gql`
   query Chat($chatId: ID!) {
     chat(id: $chatId) {

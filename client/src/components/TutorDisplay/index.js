@@ -23,11 +23,11 @@ const TutorDisplay = () => {
     idbPromise("tutors", "get").then((indexedTutors) => {
       return (
         <>
-          <Form className="mb-3">
+          <Form className='mb-3'>
             <Form.Group>
               <Form.Control
-                className="col-12 p-3 rounded border border-info"
-                placeholder="Search for a skill"
+                className='col-12 p-3 rounded border border-info'
+                placeholder='Search for a skill'
                 onChange={(event) => setQuery(event.target.value)}
               />
             </Form.Group>
@@ -46,7 +46,7 @@ const TutorDisplay = () => {
               .map((tutor, index) => {
                 return (
                   <Col sm={6} key={index}>
-                    <Tutor tutor={tutor} className="mb-3"></Tutor>
+                    <Tutor tutor={tutor} className='mb-3'></Tutor>
                   </Col>
                 );
               })}
@@ -58,11 +58,11 @@ const TutorDisplay = () => {
 
   return (
     <>
-      <Form className="mb-3">
+      <Form className='mb-3'>
         <Form.Group>
           <Form.Control
-            className="col-12 p-3 rounded border border-info"
-            placeholder="Search for a skill"
+            className='col-12 p-3 rounded border border-info'
+            placeholder='Search for a skill'
             onChange={(event) => setQuery(event.target.value)}
           />
         </Form.Group>
@@ -81,7 +81,7 @@ const TutorDisplay = () => {
           .map((tutor, index) => {
             return (
               <Col sm={6} key={index}>
-                <Tutor tutor={tutor} className="mb-3"></Tutor>
+                <Tutor tutor={tutor} className='mb-3'></Tutor>
               </Col>
             );
           })}

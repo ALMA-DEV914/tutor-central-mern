@@ -44,7 +44,6 @@ function TutorProfile() {
     console.log("saving updates to form data");
     const update = await updateStudent({
       variables: {
-        password: formState.password,
         username: formState.username,
         paymentInfo: formState.paymentInfo,
         bio: formState.bio,
@@ -59,6 +58,17 @@ function TutorProfile() {
     console.log(data);
     console.log("allow updates to form data");
     setFormEditable(true);
+  };
+
+  const updatePassword = async (event) => {
+    console.log("doing password update");
+    const update = await updateStudent({
+      variables: {
+        password: formState.password,
+      },
+    });
+    console.log(update);
+    setFormState({ ...formState, password: "" });
   };
 
   if (loading) {
@@ -142,10 +152,11 @@ function TutorProfile() {
                       as='input'
                       name='password'
                       type='password'
+                      value={formState.password || ""}
                       onChange={handleChange}
                     />
                   </Form.Group>
-                  <Button>{`Update Password`}</Button>
+                  <Button onClick={updatePassword}>{`Update Password`}</Button>
                 </Form>
               </Col>
             </Row>

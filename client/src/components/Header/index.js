@@ -14,7 +14,6 @@ function Header() {
         <Navbar.Collapse id='responsive-navbar'>
           <Nav className='me-auto' style={{ fontSize: "18px" }}>
             <Nav.Link href='/'>Home</Nav.Link>
-            <Nav.Link href='/features'>Features</Nav.Link>
             {Auth.loggedIn() && Auth.getProfile().data.role === "tutor" && (
               <>
                 <Nav.Link href='/tutor-profile'>Profile</Nav.Link>

@@ -1,139 +1,187 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Auth from "../utils/auth";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ME } from "../utils/queries";
-// import { useNavigate } from "react-router-dom";
-// import { useParams } from "react-router-dom";
-import { UPDATE_USER} from "../utils/mutations";
-import { Button, Col, Form, Row} from 'react-bootstrap'
+import { UPDATE_STUDENT } from "../utils/mutations";
+import { Button, Card, Col, Form, Row, Image } from "react-bootstrap";
+import avatar from "../assets/avatar_640.png";
 
-function StudentProfile() {
-  // return <div>Profile</div>;
-  // let navigate = useNavigate();
-
-  const { loading, data } = useQuery(QUERY_ME);
-  
-  // console.log(data.me.user.username);
-  // const [errorMessage, setErrorMessage] = useState("");
+function TutorProfile() {
+  const { loading, data, refetch } = useQuery(QUERY_ME, {
+    onCompleted: (d) => {
+      console.log("setting form state with data");
+      console.log(d);
+      const { email, username } = d.me.user;
+      const { paymentInfo, bio } = d.me.student;
+      setFormState({
+        ...formState,
+        username,
+        email,
+        paymentInfo,
+        bio,
+      });
+    },
+  });
   const [formState, setFormState] = useState({
-    // username: `${data.me.user.username}`,
-    // username: data.me.user.username,
-    // password: `${data.me.user.password}`,
-    username: ``,
-    password: ``,
-
+    username: "",
+    password: "",
+    email: "",
+    bio: "",
+    paymentInfo: "",
   });
 
-  const [updateUser] = useMutation(UPDATE_USER);
-
   const handleChange = (event) => {
-    const { name, value } = event.target;
-    // if (!event.target.value.length) {
-    //   setErrorMessage(`${event.target.name} is required.`);
-    // } else {
-    //   setErrorMessage("");
-    // }
-    console.log(data.me.user);
-    console.log(event.target.value);
-    if (!event.target.value.length) {
-      setFormState({
-        // ...formState,
-        formState: { ...data.me.user },
-      });
-      // return { ...data.me.user };
-    }
-
-    setFormState({
-      ...formState,
-      [name]: value,
-    });
+    const { name, value } = event.currentTarget;
+    setFormState({ ...formState, [name]: value });
   };
 
-  // submit form
-  const handleFormSubmit = async (event) => {
+  const [formEditable, setFormEditable] = useState(false);
+  const [updateStudent] = useMutation(UPDATE_STUDENT);
+
+  const saveUpdates = async (event) => {
     event.preventDefault();
-
-    // use try/catch instead of promises to handle errors
-    try {
-      // execute addUser mutation and pass in variable data from form
-      const { data } = await updateUser({
-        variables: { ...formState },
-      });
-      // console.log(data);
-      Auth.loggedIn(data.updateUser.token);
-    } catch (e) {
-      console.error(e);
-    }
+    console.log("saving updates to form data");
+    const update = await updateStudent({
+      variables: {
+        password: formState.password,
+        username: formState.username,
+        paymentInfo: formState.paymentInfo,
+        bio: formState.bio,
+      },
+    });
+    console.log(update);
+    refetch();
+    setFormEditable(false);
   };
 
-  // const user = data?.me ||  {};
-  // console.log(user);
+  const allowUpdates = async (event) => {
+    console.log(data);
+    console.log("allow updates to form data");
+    setFormEditable(true);
+  };
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  return (
-    <>
-    <Row className="mt-4">
-      <Col>
-     <img  src='https://via.placeholder.com/150' alt="profile" style={{width: '400px'}}/>
-     </Col>
-   <Col className="mt-4">
-      <div>
-        <h2>Your Dashboard</h2>
-      </div>
+  if (!Auth.loggedIn()) {
+    return <div>Not logged in</div>;
+  }
 
-      <div>
-        <div>
-          <p><b>Name:</b> {data.me.user.username}</p>
-          <p><b>Email Address:</b> {data.me.user.email}</p>
-          <p><b>Hourly rate: $</b>{data.me.student.paymentInfo}</p>
-          
-          <p><b>Bio:</b> {data.me.student.bio}</p>
-         
-          {/* <p>{data.me.tutor._id}</p> */}
-        </div>
-      </div>
-      <div><h3>Student Lists</h3></div>
+  return (
+    <Row className='mt-4'>
+      <Col sm={6}>
+        <Card>
+          <Card.Header>
+            <Card.Title>Your Details</Card.Title>
+          </Card.Header>
+          <Card.Body>
+            <Row>
+              <Col md={6}>
+                <Image
+                  thumbnail={true}
+                  src={data.me.user.photo || avatar}
+                  fluid={true}
+                ></Image>
+              </Col>
+              <Col md={6}>
+                <Form onSubmit={saveUpdates}>
+                  <Form.Group className='mb-2'>
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control
+                      disabled={!formEditable}
+                      name='username'
+                      type='text'
+                      value={formState.username}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                  <Form.Group className='mb-2'>
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control
+                      as='input'
+                      disabled={true}
+                      name='email'
+                      value={formState.email}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                  <Form.Group className='mb-2'>
+                    <Form.Label>Payment Info</Form.Label>
+                    <Form.Control
+                      as='input'
+                      disabled={!formEditable}
+                      name='paymentInfo'
+                      value={formState.paymentInfo || ""}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                  <Form.Group className='mb-2'>
+                    <Form.Label>Bio</Form.Label>
+                    <Form.Control
+                      as='textarea'
+                      name='bio'
+                      disabled={!formEditable}
+                      value={formState.bio || ""}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                  <Button
+                    className='mb-2'
+                    variant={formEditable ? "danger" : "primary"}
+                    onClick={formEditable ? saveUpdates : allowUpdates}
+                  >
+                    {formEditable ? "Save" : "Edit"}
+                  </Button>
+                </Form>
+                <Form>
+                  <Form.Group className='mb-2'>
+                    <Form.Label>Update Password</Form.Label>
+                    <Form.Control
+                      as='input'
+                      name='password'
+                      type='password'
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                  <Button>{`Update Password`}</Button>
+                </Form>
+              </Col>
+            </Row>
+          </Card.Body>
+        </Card>
       </Col>
-      <Form.Group>
-          <h3>Update Username and Password</h3>
-        <form onSubmit={handleFormSubmit}>
-          <input
-            className="form-input m-2"
-            placeholder="username"
-            name="username"
-            type="username"
-            id="username"
-            value={formState.username}
-            onChange={handleChange}
-            disabled
-          />
-          <input
-            className="form-input"
-            placeholder="******"
-            name="password"
-            type="password"
-            id="password"
-            value={formState.password}
-            onChange={handleChange}
-            disabled
-          />
-          {/* {errorMessage && (
-            <div>
-              <p className="error-text">{errorMessage}</p>
-            </div>
-          )} */}
-          <Button className="btn d-block" variant="primary" type="submit">
-            Submit
-          </Button>
-        </form>
-        </Form.Group>
-      </Row>
-      
-    </>
+      <Col sm={6}>
+        <Card>
+          <Card.Header>
+            <Card.Title>Dashboard</Card.Title>
+          </Card.Header>
+          <Card.Body>
+            {data.me.user.chats.map((chatItem, index) => {
+              return (
+                <Card key={index} className='mb-3'>
+                  <Card.Header>
+                    <Card.Title>
+                      <Link to={`/chat/${chatItem._id}`}>
+                        Chat with {chatItem.tutor.username}
+                      </Link>
+                    </Card.Title>
+                  </Card.Header>
+                  <Card.Body>
+                    Created {chatItem.createdAt} with {chatItem.messages.length}{" "}
+                    messages
+                  </Card.Body>
+                </Card>
+              );
+            })}
+            {data.me.user.chats.length === 0 &&
+              "Tutor messages will appear here"}
+          </Card.Body>
+        </Card>
+      </Col>
+    </Row>
   );
 }
 
-export default StudentProfile;
+export default TutorProfile;

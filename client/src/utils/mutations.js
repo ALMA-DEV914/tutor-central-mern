@@ -145,6 +145,38 @@ export const UPDATE_TUTOR = gql`
   }
 `;
 
+export const UPDATE_STUDENT = gql`
+  mutation updateStudent(
+    $username: String
+    $password: String
+    $bio: String
+    $paymentInfo: String
+  ) {
+    updateStudent(
+      username: $username
+      password: $password
+      bio: $bio
+      paymentInfo: $paymentInfo
+    ) {
+      user {
+        _id
+        username
+        email
+        photo
+        role
+        chats {
+          _id
+        }
+      }
+      student {
+        _id
+        paymentInfo
+        bio
+      }
+    }
+  }
+`;
+
 export const ADD_CHAT = gql`
   mutation Mutation($tutor: ID) {
     createChat(tutor: $tutor) {
@@ -200,19 +232,8 @@ export const USER_UPDATE_PASSWORD = gql`
   }
 `;
 
-export const SINGLE_FILE_UPLOAD = gql`
-  mutation SingleUpload($file: Upload!) {
-    singleUpload(file: $file) {
-      File
-    }
-  }
-`;
-
 export const GET_S3_URL = gql`
   mutation Mutation($filename: String!) {
     signedLink(filename: $filename)
   }
 `;
-
-
-  

@@ -141,6 +141,25 @@ const resolvers = {
 
       throw new AuthenticationError("You need to be logged in!");
     },
+    updateStudent: async (parent, args, context) => {
+      if (context.user) {
+        const user = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          args,
+          { new: true }
+        );
+        const student = await Student.findOneAndUpdate(
+          { userId: context.user._id },
+          args,
+          { new: true }
+        );
+        console.log(user);
+        console.log(student);
+        return { user, student };
+      }
+
+      throw new AuthenticationError("You need to be logged in!");
+    },
     createChat: async (parent, { tutor }, context) => {
       if (context.user) {
         let chat = await Chat.findOne({

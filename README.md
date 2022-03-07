@@ -32,8 +32,9 @@ This app use **React, React Dom, MongoDB, GraphQL, Apollo, Stripe, Bootstrap, JW
 
 ## Deployed application
 
-https://tutor-central.herokuapp.com/
+[The Live Site](https://tutor-central.herokuapp.com/)
 
+[Github Repository](https://github.com/ALMA-DEV914/tutor-central-mern/)
 ## Snapshots
 
 <img width="1792" alt="Screen Shot 2022-03-06 at 4 15 45 PM" src="https://user-images.githubusercontent.com/65073138/156949167-119dffe4-bca4-46f8-931b-9a70b908e81f.png">

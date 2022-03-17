@@ -30,6 +30,24 @@ As a Tutor I want to be able to present my skills and past tutoring in an attrac
 
 This app use **React, React Dom, MongoDB, GraphQL, Apollo, Stripe, Bootstrap, JWT**
 
+## Usage
+1. Clone the *project repository* and *cd <project>* on your terminal and run *npm install* to download all dependencies for the project.
+2.Run *npm run develop* to open the the app in the browser
+3. If you want to test the graphql in the backend, navigate into *localhost:3001/graphql* or you can open it from Insomia, postman or MYSQL workbench.
+    Example query
+        query user($username: String!) {
+        user(username: $username) {
+         _id
+         username
+         email
+       }
+     }
+    
+ And it will return you a data or user with generated id. 
+ 3. You need to create a *.env* file to keep all protected information like **API KEY, JWT TOKEN SECRET and AWS Database Key** .
+ 4. You can run the Front End alone by running *cd client* then *npm start*.
+ 5. The same with the server or Backend, run *cd server* then *npm start* and navigate into localhost:3001/graphql from browser, insomia or postman.
+    
 ## Deployed application
 
 [The Live Site](https://tutor-central.herokuapp.com/)
